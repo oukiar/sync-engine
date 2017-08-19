@@ -133,6 +133,13 @@ def logout():
 def webhooks():
     encoder = APIEncoder()
     return encoder.jsonify(webhooks_list)
+    
+    
+@app.route('/webhook/newmessage/<url>')
+def webhooks(url):
+    print("Webhook: ", url)
+    encoder = APIEncoder()
+    return encoder.jsonify(webhooks_list)
 
 app.register_blueprint(ns_api)
 app.register_blueprint(webhooks_api)  # /w/...
