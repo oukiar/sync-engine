@@ -240,6 +240,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
             The full message including headers (encoded).
 
         """
+        print('*******', create_from_synced)
         _rqd = [account, mid, folder_name, body_string]
         if not all([v is not None for v in _rqd]):
             raise ValueError(
