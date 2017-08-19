@@ -162,6 +162,7 @@ class SyncService(object):
     def poll(self, event):
         # Determine which accounts to sync
         start_accounts = self.account_ids_to_sync()
+        print('Account id', db_session.query(Account.id))
         print('Sincronizando cuentas', self.account_ids_to_sync())
         statsd_client.gauge(
             'mailsync.account_counts.{}.mailsync-{}.count'.format(
