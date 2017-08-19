@@ -21,6 +21,7 @@ app = Flask(__name__)
 # Note that we need to set this *before* registering the blueprint.
 app.url_map.strict_slashes = False
 
+webhooks_list = []
 
 def default_json_error(ex):
     """ Exception -> flask JSON responder """
@@ -128,6 +129,9 @@ def logout():
         401,
         {'WWW-Authenticate': 'Basic realm="API Access Token Required"'}))
 
+@app.route('/webhooks')
+def webhooks():
+    return encoder.jsonify(webhooks_list)
 
 app.register_blueprint(ns_api)
 app.register_blueprint(webhooks_api)  # /w/...
