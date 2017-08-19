@@ -136,8 +136,9 @@ def webhooks():
     
     
 @app.route('/webhook/newmessage/<url>')
-def webhook(url):
-    print("Webhook: ", url)
+def webhook_newmessage(url):
+    print("Webhook: " + url)
+    webhooks_list.append(url)
     encoder = APIEncoder()
     return encoder.jsonify(webhooks_list)
 
