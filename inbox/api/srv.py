@@ -152,6 +152,7 @@ def addaccount():
     smtpdata = None
     status=None
     account = None
+    authcode = None
     
     #try to solve the email servers data based by domain
     if '@' in email:
@@ -180,8 +181,14 @@ def addaccount():
                 else:
                     auth_info['provider'] = provider
                     auth_handler = handler_from_provider(provider)
-                    auth_info.update(auth_handler.interactive_auth(email_address))
-
+                    
+                    #auth_info.update(auth_handler.interactive_auth(email_address))
+                    
+                    #auth code is returnet with providers like gmail
+                    authcode = auth_handler.interactive_auth(email_address)
+                    print('authcode: ', type(authcode) )
+                    
+                    '''
                     if False:
                         account = auth_handler.update_account(account, auth_info)
                     else:
@@ -199,9 +206,15 @@ def addaccount():
                             status = 'Connection refused to: ' + email
                     except NotSupportedError as e:
                         print(str(e))
+                    '''
     
     encoder = APIEncoder()
-    return encoder.jsonify({'email':email, 'password':password, 'status':status, 'imap':imapdata, 'smtp':smtpdata})
+    return encoder.jsonify({'email':email, 
+                            'password':password, 
+                            'status':status, 
+                            'imap':imapdata, 
+                            'smtp':smtpdata, 
+                            'authcode':authcode})
     
 @app.route('/webhooks')
 def webhooks():

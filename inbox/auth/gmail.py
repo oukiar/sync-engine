@@ -231,6 +231,9 @@ class GmailAuthHandler(OAuthAuthHandler):
         if email_address:
             url_args['login_hint'] = email_address
         url = url_concat(self.OAUTH_AUTHENTICATE_URL, url_args)
+        
+        #this new code lets get the auth code for display in client side
+        return url
 
         print 'To authorize Nylas, visit this URL and follow the directions:'
         print '\n{}'.format(url)
