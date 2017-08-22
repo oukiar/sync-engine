@@ -141,14 +141,15 @@ def delete_namespace(namespace_id, throttle=False, dry_run=False):
 
     Raises AccountDeletionErrror with message if there are problems
     """
-
+    print('antes de scope')
     with session_scope(namespace_id) as db_session:
+        print('despues de scope')
         try:
             account = db_session.query(Account).join(Namespace).filter(Namespace.id == namespace_id).one()
         except NoResultFound:
             raise AccountDeletionErrror(
                 'Could not find account in database')
-
+        print(account)
         if not account.is_marked_for_deletion:
             raise AccountDeletionErrror(
                 'Account is_marked_for_deletion is False. '
