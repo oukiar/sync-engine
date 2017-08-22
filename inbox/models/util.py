@@ -314,7 +314,9 @@ def check_throttle():
                '"averageSeries"),-1),100))&max=70&min=0&range=300'.
                format(base_url))
 
+    print('antes de requests')
     replica_lag_status_code = requests.get(replica_lag_url).status_code
+    print('despues de requests')
     cpu_status_code = requests.get(cpu_url).status_code
     if replica_lag_status_code != 200 or cpu_status_code != 200:
         return True
