@@ -26,8 +26,8 @@ webhooks_list = []
 known_servers = {
     'gmail.com':
         {
-            imap:{'server':'imap.gmail.com', 'port':993},
-            smtp:{'server':'smtp.gmail.com', 'port':465}
+            'imap':{'server':'imap.gmail.com', 'port':993},
+            'smtp':{'server':'smtp.gmail.com', 'port':465}
         }
 }
 
