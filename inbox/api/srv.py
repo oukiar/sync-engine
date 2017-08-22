@@ -204,7 +204,7 @@ def addaccountauth():
     status=None
  
     #if we have the imap data we must try to verify the account
-    with global_session_scope() as db_session:
+    with session_scope(0) as db_session:
         account = db_session.query(Account).filter_by(
             email_address=email).first()
             
