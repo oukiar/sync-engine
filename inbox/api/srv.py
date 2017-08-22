@@ -164,7 +164,7 @@ def addaccount():
             shard_id = 0 << 48
             
             #if we have the imap data we must try to verify the account
-            with session_scope(shard_id) as db_session:
+            with global_session_scope() as db_session:
                 account = db_session.query(Account).filter_by(
                     email_address=email_address).first()
                     
