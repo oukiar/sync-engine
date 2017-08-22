@@ -188,6 +188,7 @@ def delete_namespace(namespace_id, throttle=False, dry_run=False):
     engine = engine_manager.get_for_id(namespace_id)
 
     for cls in filters:
+        print cls
         _batch_delete(engine, cls, filters[cls], throttle=throttle,
                       dry_run=dry_run)
 
