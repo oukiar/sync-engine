@@ -129,8 +129,10 @@ def logout():
         401,
         {'WWW-Authenticate': 'Basic realm="API Access Token Required"'}))
 
-@app.route('/addaccount/<email>/<password>')
+@app.route('/addaccount')
 def addaccount(email, password):
+    email = request.args.get('email')
+    password = request.args.get('password')
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 'password':password, 'test':None})
     
