@@ -140,7 +140,6 @@ def logout():
 #addaccount dependencies, from inbox-auth python script
 from inbox.util.url import provider_from_address
 from inbox.auth.base import handler_from_provider
-from inbox.models.session import session_scope
 from inbox.models import Account
 from inbox.basicauth import NotSupportedError
 
@@ -161,42 +160,40 @@ def addaccount():
             imapdata = known_servers[domain]['imap']
             smtpdata = known_servers[domain]['smtp']
             
-            shard_id = 0 << 48
-            
-            #if we have the imap data we must try to verify the account
-            with global_session_scope() as db_session:
-                account = db_session.query(Account).filter_by(
-                    email_address=email_address).first()
-                    
-                if account is not None:
-                    print('Already have this account!')
-                    status = 'Already have this account!'
+        #if we have the imap data we must try to verify the account
+        with global_session_scope() as db_session:
+            account = db_session.query(Account).filter_by(
+                email_address=email_address).first()
+                
+            if account is not None:
+                print('Already have this account!')
+                status = 'Already have this account!'
+            else:
+                auth_info = {}
+
+                provider = provider_from_address(email_address)
+
+                # Resolve unknown providers into either custom IMAP or EAS.
+                if provider == 'unknown':
+                    status = 'Waiting imap and smtp data'
                 else:
-                    auth_info = {}
+                    auth_info['provider'] = provider
+                    auth_handler = handler_from_provider(provider)
+                    auth_info.update(auth_handler.interactive_auth(email_address))
 
-                    provider = provider_from_address(email_address)
-
-                    # Resolve unknown providers into either custom IMAP or EAS.
-                    if provider == 'unknown':
-                        status = 'Waiting imap and smtp data'
+                    if False:
+                      account = auth_handler.update_account(account, auth_info)
                     else:
-                        auth_info['provider'] = provider
-                        auth_handler = handler_from_provider(provider)
-                        auth_info.update(auth_handler.interactive_auth(email_address))
+                      account = auth_handler.create_account(email_address, auth_info)
 
-                        if False:
-                          account = auth_handler.update_account(account, auth_info)
+                    try:
+                        if auth_handler.connect_account(account):
+                            db_session.add(account)
+                            db_session.commit()
                         else:
-                          account = auth_handler.create_account(email_address, auth_info)
-
-                        try:
-                            if auth_handler.connect_account(account):
-                                db_session.add(account)
-                                db_session.commit()
-                            else:
-                                print('Connection refused to: ' + email)
-                        except NotSupportedError as e:
-                            print(str(e))
+                            print('Connection refused to: ' + email)
+                    except NotSupportedError as e:
+                        print(str(e))
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 'password':password, 'status':status, 'imap':imapdata, 'smtp':smtpdata})
