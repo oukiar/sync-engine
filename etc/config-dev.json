@@ -46,7 +46,7 @@
 "DB_POOL_MAX_OVERFLOW": 5,
 
 "LOGDIR": "/var/log/inboxapp",
-"LOGLEVEL": 10,
+"LOGLEVEL": 1,
 
 "REDIS_PORT": 6379,
 "REDIS_SHARDS": ["localhost"],
