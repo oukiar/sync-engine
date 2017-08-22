@@ -7,6 +7,7 @@ from inbox.api.kellogs import APIEncoder
 from nylas.logging import get_logger
 from inbox.models import Namespace, Account
 from inbox.models.session import global_session_scope
+from inbox.models.session import session_scope
 from inbox.api.validation import (bounded_str, ValidatableArgument,
                                   strict_parse_args, limit)
 from inbox.api.validation import valid_public_id
