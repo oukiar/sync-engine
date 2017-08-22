@@ -277,7 +277,9 @@ def _batch_delete(engine, table, column_id_filters, throttle=False,
                 query = ('DELETE FROM message WHERE {}={} '
                          'ORDER BY received_date desc LIMIT 2000;'
                          .format(column, id_))
+            print('antes de execute')
             engine.execute(query)
+            print('despues de execute')
         else:
             log.debug(query)
 
