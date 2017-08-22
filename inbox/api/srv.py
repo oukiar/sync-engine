@@ -199,6 +199,7 @@ def addaccount():
 @app.route('/addaccountauth', methods=['GET'])
 def addaccountauth():
     email = request.args.get('email')
+    password = request.args.get('password')
     auth_code = request.args.get('auth_code')
     status=None
  
@@ -222,8 +223,6 @@ def addaccountauth():
                 auth_info['provider'] = provider
                 auth_handler = handler_from_provider(provider)
                 
-                auth_handler.auth_step(auth_code)
-                
                 auth_info.update(auth_handler.auth_step(auth_code) )
                 
                 if False:
@@ -245,14 +244,12 @@ def addaccountauth():
                         status = 'Connection refused to: ' + email
                 except NotSupportedError as e:
                     print(str(e))
-                '''
+                
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
                             'password':password, 
                             'status':status, 
-                            'imap':imapdata, 
-                            'smtp':smtpdata, 
                             'authcode':authcode})
     
 @app.route('/webhooks')
