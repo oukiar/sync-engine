@@ -303,6 +303,7 @@ def check_throttle():
     this method determines when.
 
     """
+    return True
     # Ensure replica lag is not spiking
     base_url = config["UMPIRE_BASE_URL"]
     replica_lag_url = ("https://{}/check?metric=maxSeries(servers.prod."
