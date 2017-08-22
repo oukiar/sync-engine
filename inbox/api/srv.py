@@ -147,14 +147,11 @@ from inbox.basicauth import NotSupportedError
 @app.route('/addaccount', methods=['GET'])
 def addaccount():
     email = request.args.get('email')
-    email_address = email
-    password = request.args.get('password')
-    imapdata = None
-    smtpdata = None
     status=None
     account = None
     authcode = None
     
+    '''
     #try to solve the email servers data based by domain
     if '@' in email:
         emailuser, domain = email.split('@')
@@ -162,32 +159,32 @@ def addaccount():
         if domain in known_servers:
             imapdata = known_servers[domain]['imap']
             smtpdata = known_servers[domain]['smtp']
+    '''
+    #if we have the imap data we must try to verify the account
+    with global_session_scope() as db_session:
+        account = db_session.query(Account).filter_by(
+            email_address=email).first()
             
-        #if we have the imap data we must try to verify the account
-        with global_session_scope() as db_session:
-            account = db_session.query(Account).filter_by(
-                email_address=email_address).first()
-                
-            if account is not None:
-                print('Already have this account!')
-                status = 'Already have this account!'
+        if account is not None:
+            print('Already have this account!')
+            status = 'Already have this account!'
+        else:
+            auth_info = {}
+
+            provider = provider_from_address(email)
+
+            # Resolve unknown providers into either custom IMAP or EAS.
+            if provider == 'unknown':
+                status = 'Waiting imap and smtp data'
             else:
-                auth_info = {}
-
-                provider = provider_from_address(email_address)
-
-                # Resolve unknown providers into either custom IMAP or EAS.
-                if provider == 'unknown':
-                    status = 'Waiting imap and smtp data'
-                else:
-                    auth_info['provider'] = provider
-                    auth_handler = handler_from_provider(provider)
-                    
-                    #auth_info.update(auth_handler.interactive_auth(email_address))
-                    
-                    #auth code is returnet with providers like gmail
-                    authcode = auth_handler.get_auth_url(email_address)
-                    print('authcode: ', type(authcode) )
+                auth_info['provider'] = provider
+                auth_handler = handler_from_provider(provider)
+                
+                #auth code is returnet with providers like gmail
+                authcode = auth_handler.get_auth_url(email)
+                print('authcode: ', type(authcode) )
+                
+                status = 'Waiting auth_code'
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
