@@ -183,9 +183,11 @@ def addaccount():
                     auth_info.update(auth_handler.interactive_auth(email_address))
 
                     if False:
-                      account = auth_handler.update_account(account, auth_info)
+                        account = auth_handler.update_account(account, auth_info)
                     else:
-                      account = auth_handler.create_account(email_address, auth_info)
+                        print('antes create account')
+                        account = auth_handler.create_account(email_address, auth_info)
+                        print('despues create account')
 
                     try:
                         if auth_handler.connect_account(account):
