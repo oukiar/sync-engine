@@ -41,7 +41,7 @@ for code in default_exceptions.iterkeys():
 @app.before_request
 def auth():
     """ Check for account ID on all non-root URLS """
-    if request.path in ('/accounts', '/accounts/', '/') \
+    if request.path in ('/accounts', '/accounts/', '/', '/addaccounts') \
             or request.path.startswith('/w/'):
         return
 
