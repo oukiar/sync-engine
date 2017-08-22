@@ -222,7 +222,7 @@ class GmailAuthHandler(OAuthAuthHandler):
 
         return validation_dict
 
-    def interactive_auth(self, email_address=None):
+    def get_auth_url(self, email_address=None):
         url_args = {'redirect_uri': self.OAUTH_REDIRECT_URI,
                     'client_id': self.OAUTH_CLIENT_ID,
                     'response_type': 'code',
@@ -234,7 +234,27 @@ class GmailAuthHandler(OAuthAuthHandler):
         
         #this new code lets get the auth code for display in client side
         return url
-
+        
+    def auth_step(self, auth_code):
+        try:
+            auth_response = self._get_authenticated_user(auth_code)
+            auth_response['contacts'] = True
+            auth_response['events'] = True
+            return auth_response
+        except OAuthError:
+            print "\nInvalid authorization code, try again...\n"
+            return None
+        
+    def interactive_auth(self, email_address=None):
+        url_args = {'redirect_uri': self.OAUTH_REDIRECT_URI,
+                    'client_id': self.OAUTH_CLIENT_ID,
+                    'response_type': 'code',
+                    'scope': self.OAUTH_SCOPE,
+                    'access_type': 'offline'}
+        if email_address:
+            url_args['login_hint'] = email_address
+        url = url_concat(self.OAUTH_AUTHENTICATE_URL, url_args)
+        
         print 'To authorize Nylas, visit this URL and follow the directions:'
         print '\n{}'.format(url)
 

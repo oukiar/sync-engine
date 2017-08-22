@@ -185,28 +185,67 @@ def addaccount():
                     #auth_info.update(auth_handler.interactive_auth(email_address))
                     
                     #auth code is returnet with providers like gmail
-                    authcode = auth_handler.interactive_auth(email_address)
+                    authcode = auth_handler.get_auth_url(email_address)
                     print('authcode: ', type(authcode) )
-                    
-                    '''
-                    if False:
-                        account = auth_handler.update_account(account, auth_info)
-                    else:
-                        print('antes create account')
-                        account = auth_handler.create_account(email_address, auth_info)
-                        print('despues create account')
+    
+    encoder = APIEncoder()
+    return encoder.jsonify({'email':email, 
+                            'password':password, 
+                            'status':status, 
+                            'imap':imapdata, 
+                            'smtp':smtpdata, 
+                            'authcode':authcode})
+    
+@app.route('/addaccountauth', methods=['GET'])
+def addaccountauth():
+    email = request.args.get('email')
+    auth_code = request.args.get('auth_code')
+    status=None
+ 
+    #if we have the imap data we must try to verify the account
+    with global_session_scope() as db_session:
+        account = db_session.query(Account).filter_by(
+            email_address=email).first()
+            
+        if account is not None:
+            print('Already have this account!')
+            status = 'Already have this account!'
+        else:
+            auth_info = {}
 
-                    try:
-                        if auth_handler.connect_account(account):
-                            db_session.add(account)
-                            db_session.commit()
-                            status = 'Saved account'
-                        else:
-                            print('Connection refused to: ' + email)
-                            status = 'Connection refused to: ' + email
-                    except NotSupportedError as e:
-                        print(str(e))
-                    '''
+            provider = provider_from_address(email)
+
+            # Resolve unknown providers into either custom IMAP or EAS.
+            if provider == 'unknown':
+                status = 'Waiting imap and smtp data'
+            else:
+                auth_info['provider'] = provider
+                auth_handler = handler_from_provider(provider)
+                
+                auth_handler.auth_step(auth_code)
+                
+                auth_info.update(auth_handler.auth_step(auth_code) )
+                
+                if False:
+                    account = auth_handler.update_account(account, auth_info)
+                else:
+                    print('antes create account')
+                    account = auth_handler.create_account(email, auth_info)
+                    print('despues create account')
+
+                try:
+                    print('antes connect')
+                    if auth_handler.connect_account(account):
+                        print('despues connect')
+                        db_session.add(account)
+                        db_session.commit()
+                        status = 'Saved account'
+                    else:
+                        print('Connection refused to: ' + email)
+                        status = 'Connection refused to: ' + email
+                except NotSupportedError as e:
+                    print(str(e))
+                '''
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
