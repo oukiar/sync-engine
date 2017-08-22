@@ -23,6 +23,14 @@ app.url_map.strict_slashes = False
 
 webhooks_list = []
 
+known_servers = {
+    'gmail.com':
+        {
+            imap:{'server':'imap.gmail.com', 'port':993},
+            smtp:{'server':'smtp.gmail.com', 'port':465}
+        }
+}
+
 def default_json_error(ex):
     """ Exception -> flask JSON responder """
     logger = get_logger()
@@ -133,8 +141,18 @@ def logout():
 def addaccount():
     email = request.args.get('email')
     password = request.args.get('password')
+    imapdata = None
+    smtpdata = None
+    
+    #try to solve the email servers data based by domain
+    emailuser, domain = email.split('@')
+    
+    if domain in known_servers:
+        imapdata = known_servers[domain].imap
+        smtpdata = known_servers[domain].smtp
+    
     encoder = APIEncoder()
-    return encoder.jsonify({'email':email, 'password':password, 'test':None})
+    return encoder.jsonify({'email':email, 'password':password, 'status':None, 'imap':imapdata, 'smtp'smtpdata})
     
 @app.route('/webhooks')
 def webhooks():
