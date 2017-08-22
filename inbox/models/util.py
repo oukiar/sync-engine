@@ -179,6 +179,8 @@ def delete_namespace(namespace_id, throttle=False, dry_run=False):
         filters['imapfoldersyncstatus'] = ('account_id', account_id)
         filters['imapfolderinfo'] = ('account_id', account_id)
 
+    print('antes de ignition')
+
     from inbox.ignition import engine_manager
     # Bypass the ORM for performant bulk deletion;
     # we do /not/ want Transaction records created for these deletions,
