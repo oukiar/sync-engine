@@ -199,7 +199,7 @@ def addaccount():
                         print(str(e))
     
     encoder = APIEncoder()
-    return encoder.jsonify({'email':email, 'password':password, 'status':status, 'imap':imapdata, 'smtp':smtpdata, 'account':account})
+    return encoder.jsonify({'email':email, 'password':password, 'status':status, 'imap':imapdata, 'smtp':smtpdata})
     
 @app.route('/webhooks')
 def webhooks():
