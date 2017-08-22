@@ -263,7 +263,7 @@ def _batch_delete(engine, table, column_id_filters, throttle=False,
     query = 'DELETE FROM {} WHERE {}={} LIMIT 2000;'.format(table, column, id_)
     log.info('Deletion query', query=query)
     
-    print('Deletion query', query=query)
+    print('Deletion query', query)
 
     for i in range(0, batches):
         if throttle and check_throttle():
