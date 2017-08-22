@@ -188,9 +188,7 @@ def addaccount():
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
-                            'status':status, 
-                            'imap':imapdata, 
-                            'smtp':smtpdata, 
+                            'status':status,  
                             'authcode':authcode})
     
 @app.route('/addaccountauth', methods=['GET'])
