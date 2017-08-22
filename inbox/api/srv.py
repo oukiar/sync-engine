@@ -188,7 +188,6 @@ def addaccount():
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
-                            'password':password, 
                             'status':status, 
                             'imap':imapdata, 
                             'smtp':smtpdata, 
