@@ -197,6 +197,7 @@ def delete_namespace(namespace_id, throttle=False, dry_run=False):
     # NOTE: Namespace, Account are deleted at the end too.
 
     query = 'DELETE FROM {} WHERE {}={};'
+    print query
 
     filters = OrderedDict()
     for table in ('category', 'calendar'):
