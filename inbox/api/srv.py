@@ -148,8 +148,8 @@ def addaccount():
     emailuser, domain = email.split('@')
     
     if domain in known_servers:
-        imapdata = known_servers[domain].imap
-        smtpdata = known_servers[domain].smtp
+        imapdata = known_servers[domain][imap]
+        smtpdata = known_servers[domain][smtp]
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 'password':password, 'status':None, 'imap':imapdata, 'smtp':smtpdata})
