@@ -221,6 +221,8 @@ def delete_namespace(namespace_id, throttle=False, dry_run=False):
         end = time.time()
         log.info('Completed bulk deletion', table=table, time=end - start)
 
+    print('antes de borrrar')
+
     # Delete the account object manually to get rid of the various objects
     # associated with it (e.g: secrets, tokens, etc.)
     with session_scope(account_id) as db_session:
