@@ -151,6 +151,7 @@ def addaccount():
     imapdata = None
     smtpdata = None
     status=None
+    account = None
     
     #try to solve the email servers data based by domain
     if '@' in email:
@@ -190,13 +191,15 @@ def addaccount():
                         if auth_handler.connect_account(account):
                             db_session.add(account)
                             db_session.commit()
+                            status = 'Saved account'
                         else:
                             print('Connection refused to: ' + email)
+                            status = 'Connection refused to: ' + email
                     except NotSupportedError as e:
                         print(str(e))
     
     encoder = APIEncoder()
-    return encoder.jsonify({'email':email, 'password':password, 'status':status, 'imap':imapdata, 'smtp':smtpdata})
+    return encoder.jsonify({'email':email, 'password':password, 'status':status, 'imap':imapdata, 'smtp':smtpdata, 'account':account})
     
 @app.route('/webhooks')
 def webhooks():
