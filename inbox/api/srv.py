@@ -234,9 +234,9 @@ def addaccountauth():
                     print('despues create account')
 
                 try:
-                    print('antes connect')
-                    if auth_handler.connect_account(account):
-                        print('despues connect')
+                    print('antes verify')
+                    if auth_handler.verify_account(account):
+                        print('despues verify')
                         db_session.add(account)
                         db_session.commit()
                         status = 'Saved account'
