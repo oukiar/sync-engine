@@ -268,6 +268,7 @@ def _batch_delete(engine, table, column_id_filters, throttle=False,
     for i in range(0, batches):
         print('antes de trotle')
         if throttle and check_throttle():
+            print('dentro de trotle')
             log.info("Throttling deletion")
             gevent.sleep(60)
         print('despues de trothle')
