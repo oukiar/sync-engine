@@ -232,7 +232,7 @@ def addaccountauth():
                 else:
                     print('antes create account')
                     account = auth_handler.create_account(email, auth_info)
-                    print('despues create account')
+                    print('despues create account', account)
 
                 try:
                     print('antes verify')
