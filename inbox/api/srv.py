@@ -246,9 +246,8 @@ def addaccountauth():
                         
                         #query for the namespace
                         query = db_session.query(Namespace)
-                        if args['email_address']:
-                            query = query.join(Account)
-                            query = query.filter_by(email_address=email)
+                        query = query.join(Account)
+                        query = query.filter_by(email_address=email)
 
                         #query = query.limit(args['limit'])
                         #if args['offset']:
