@@ -248,13 +248,8 @@ def addaccountauth():
                     print(str(e))
                 
                 
-    g.parser.add_argument('view', type=view, location='args')
-    #args = strict_parse_args(g.parser, request.args)
-    # Use a new encoder object with the expand parameter set.
-    encoder = APIEncoder(g.namespace.public_id)
-    #return encoder.jsonify(g.namespace)
     
-    #encoder = APIEncoder()
+    encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
                             'password':password, 
                             'account':g.account_id,
