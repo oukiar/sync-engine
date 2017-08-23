@@ -204,7 +204,7 @@ def addaccountauth():
     password = request.args.get('password')
     auth_code = request.args.get('auth_code')
     status = None
-    namespaces = None
+    namespace = None
  
     #if we have the imap data we must try to verify the account
     with session_scope(0) as db_session:
@@ -263,14 +263,14 @@ def addaccountauth():
             #if args['offset']:
             #    query = query.offset(args['offset'])
 
-            namespaces = query.all()[0]
+            namespace = query.all()[0]
             #print ('namespaces: ', len(namespaces) )
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
                             'password':password, 
                             #'account':auth_info,
-                            'namespace':namespaces,
+                            'namespace':namespace,
                             'status':status, 
                             'authcode':auth_code})
     
