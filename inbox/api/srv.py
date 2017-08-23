@@ -73,10 +73,10 @@ def auth():
 
 
 
-        if (len(parts) != 2 or parts[0].lower() != 'bearer' or not parts[1]):
-            print('23456789')
-            return make_response(AUTH_ERROR_MSG)
-        namespace_public_id = parts[1]
+        #if (len(parts) != 2 or parts[0].lower() != 'bearer' or not parts[1]):
+        #    print('23456789')
+        #    return make_response(AUTH_ERROR_MSG)
+        namespace_public_id = parts[0]
 
     else:
         namespace_public_id = request.authorization.username
