@@ -252,7 +252,7 @@ def addaccountauth():
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
                             'password':password, 
-                            'account':g.account_id,
+                            'account':account.g_id,
                             'status':status, 
                             'authcode':auth_code})
     
