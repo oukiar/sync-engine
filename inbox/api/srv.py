@@ -227,6 +227,8 @@ def addaccountauth():
                 
                 auth_info.update(auth_handler.auth_step(auth_code) )
                 
+                print auth_info
+                
                 if False:
                     account = auth_handler.update_account(account, auth_info)
                 else:
