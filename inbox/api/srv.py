@@ -243,6 +243,19 @@ def addaccountauth():
                         db_session.add(account)
                         db_session.commit()
                         status = 'Saved account'
+                        
+                        #query for the namespace
+                        query = db_session.query(Namespace)
+                        if args['email_address']:
+                            query = query.join(Account)
+                            query = query.filter_by(email_address=email)
+
+                        #query = query.limit(args['limit'])
+                        #if args['offset']:
+                        #    query = query.offset(args['offset'])
+
+                        namespaces = query.all()
+                        
                     else:
                         print('Connection refused to: ' + email)
                         status = 'Connection refused to: ' + email
@@ -255,6 +268,7 @@ def addaccountauth():
     return encoder.jsonify({'email':email, 
                             'password':password, 
                             'account':auth_info,
+                            'namespaces':namespaces,
                             'status':status, 
                             'authcode':auth_code})
     
