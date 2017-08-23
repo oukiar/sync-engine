@@ -54,6 +54,8 @@ def auth():
             or request.path.startswith('/w/'):
         return
 
+    print request.authorization
+
     if not request.authorization or not request.authorization.username:
 
         AUTH_ERROR_MSG = ("Could not verify access credential.", 401,
@@ -61,6 +63,8 @@ def auth():
                               'Access Token Required"'})
 
         auth_header = request.headers.get('Authorization', None)
+        
+        print(auth_header)
 
         if not auth_header:
             return make_response(AUTH_ERROR_MSG)
