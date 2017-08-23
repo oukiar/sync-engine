@@ -254,7 +254,7 @@ def addaccountauth():
                         #    query = query.offset(args['offset'])
 
                         namespaces = query.all()
-                        print ('namespaces: ', namespaces.len() )
+                        print ('namespaces: ', len(namespaces) )
                         
                     else:
                         print('Connection refused to: ' + email)
