@@ -244,17 +244,6 @@ def addaccountauth():
                         db_session.commit()
                         status = 'Saved account'
                         
-                        #query for the namespace
-                        query = db_session.query(Namespace)
-                        query = query.join(Account)
-                        query = query.filter_by(email_address=email)
-
-                        #query = query.limit(args['limit'])
-                        #if args['offset']:
-                        #    query = query.offset(args['offset'])
-
-                        namespaces = query.all()
-                        print ('namespaces: ', len(namespaces) )
                         
                     else:
                         print('Connection refused to: ' + email)
@@ -262,7 +251,18 @@ def addaccountauth():
                 except NotSupportedError as e:
                     print(str(e))
                 
-                
+    with global_session_scope() as db_session:
+        #query for the namespace
+        query = db_session.query(Namespace)
+        query = query.join(Account)
+        query = query.filter_by(email_address=email)
+
+        #query = query.limit(args['limit'])
+        #if args['offset']:
+        #    query = query.offset(args['offset'])
+
+        namespaces = query.all()
+        print ('namespaces: ', len(namespaces) )
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
