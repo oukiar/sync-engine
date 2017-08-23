@@ -234,7 +234,7 @@ def addaccountauth():
                 else:
                     print('antes create account')
                     account = auth_handler.create_account(email, auth_info)
-                    print('despues create account', account)
+                    print('despues create account', account.g_id)
 
                 try:
                     print('antes verify')
