@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, make_response, g
+from flask.ext.cache import Cache
 from flask.ext.restful import reqparse
 from werkzeug.exceptions import default_exceptions, HTTPException
 from sqlalchemy.orm.exc import NoResultFound
@@ -18,6 +19,7 @@ from ns_api import DEFAULT_LIMIT
 from inbox.webhooks.gpush_notifications import app as webhooks_api
 
 app = Flask(__name__)
+cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 # Handle both /endpoint and /endpoint/ without redirecting.
 # Note that we need to set this *before* registering the blueprint.
 app.url_map.strict_slashes = False

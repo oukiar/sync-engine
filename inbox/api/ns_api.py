@@ -14,6 +14,7 @@ from flask import (request, g, Blueprint, make_response, Response,
                    stream_with_context)
 from flask import jsonify as flask_jsonify
 from flask.ext.restful import reqparse
+from flask.ext.cache import Cache
 from sqlalchemy import asc, func
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm.exc import NoResultFound
@@ -252,6 +253,7 @@ def one_account():
 #
 # Threads
 #
+@cache.cached(timeout=50)
 @app.route('/threads/')
 def thread_query_api():
     g.parser.add_argument('subject', type=bounded_str, location='args')
