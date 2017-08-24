@@ -284,11 +284,12 @@ def thread_query_api():
     
     #args.update()
     
+    print('args: ', json.dumps(args) )
+    
     cached = get_cached(args)
     if cached:
         return cached
     
-    print('args: ', json.dumps(args) )
     
     threads = filtering.threads(
         namespace_id=g.namespace.id,
