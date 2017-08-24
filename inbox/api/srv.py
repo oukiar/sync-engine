@@ -206,7 +206,7 @@ def addaccount():
                 status = 'Waiting auth_code'
 
             # Resolve unknown providers into either custom IMAP or EAS.
-            if provider == 'unknown':
+            elif provider == 'unknown':
                 status = 'Waiting imap and smtp data'
             #this is an standar imap smtp account supported with autoresolution
             else:
