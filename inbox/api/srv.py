@@ -180,7 +180,7 @@ def addaccount():
             smtpdata = known_servers[domain]['smtp']
     '''
     
-    with global_session_scope() as db_session:
+    with session_scope(0)  as db_session:
         account = db_session.query(Account).filter_by(
             email_address=email).first()
             
