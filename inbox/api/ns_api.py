@@ -282,7 +282,7 @@ def thread_query_api():
 
     args = strict_parse_args(g.parser, request.args)
     
-    args.update({'namespace_id':g.namespace.id, 'db_session':g.db_session})
+    args.update({'namespace_id':g.namespace.id})
     
     print('args: ', json.dumps(args) )
     
