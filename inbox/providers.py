@@ -86,6 +86,37 @@ providers = dict([
             "*.pamx1.hotmail.com", "mx.*.hotmail.com",
         ]
     }),
+    ("hotmail", {
+        "auth": "password",
+        "domains": [
+            "outlook.com", "outlook.com.ar",
+            "outlook.com.au", "outlook.at", "outlook.be",
+            "outlook.com.br", "outlook.cl", "outlook.cz", "outlook.dk",
+            "outlook.fr", "outlook.de", "outlook.com.gr",
+            "outlook.co.il", "outlook.in", "outlook.co.id",
+            "outlook.ie", "outlook.it", "outlook.hu", "outlook.jp",
+            "outlook.kr", "outlook.lv", "outlook.my", "outlook.co.nz",
+            "outlook.com.pe", "outlook.ph", "outlook.pt", "outlook.sa",
+            "outlook.sg", "outlook.sk", "outlook.es", "outlook.co.th",
+            "outlook.com.tr", "outlook.com.vn", "live.com", "live.com.ar"
+            "live.com.au", "live.at", "live.be", "live.cl", "live.cz",
+            "live.dk", "live.fr", "live.de", "live.com.gr", "live.co.il",
+            "live.in", "live.ie", "live.it", "live.hu", "live.jp", "live.lv",
+            "live.co.nz", "live.com.pe", "live.ph", "live.pt", "live.sa",
+            "live.sg", "live.sk", "live.es", "live.co.th", "live.com.tr",
+            "live.com.vn", "live.ca", "hotmail.ca",
+            "hotmail.com", "hotmail.com.ar", "hotmail.com.au",
+            "hotmail.at", "hotmail.be", "hotmail.com.br", "hotmail.cl",
+            "hotmail.cz", "hotmail.dk", "hotmail.fr", "hotmail.de",
+            "hotmail.co.il", "hotmail.in", "hotmail.ie", "hotmail.it",
+            "hotmail.hu", "hotmail.jp", "hotmail.kr", "hotmail.com.pe",
+            "hotmail.pt", "hotmail.sa", "hotmail.es", "hotmail.co.th",
+            "hotmail.com.tr",
+        ],
+        "mx_servers": [
+            "*.pamx1.hotmail.com", "mx.*.hotmail.com",
+        ]
+    }),
     ("_outlook", {
         # IMAP-based Outlook. Legacy-only.
         "type": "generic",
