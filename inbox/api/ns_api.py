@@ -91,7 +91,7 @@ app = Blueprint(
     __name__,
     url_prefix='')
 
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 #app.cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
