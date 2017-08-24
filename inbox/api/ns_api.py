@@ -10,6 +10,7 @@ from hashlib import sha256
 from datetime import datetime
 from collections import namedtuple
 
+import flask
 from flask import (request, g, Blueprint, make_response, Response,
                    stream_with_context)
 from flask import jsonify as flask_jsonify
