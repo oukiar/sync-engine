@@ -75,7 +75,7 @@ def threads(namespace_id, subject, from_addr, to_addr, cc_addr, bcc_addr,
         bcc_query = contact_subquery(db_session, namespace_id,
                                      bcc_addr, 'bcc_addr')
         query = query.filter(Thread.id.in_(bcc_query))
-
+    '''
     if any_email is not None:
         any_contact_query = db_session.query(Message.thread_id) \
             .join(MessageContactAssociation) \
@@ -84,6 +84,7 @@ def threads(namespace_id, subject, from_addr, to_addr, cc_addr, bcc_addr,
                     Contact.namespace_id == namespace_id)\
             .subquery()
         query = query.filter(Thread.id.in_(any_contact_query))
+    '''
 
     if filename is not None:
         files_query = db_session.query(Message.thread_id). \

@@ -280,7 +280,7 @@ def thread_query_api():
         namespace_id=g.namespace.id,
         subject=args['subject'],
         thread_public_id=args['thread_id'],
-        to_addr=args['to'],
+        '''to_addr=args['to'],
         from_addr=args['from'],
         cc_addr=args['cc'],
         bcc_addr=args['bcc'],
@@ -290,6 +290,7 @@ def thread_query_api():
         last_message_before=args['last_message_before'],
         last_message_after=args['last_message_after'],
         filename=args['filename'],
+        '''
         unread=args['unread'],
         starred=args['starred'],
         in_=args['in'],
