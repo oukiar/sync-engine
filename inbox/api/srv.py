@@ -154,6 +154,7 @@ from inbox.basicauth import NotSupportedError
 @app.route('/addaccount', methods=['GET'])
 def addaccount():
     email = request.args.get('email')
+    password = request.args.get('password')
     status=None
     account = None
     authcode = None
@@ -182,12 +183,8 @@ def addaccount():
             
             print('Provider', provider)
             
-            
-
-            # Resolve unknown providers into either custom IMAP or EAS.
-            if provider == 'unknown':
-                status = 'Waiting imap and smtp data'
-            else:
+            if provider in ('gmail'):
+                
                 auth_info['provider'] = provider
                 auth_handler = handler_from_provider(provider)
                 
@@ -196,6 +193,35 @@ def addaccount():
                 print('authcode: ', type(authcode) )
                 
                 status = 'Waiting auth_code'
+
+            # Resolve unknown providers into either custom IMAP or EAS.
+            if provider == 'unknown':
+                status = 'Waiting imap and smtp data'
+            #this is an standar imap smtp account supported with autoresolution
+            else:
+                print('Adding standar imap smtp account')
+                auth_info['provider'] = provider
+                auth_info['password'] = password
+                auth_handler = handler_from_provider(provider)
+                        
+                if False:
+                  account = auth_handler.update_account(account, auth_info)
+                else:
+                  account = auth_handler.create_account(email, auth_info)
+    
+                try:
+                    print('antes verify')
+                    if auth_handler.verify_account(account):
+                        print('despues verify')
+                        db_session.add(account)
+                        db_session.commit()
+                        status = 'Saved account'
+                        
+                    else:
+                        print('Connection refused to: ' + email)
+                        status = 'Connection refused to: ' + email
+                except NotSupportedError as e:
+                    print(str(e))
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
