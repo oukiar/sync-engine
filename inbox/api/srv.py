@@ -210,7 +210,7 @@ def addaccount():
                 status = 'Waiting imap and smtp data'
             #this is an standar imap smtp account supported with autoresolution
             else:
-                print('Adding standar imap smtp account')
+                print('Adding standar imap smtp account: ', provider)
                 auth_info['provider'] = provider
                 auth_info['password'] = password
                 auth_handler = handler_from_provider(provider)
