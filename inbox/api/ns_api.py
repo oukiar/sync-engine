@@ -88,6 +88,9 @@ app = Blueprint(
     __name__,
     url_prefix='')
 
+
+app.cache = Cache(app,config={'CACHE_TYPE': 'simple'})
+
 app.log_exception = log_exception
 
 # Configure mimetype -> extension map
