@@ -84,11 +84,14 @@ LONG_POLL_REQUEST_TIMEOUT = 120
 LONG_POLL_POLL_INTERVAL = 1
 SEND_TIMEOUT = 60
 
+from flask_cors import CORS
+
 app = Blueprint(
     'namespace_api',
     __name__,
     url_prefix='')
 
+CORS(app)
 
 #app.cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
