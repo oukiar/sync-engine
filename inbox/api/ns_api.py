@@ -15,7 +15,7 @@ from flask import (request, g, Blueprint, make_response, Response,
 from flask import jsonify as flask_jsonify
 from flask.ext.restful import reqparse
 #from flask.ext.cache import Cache
-from cache import cache
+from cache import cache, get_cached, set_cached
 from sqlalchemy import asc, func
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm.exc import NoResultFound
@@ -282,8 +282,12 @@ def thread_query_api():
 
     args = strict_parse_args(g.parser, request.args)
     
-    print('args: ', json.dumps(args) )
-
+    cached = get_cached(args)
+    if cached:
+        return cached
+    
+    #print('args: ', json.dumps(args) )
+    
     threads = filtering.threads(
         namespace_id=g.namespace.id,
         subject=args['subject'],
@@ -309,7 +313,12 @@ def thread_query_api():
     # Use a new encoder object with the expand parameter set.
     encoder = APIEncoder(g.namespace.public_id,
                          args['view'] == 'expanded')
-    return encoder.jsonify(threads)
+                         
+    result = encoder.jsonify(threads)
+    
+    set_cached(args, result)
+    
+    return result
 
 
 @app.route('/threads/search', methods=['GET'])
