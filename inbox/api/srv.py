@@ -168,6 +168,7 @@ def addaccount():
     status=None
     account = None
     authcode = None
+    namespace = None
     
     '''
     #try to solve the email servers data based by domain
@@ -178,7 +179,7 @@ def addaccount():
             imapdata = known_servers[domain]['imap']
             smtpdata = known_servers[domain]['smtp']
     '''
-    #if we have the imap data we must try to verify the account
+    
     with global_session_scope() as db_session:
         account = db_session.query(Account).filter_by(
             email_address=email).first()
@@ -227,15 +228,29 @@ def addaccount():
                         db_session.commit()
                         status = 'Saved account'
                         
+                        with global_session_scope() as db_session:
+                            #query for the namespace
+                            query = db_session.query(Namespace)
+                            query = query.join(Account)
+                            query = query.filter_by(email_address=email)
+
+                            #query = query.limit(args['limit'])
+                            #if args['offset']:
+                            #    query = query.offset(args['offset'])
+
+                            namespace = query.all()[0]
+                        
                     else:
                         print('Connection refused to: ' + email)
                         status = 'Connection refused to: ' + email
                 except NotSupportedError as e:
                     print(str(e))
+
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
                             'status':status,  
+                            'namespace':namespace,
                             'authcode':authcode})
     
 @app.route('/addaccountauth', methods=['GET'])
