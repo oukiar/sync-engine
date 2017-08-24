@@ -14,7 +14,7 @@ def get_cached(data):
     
     if hashval in cache_ram:
         print('CACHE_RAM', cache_ram[hashval])
-        cache_ram[hashval]['data']['last_access'] = time.time()
+        cache_ram[hashval]['last_access'] = time.time()
         return cache_ram[hashval]['data']
     else:
         return None
