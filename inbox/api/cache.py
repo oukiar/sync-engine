@@ -3,6 +3,7 @@ cache = Cache()
 import json
 
 cache_ram = {}
+cache_timeouts = {}
 
 def get_cached(data):
     hashval = json.dumps( data )
@@ -14,7 +15,7 @@ def get_cached(data):
     else:
         return None
     
-def set_cached(data, result):
+def set_cached(data, result, timeout=60):
     hashval = json.dumps( data )
     cache_ram[hashval] = result
     
