@@ -28,6 +28,8 @@ def threads(namespace_id, subject, from_addr, to_addr, cc_addr, bcc_addr,
             last_message_before, last_message_after, filename, in_, unread,
             starred, limit, offset, view, db_session):
 
+    return []
+
     if view == 'count':
         query = db_session.query(func.count(Thread.id))
     elif view == 'ids':
