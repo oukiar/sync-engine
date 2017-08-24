@@ -209,6 +209,13 @@ providers = dict([
         "auth": "password",
         "mx_servers": ["mx.yandex.ru"],
     }),
+    ("elbuentono", {
+        "type": "generic",
+        "imap": ("imap.yandex.com", 993),
+        "smtp": ("smtp.yandex.com", 587),
+        "auth": "password",
+        "mx_servers": ["mx.yandex.ru"],
+    }),
     ("zimbra", {
         "type": "generic",
         "imap": ("mail.you-got-mail.com", 993),
