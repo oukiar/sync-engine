@@ -258,7 +258,7 @@ def one_account():
 # Threads
 #
 @app.route('/threads/')
-@cache.cached(timeout=50)
+#@cache.cached(timeout=50)
 def thread_query_api():
     g.parser.add_argument('subject', type=bounded_str, location='args')
     g.parser.add_argument('to', type=bounded_str, location='args')
