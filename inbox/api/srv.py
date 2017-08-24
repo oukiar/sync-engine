@@ -21,7 +21,7 @@ from ns_api import DEFAULT_LIMIT
 from inbox.webhooks.gpush_notifications import app as webhooks_api
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+#CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 #cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
