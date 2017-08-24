@@ -282,7 +282,7 @@ def thread_query_api():
 
     args = strict_parse_args(g.parser, request.args)
     
-    print('args: ', request.args)
+    print('args: ', json.dumps(request.args) )
 
     threads = filtering.threads(
         namespace_id=g.namespace.id,
