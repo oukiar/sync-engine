@@ -57,6 +57,8 @@ providers = dict([
     }),
     ("outlook", {
         "auth": "password",
+        "imap": ("imap-mail.outlook.com", 993),
+        "smtp": ("smtp-mail.outlook.com", 587),
         "type": "generic",
         "domains": [
             "outlook.com", "outlook.com.ar",
