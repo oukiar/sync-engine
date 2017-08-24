@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, make_response, g
 #from flask.ext.cache import Cache
+from flask_cors import CORS
 from cache import cache
 from flask.ext.restful import reqparse
 from werkzeug.exceptions import default_exceptions, HTTPException
@@ -20,6 +21,8 @@ from ns_api import DEFAULT_LIMIT
 from inbox.webhooks.gpush_notifications import app as webhooks_api
 
 app = Flask(__name__)
+CORS(app)
+
 #cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 app.config['CACHE_TYPE'] = 'simple'
