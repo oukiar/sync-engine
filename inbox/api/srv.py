@@ -179,6 +179,10 @@ def addaccount():
             auth_info = {}
 
             provider = provider_from_address(email)
+            
+            print('Provider', provider)
+            
+            
 
             # Resolve unknown providers into either custom IMAP or EAS.
             if provider == 'unknown':
