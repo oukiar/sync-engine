@@ -215,6 +215,8 @@ def addaccount():
                 auth_info['password'] = password
                 auth_handler = handler_from_provider(provider)
                 
+                print('Auth handler', auth_handler)
+                
                 #initialize the auth object
                 auth_info.update({'email_address': email})
                 auth_info.update({'email': email})
