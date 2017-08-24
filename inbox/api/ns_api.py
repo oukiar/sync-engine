@@ -655,8 +655,16 @@ def folders_labels_query_api():
 
     results = results.limit(args['limit']).offset(args['offset']).all()
     if args['view'] == 'ids':
-        return g.encoder.jsonify([r for r, in results])
-    return g.encoder.jsonify(results)
+        #return g.encoder.jsonify([r for r, in results])
+        response = flask.jsonify([r for r, in results])
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+        
+    response = flask.jsonify(results)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+    
+    #return g.encoder.jsonify(results)
 
 
 @app.route('/folders/<public_id>')
