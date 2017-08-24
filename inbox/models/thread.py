@@ -129,6 +129,7 @@ class Thread(MailSyncBase, HasPublicID, HasRevisions, UpdatedAtMixin,
         separately return the (empty phrase, address) pair.
 
         """
+        return []
         deduped_participants = defaultdict(set)
         for m in self.messages:
             if m.is_draft:
