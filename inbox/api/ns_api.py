@@ -282,11 +282,13 @@ def thread_query_api():
 
     args = strict_parse_args(g.parser, request.args)
     
+    #args.update()
+    
     cached = get_cached(args)
     if cached:
         return cached
     
-    #print('args: ', json.dumps(args) )
+    print('args: ', json.dumps(args) )
     
     threads = filtering.threads(
         namespace_id=g.namespace.id,
