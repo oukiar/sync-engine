@@ -281,6 +281,8 @@ def thread_query_api():
     g.parser.add_argument('view', type=view, location='args')
 
     args = strict_parse_args(g.parser, request.args)
+    
+    print('args: ', request.args)
 
     threads = filtering.threads(
         namespace_id=g.namespace.id,
