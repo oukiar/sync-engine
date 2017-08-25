@@ -231,7 +231,7 @@ def addaccount():
                 except NotSupportedError as e:
                     print(str(e))
 
-    '''
+    
     if status == 'Saved account':
         with global_session_scope() as db_session:
             #query for the namespace
@@ -240,7 +240,8 @@ def addaccount():
             query = query.filter_by(email_address=email)
 
             namespace = query.all()[0]
-    '''
+            print('***ACCOUNT_ID:', namespace.account_id)
+            print('***ID:', namespace.id)
 
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
