@@ -213,7 +213,6 @@ def addaccount():
                     if auth_handler.verify_account(account):
                         print('despues verify')
                         db_session.add(account)
-                        db_session.commit()
                         status = 'Saved account'
 
                         query = db_session.query(Namespace)
@@ -221,6 +220,9 @@ def addaccount():
                         query = query.filter_by(email_address=email)
 
                         namespace = query.all()[0]
+                        
+                        
+                        db_session.commit()
                         
                     else:
                         print('Connection refused to: ' + email)
