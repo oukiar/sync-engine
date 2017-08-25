@@ -309,7 +309,8 @@ from inbox.heartbeat.status import clear_heartbeat_status
 
 @app.route('/deleteaccount')
 def deleteaccount():
-
+    pass
+    '''
     with session_scope(account_id) as db_session:
         account = db_session.query(Account).get(account_id)
 
@@ -359,9 +360,10 @@ def deleteaccount():
     print 'All data deleted successfully! TOTAL time taken: {}'.\
         format(end - start)
     return 0
-
+    '''
     encoder = APIEncoder()
     return encoder.jsonify('DELETED')
+
     
 @app.route('/webhooks')
 def webhooks():
