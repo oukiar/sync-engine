@@ -281,16 +281,6 @@ def addaccountauth():
                 
                 print('AUTH INFO', auth_info)
                 
-                #////////
-                query = db_session.query(Namespace)
-                query = query.join(Account)
-                query = query.filter_by(email_address=email)
-
-                namespace = query.all()[0]
-                print('***ACCOUNT_ID:', namespace.account_id)
-                print('***ID:', namespace.id)
-                #/////////
-                
                 if False:
                     account = auth_handler.update_account(account, auth_info)
                 else:
@@ -316,6 +306,15 @@ def addaccountauth():
                         db_session.commit()
                         status = 'Saved account'
                         
+                        #////////
+                        query = db_session.query(Namespace)
+                        query = query.join(Account)
+                        query = query.filter_by(email_address=email)
+
+                        namespace = query.all()[0]
+                        print('***ACCOUNT_ID:', namespace.account_id)
+                        print('***ID:', namespace.id)
+                        #/////////
                         
                     else:
                         print('Connection refused to: ' + email)
