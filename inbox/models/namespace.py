@@ -34,7 +34,9 @@ class Namespace(MailSyncBase, HasPublicID, UpdatedAtMixin, DeletedAtMixin):
         print('getting ID')
         q = bakery(lambda session: session.query(cls))
         q += lambda q: q.filter(cls.id == bindparam('id_'))
-        return q(session).params(id_=id_).first()
+        result = q(session).params(id_=id_).first()
+        print(result)
+        return result
 
     @classmethod
     def from_public_id(cls, public_id, db_session):
