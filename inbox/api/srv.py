@@ -263,6 +263,8 @@ def addaccountauth():
                 auth_info['provider'] = provider
                 auth_handler = handler_from_provider(provider)
                 
+                print('AUTHCODE', auth_code)
+                
                 auth_info.update(auth_handler.auth_step(auth_code) )
                 
                 if False:
