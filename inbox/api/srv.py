@@ -34,14 +34,6 @@ app.url_map.strict_slashes = False
 
 webhooks_list = []
 
-known_servers = {
-    'gmail.com':
-        {
-            'imap':{'server':'imap.gmail.com', 'port':993},
-            'smtp':{'server':'smtp.gmail.com', 'port':465}
-        }
-}
-
 def default_json_error(ex):
     """ Exception -> flask JSON responder """
     logger = get_logger()
