@@ -287,11 +287,11 @@ def thread_query_api():
     
     args.update({'namespace_id':g.namespace.id})
     
-    print('args: ', json.dumps(args) )
+    #print('args: ', json.dumps(args) )
     
-    cached = get_cached(args)
-    if cached:
-        return cached
+    #cached = get_cached(args)
+    #if cached:
+    #    return cached
     
     
     threads = filtering.threads(
@@ -322,7 +322,7 @@ def thread_query_api():
                          
     result = encoder.jsonify(threads)
     
-    set_cached(args, result)
+    #set_cached(args, result)
     
     return result
 
