@@ -287,16 +287,6 @@ def addaccountauth():
                     print('antes create account')
                     account = auth_handler.create_account(email, auth_info)
                     print('despues create account', account.g_id)
-
-                #////////
-                query = db_session.query(Namespace)
-                query = query.join(Account)
-                query = query.filter_by(email_address=email)
-
-                namespace = query.all()[0]
-                print('*22**ACCOUNT_ID:', namespace.account_id)
-                print('**22*ID:', namespace.id)
-                #/////////
                 
                 try:
                     print('antes verify')
