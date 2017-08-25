@@ -52,7 +52,7 @@ for code in default_exceptions.iterkeys():
 @app.before_request
 def auth():
     """ Check for account ID on all non-root URLS """
-    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth') \
+    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth', '/deleteaccount') \
             or request.path.startswith('/w/'):
         return
 
@@ -302,6 +302,66 @@ def addaccountauth():
                             'account_id':account_id,
                             'status':status, 
                             'authcode':auth_code})
+    
+
+from inbox.models.util import delete_namespace
+from inbox.heartbeat.status import clear_heartbeat_status
+
+@app.route('/deleteaccount')
+def deleteaccount():
+
+    with session_scope(account_id) as db_session:
+        account = db_session.query(Account).get(account_id)
+
+        if not account:
+            print 'Account with id {} does NOT exist.'.format(account_id)
+            return
+
+        email_address = account.email_address
+        namespace_id = account.namespace.id
+
+        if account.sync_should_run or not account.is_marked_for_deletion:
+            print 'Account with id {} NOT marked for deletion.\n'\
+                  'Will NOT delete, goodbye.'.format(account_id)
+            return -1
+
+    if not yes:
+        question = 'Are you sure you want to delete all data for account with '\
+                   'id: {}, email_address: {} and namespace_id: {}? [yes / no]'.\
+                   format(account_id, email_address, namespace_id)
+
+        answer = raw_input(question).strip().lower()
+
+        if answer != 'yes':
+            print 'Will NOT delete, goodbye.'
+            return 0
+
+    print 'Deleting account with id: {}...'.format(account_id)
+    start = time.time()
+
+    # Delete data in database
+    try:
+        print 'Deleting database data'
+        delete_namespace(account_id, namespace_id, dry_run=dry_run)
+    except Exception as e:
+        print 'Database data deletion failed! Error: {}'.format(str(e))
+        return -1
+
+    database_end = time.time()
+    print 'Database data deleted. Time taken: {}'.\
+        format(database_end - start)
+
+    # Delete liveness data
+    print 'Deleting liveness data'
+    clear_heartbeat_status(account_id)
+
+    end = time.time()
+    print 'All data deleted successfully! TOTAL time taken: {}'.\
+        format(end - start)
+    return 0
+
+    encoder = APIEncoder()
+    return encoder.jsonify('DELETED')
     
 @app.route('/webhooks')
 def webhooks():
