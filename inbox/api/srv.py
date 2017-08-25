@@ -200,7 +200,7 @@ def addaccount():
                 print('Auth handler', auth_handler)
                 
                 #initialize the auth object
-                auth_info.update({'email_address': email})
+                #auth_info.update({'email_address': email})
                 auth_info.update({'email': email})
                         
                 if False:
@@ -215,6 +215,12 @@ def addaccount():
                         db_session.add(account)
                         db_session.commit()
                         status = 'Saved account'
+
+                        query = db_session.query(Namespace)
+                        query = query.join(Account)
+                        query = query.filter_by(email_address=email)
+
+                        namespace = query.all()[0]
                         
                     else:
                         print('Connection refused to: ' + email)
@@ -222,7 +228,7 @@ def addaccount():
                 except NotSupportedError as e:
                     print(str(e))
 
-
+    '''
     if status == 'Saved account':
         with global_session_scope() as db_session:
             #query for the namespace
@@ -231,6 +237,7 @@ def addaccount():
             query = query.filter_by(email_address=email)
 
             namespace = query.all()[0]
+    '''
 
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
