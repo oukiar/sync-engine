@@ -222,6 +222,7 @@ def addaccount():
                         namespace = query.all()[0]
                         print('ACCOUNT_ID:', namespace.account_id)
                         print('ID:', namespace.id)
+                        print('PUBLIC:', namespace.public_id)
                         
                         db_session.commit()
                         
@@ -304,6 +305,7 @@ def addaccountauth():
                         namespace = query.all()[0]
                         print('***ACCOUNT_ID:', namespace.account_id)
                         print('***ID:', namespace.id)
+                        print('***ID:', namespace.public_id)
                         #/////////
                         
                     else:
