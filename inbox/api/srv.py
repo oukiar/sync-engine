@@ -281,6 +281,16 @@ def addaccountauth():
                 
                 print('AUTH INFO', auth_info)
                 
+                #////////
+                query = db_session.query(Namespace)
+                query = query.join(Account)
+                query = query.filter_by(email_address=email)
+
+                namespace = query.all()[0]
+                print('***ACCOUNT_ID:', namespace.account_id)
+                print('***ID:', namespace.id)
+                #/////////
+                
                 if False:
                     account = auth_handler.update_account(account, auth_info)
                 else:
@@ -288,6 +298,16 @@ def addaccountauth():
                     account = auth_handler.create_account(email, auth_info)
                     print('despues create account', account.g_id)
 
+                #////////
+                query = db_session.query(Namespace)
+                query = query.join(Account)
+                query = query.filter_by(email_address=email)
+
+                namespace = query.all()[0]
+                print('*22**ACCOUNT_ID:', namespace.account_id)
+                print('**22*ID:', namespace.id)
+                #/////////
+                
                 try:
                     print('antes verify')
                     if auth_handler.verify_account(account):
