@@ -220,7 +220,7 @@ def addaccount():
                         query = query.filter_by(email_address=email)
 
                         namespace = query.all()[0]
-                        
+                        print('ACCOUNT_ID:', namespace.account_id)
                         
                         db_session.commit()
                         
