@@ -170,16 +170,6 @@ def addaccount():
     authcode = None
     namespace = None
     
-    '''
-    #try to solve the email servers data based by domain
-    if '@' in email:
-        emailuser, domain = email.split('@')
-        
-        if domain in known_servers:
-            imapdata = known_servers[domain]['imap']
-            smtpdata = known_servers[domain]['smtp']
-    '''
-    
     with session_scope(0)  as db_session:
         account = db_session.query(Account).filter_by(
             email_address=email).first()
@@ -286,7 +276,7 @@ def addaccountauth():
                 
                 auth_info.update(auth_handler.auth_step(auth_code) )
                 
-                print auth_info
+                print('AUTH INFO', auth_info)
                 
                 if False:
                     account = auth_handler.update_account(account, auth_info)
