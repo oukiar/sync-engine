@@ -209,7 +209,7 @@ providers = dict([
         "auth": "password",
         "mx_servers": ["mx.yandex.ru"],
     }),
-    ("elbuentono.com", {
+    ("elbuentono.com.mx", {
         "type": "generic",
         "imap": ("imap.yandex.com", 993),
         "smtp": ("smtp.yandex.com", 587),
