@@ -161,6 +161,7 @@ def addaccount():
     account = None
     authcode = None
     namespace = None
+    account_id = None
     
     with session_scope(0)  as db_session:
         account = db_session.query(Account).filter_by(
@@ -197,8 +198,6 @@ def addaccount():
                 auth_info['password'] = password
                 auth_handler = handler_from_provider(provider)
                 
-                print('Auth handler', auth_handler)
-                
                 #initialize the auth object
                 #auth_info.update({'email_address': email})
                 auth_info.update({'email': email})
@@ -209,9 +208,8 @@ def addaccount():
                   account = auth_handler.create_account(email, auth_info)
     
                 try:
-                    print('antes verify')
                     if auth_handler.verify_account(account):
-                        print('despues verify')
+                        
                         db_session.add(account)
                         status = 'Saved account'
 
@@ -220,9 +218,7 @@ def addaccount():
                         query = query.filter_by(email_address=email)
 
                         namespace = query.all()[0]
-                        print('ACCOUNT_ID:', namespace.account_id)
-                        print('ID:', namespace.id)
-                        print('PUBLIC:', namespace.public_id)
+                        account_id = namespace.public_id
                         
                         db_session.commit()
                         
@@ -232,22 +228,10 @@ def addaccount():
                 except NotSupportedError as e:
                     print(str(e))
 
-    
-    if status == 'Saved account':
-        with global_session_scope() as db_session:
-            #query for the namespace
-            query = db_session.query(Namespace)
-            query = query.join(Account)
-            query = query.filter_by(email_address=email)
-
-            namespace = query.all()[0]
-            print('***ACCOUNT_ID:', namespace.account_id)
-            print('***ID:', namespace.id)
-
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
                             'status':status,  
-                            'namespace':namespace,
+                            'account_id':account_id,
                             'authcode':authcode})
     
 @app.route('/addaccountauth', methods=['GET'])
@@ -257,6 +241,7 @@ def addaccountauth():
     auth_code = request.args.get('auth_code')
     status = None
     namespace = None
+    account_id = None
  
     #if we have the imap data we must try to verify the account
     with session_scope(0) as db_session:
@@ -280,8 +265,6 @@ def addaccountauth():
                 
                 auth_info.update(auth_handler.auth_step(auth_code) )
                 
-                print('AUTH INFO', auth_info)
-                
                 if False:
                     account = auth_handler.update_account(account, auth_info)
                 else:
@@ -294,19 +277,16 @@ def addaccountauth():
                     if auth_handler.verify_account(account):
                         print('despues verify')
                         db_session.add(account)
-                        db_session.commit()
                         status = 'Saved account'
                         
-                        #////////
                         query = db_session.query(Namespace)
                         query = query.join(Account)
                         query = query.filter_by(email_address=email)
 
                         namespace = query.all()[0]
-                        print('***ACCOUNT_ID:', namespace.account_id)
-                        print('***ID:', namespace.id)
-                        print('***ID:', namespace.public_id)
-                        #/////////
+                        account_id = namespace.public_id
+                        
+                        db_session.commit()
                         
                     else:
                         print('Connection refused to: ' + email)
@@ -314,25 +294,10 @@ def addaccountauth():
                 except NotSupportedError as e:
                     print(str(e))
     
-    if status == 'Saved account':
-        with global_session_scope() as db_session:
-            #query for the namespace
-            query = db_session.query(Namespace)
-            query = query.join(Account)
-            query = query.filter_by(email_address=email)
-
-            #query = query.limit(args['limit'])
-            #if args['offset']:
-            #    query = query.offset(args['offset'])
-
-            namespace = query.all()[0]
-            #print ('namespaces: ', len(namespaces) )
-    
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
                             'password':password, 
-                            #'account':auth_info,
-                            'namespace':namespace,
+                            'account_id':account_id,
                             'status':status, 
                             'authcode':auth_code})
     
