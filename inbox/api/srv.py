@@ -221,6 +221,7 @@ def addaccount():
 
                         namespace = query.all()[0]
                         print('ACCOUNT_ID:', namespace.account_id)
+                        print('ID:', namespace.id)
                         
                         db_session.commit()
                         
