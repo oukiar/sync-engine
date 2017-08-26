@@ -42,7 +42,7 @@ class Thread(MailSyncBase, HasPublicID, HasRevisions, UpdatedAtMixin,
     _cleaned_subject = Column(String(255), nullable=True)
     subjectdate = Column(DateTime, nullable=False, index=True)
     recentdate = Column(DateTime, nullable=False, index=True)
-    recentparticipant = Column(String(255), nullable=True)
+    #recentparticipant = Column(String(255), nullable=True)
     snippet = Column(String(191), nullable=True, default='')
     version = Column(Integer, nullable=True, server_default='0')
 
@@ -61,7 +61,7 @@ class Thread(MailSyncBase, HasPublicID, HasRevisions, UpdatedAtMixin,
 
             if message.received_date > self.recentdate:
                 self.recentdate = message.received_date
-                self.recentparticipant = message.sender_addr
+                #self.recentparticipant = message.sender_addr
                 self.snippet = message.snippet
 
             # Subject is subject of original message in the thread
