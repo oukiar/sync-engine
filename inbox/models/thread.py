@@ -154,7 +154,7 @@ class Thread(MailSyncBase, HasPublicID, HasRevisions, UpdatedAtMixin,
         deduped_participants = defaultdict(set)
         
         sorted_messages = sorted(self.messages,
-                                 key=lambda m: m.received_date, reverse=True)
+                                 key=lambda m: m.received_date)
                                  
         for m in sorted_messages: #self.messages:
             if m.is_draft:
