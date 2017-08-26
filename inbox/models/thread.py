@@ -42,7 +42,7 @@ class Thread(MailSyncBase, HasPublicID, HasRevisions, UpdatedAtMixin,
     _cleaned_subject = Column(String(255), nullable=True)
     subjectdate = Column(DateTime, nullable=False, index=True)
     recentdate = Column(DateTime, nullable=False, index=True)
-    #recentparticipant = Column(String(255), nullable=True)
+    recentparticipant = ""
     snippet = Column(String(191), nullable=True, default='')
     version = Column(Integer, nullable=True, server_default='0')
 
