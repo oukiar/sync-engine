@@ -83,7 +83,7 @@ class Thread(MailSyncBase, HasPublicID, HasRevisions, UpdatedAtMixin,
         
         for i in self.messages:
             if sent_recent_date < i.received_date:
-                recent_participant = i m.from_addr
+                recent_participant = i.from_addr
                 
         return recent_participant
         
