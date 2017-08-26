@@ -76,7 +76,6 @@ class Thread(MailSyncBase, HasPublicID, HasRevisions, UpdatedAtMixin,
             thread, as decided by whether the message is in the sent folder or
             not. Clients can use this to properly sort the Sent view.
             """
-        return ""
         sent_recent_date = None
         sorted_messages = sorted(self.messages,
                                  key=lambda m: m.received_date, reverse=True)
