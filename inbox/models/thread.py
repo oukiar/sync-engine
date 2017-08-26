@@ -79,7 +79,6 @@ class Thread(MailSyncBase, HasPublicID, HasRevisions, UpdatedAtMixin,
         sent_recent_date = None
         recent_participant = None
         
-        return []
         
         for i in self.messages:
             if sent_recent_date < i.received_date:
