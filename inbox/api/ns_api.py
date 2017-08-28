@@ -15,7 +15,7 @@ from flask import (request, g, Blueprint, make_response, Response,
 from flask import jsonify as flask_jsonify
 from flask.ext.restful import reqparse
 #from flask.ext.cache import Cache
-from cache import cache, get_cached, set_cached
+from cache import get_cached, set_cached
 from sqlalchemy import asc, func
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm.exc import NoResultFound

@@ -1,5 +1,3 @@
-from flask.ext.cache import Cache    
-cache = Cache()
 
 import json
 import time
