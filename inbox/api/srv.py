@@ -311,12 +311,14 @@ import time
 def deleteaccount():
     email = request.args.get('email')
     
-    query = db_session.query(Namespace)
-    query = query.join(Account)
-    query = query.filter_by(email_address=email)
+    with session_scope(0) as db_session:
+        query = db_session.query(Namespace)
+        query = query.join(Account)
+        query = query.filter_by(email_address=email)
 
-    namespace = query.all()[0]
-    account_id = namespace.id
+        namespace = query.all()[0]
+        account_id = namespace.id
+
 
     with session_scope(account_id) as db_session:
         account = db_session.query(Account).get(account_id)
