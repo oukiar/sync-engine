@@ -322,6 +322,10 @@ def deleteaccount():
 
     with session_scope(account_id) as db_session:
         account = db_session.query(Account).get(account_id)
+        
+        account.disable_sync("account deleted")
+        account.sync_state = 'stopped'
+        db_session.commit()
 
         if not account:
             print 'Account with id {} does NOT exist.'.format(account_id)
