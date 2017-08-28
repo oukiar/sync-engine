@@ -305,9 +305,12 @@ def addaccountauth():
 
 from inbox.models.util import delete_namespace
 from inbox.heartbeat.status import clear_heartbeat_status
+import time
 
-@app.route('/deleteaccount')
+@app.route('/deleteaccount', methods=['GET'])
 def deleteaccount():
+    email = request.args.get('email')
+    
     query = db_session.query(Namespace)
     query = query.join(Account)
     query = query.filter_by(email_address=email)
