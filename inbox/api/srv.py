@@ -340,7 +340,7 @@ def deleteaccount():
     # Delete data in database
     try:
         print 'Deleting database data'
-        delete_namespace(account_id, namespace_id, dry_run=True)
+        delete_namespace(account_id, namespace_id)
     except Exception as e:
         print 'Database data deletion failed! Error: {}'.format(str(e))
         return -1
