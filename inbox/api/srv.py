@@ -51,7 +51,7 @@ for code in default_exceptions.iterkeys():
 @app.before_request
 def auth():
     """ Check for account ID on all non-root URLS """
-    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth', '/deleteaccount') \
+    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth', '/deleteaccount', '/getauth') \
             or request.path.startswith('/w/'):
         return
 
@@ -416,6 +416,12 @@ def deleteaccount():
     encoder = APIEncoder()
     return encoder.jsonify('DELETED')
 
+import uuid
+
+@app.route('/getauth', methods=['GET'])
+def getauth():
+    encoder = APIEncoder()
+    return encoder.jsonify(str(uuid.uuid4()))
     
 @app.route('/webhooks')
 def webhooks():
