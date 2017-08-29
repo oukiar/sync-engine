@@ -57,8 +57,8 @@ def auth():
             or request.path.startswith('/w/'):
         return
 
-    if request.path[:6] == '/files':
-        return
+    #if request.path[:6] == '/files':
+    #    return
 
     #print request.authorization
 
