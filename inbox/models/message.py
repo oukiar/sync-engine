@@ -281,7 +281,8 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
             msg._mark_error()
 
         if parsed is not None:
-            print(msg.subject)
+            print()
+            print("Subject:", msg.subject)
             plain_parts = []
             html_parts = []
             for mimepart in parsed.walk(
