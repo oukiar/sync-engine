@@ -461,6 +461,8 @@ def file_download_api():
         if f.filename:
             name = f.filename
             
+        response = make_response(f.data)
+            
         response.headers['Content-Type'] = 'application/octet-stream'  # ct
         # Werkzeug will try to encode non-ascii header values as latin-1. Try that
         # first; if it fails, use RFC2047/MIME encoding. See
