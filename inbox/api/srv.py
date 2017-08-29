@@ -474,7 +474,7 @@ def file_download_api():
         response.headers['Content-Disposition'] = \
             'attachment; filename={0}'.format(name)
 
-        request.environ['log_context']['headers'] = response.headers
+        request.environ['headers'] = response.headers
         return response
 
     #---------------------------
