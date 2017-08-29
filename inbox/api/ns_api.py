@@ -140,14 +140,17 @@ def start():
     else:
         g.api_features = APIFeatures(optimistic_updates=False)
 
+
+    print("ANTES DE VALIDACUN", request.path)
+    if request.path[:6] == '/files':
+        return
+        
     request.environ['log_context'] = {
         'endpoint': request.endpoint,
         'api_version': g.api_version,
         'namespace_id': g.namespace_id,
     }
-    print("ANTES DE VALIDACUN", request.path)
-    if request.path[:6] == '/files':
-        return
+    
     engine = engine_manager.get_for_id(g.namespace_id)
     g.db_session = new_session(engine)
     g.namespace = Namespace.get(g.namespace_id, g.db_session)
