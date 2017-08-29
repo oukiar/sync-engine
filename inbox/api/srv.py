@@ -55,7 +55,7 @@ def auth():
             or request.path.startswith('/w/'):
         return
 
-    print request.authorization
+    #print request.authorization
 
     if not request.authorization or not request.authorization.username:
 
@@ -156,6 +156,10 @@ from inbox.basicauth import NotSupportedError
 def addaccount():
     email = request.args.get('email')
     password = request.args.get('password')
+    imap_server = request.args.get('imap_server')
+    imap_port = request.args.get('imap_port')
+    smtp_server = request.args.get('smtp_server')
+    smtp_port = request.args.get('smtp_port')
     status=None
     account = None
     authcode = None
@@ -189,7 +193,11 @@ def addaccount():
 
             # Resolve unknown providers into either custom IMAP or EAS.
             elif provider == 'unknown':
-                status = 'Waiting imap and smtp data'
+                
+                if imap_server == "" or imap_port == "" or smtp_server == "" or smtp_port = "":
+                    status = 'Waiting imap and smtp data'
+                else:
+                    status = 'Imap account connected'
                 
                 print(request.args)
                 
