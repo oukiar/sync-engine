@@ -241,7 +241,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
 
         """
         print('*******')
-        print("Account:", account)
+        print("Account:", account.public_id)
         print("Cls:", cls)
         print("Mid:", mid)
         print("folder_name:", folder_name)
