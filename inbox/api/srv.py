@@ -456,8 +456,10 @@ def file_download_api():
             Block.public_id == public_id,
             Block.namespace_id == g.namespace.id).one()
         '''
-        f = g.db_session.query(Block).filter(
-            Block.public_id == public_id).one()
+        with session_scope(0) as db_session:
+            f = db_session.query(Block).filter(
+                Block.public_id == public_id).one()
+                
     except NoResultFound:
         raise NotFoundError("Couldn't find file {0} ".format(public_id))
 
