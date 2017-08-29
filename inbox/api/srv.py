@@ -198,10 +198,53 @@ def addaccount():
                     status = 'Waiting imap and smtp data'
                 else:
                     status = 'Imap account connected'
+                    auth_info.update(
+                                imap_server_host=imap_server,
+                                imap_server_port=imap_port,
+                                imap_username=email,
+                                imap_password=password,
+                                smtp_server_host=smtp_server,
+                                smtp_server_port=smtp_port,
+                                smtp_username=email,
+                                smtp_password=password,
+                                ssl_required=true)
                 
                 print(request.args)
                 
-            #this is an standar imap smtp account supported with autoresolution
+                print('Adding custom imap smtp account: ', provider)
+                auth_info['provider'] = provider
+                auth_info['email'] = email
+                auth_info['password'] = password
+                auth_handler = handler_from_provider(provider)
+                        
+                if False:
+                  account = auth_handler.update_account(account, auth_info)
+                else:
+                  account = auth_handler.create_account(email, auth_info)
+    
+                try:
+                    if auth_handler.verify_account(account):
+                        
+                        db_session.add(account)
+                        status = 'Saved account'
+
+                        query = db_session.query(Namespace)
+                        query = query.join(Account)
+                        query = query.filter_by(email_address=email)
+
+                        namespace = query.all()[0]
+                        account_id = namespace.public_id
+                        
+                        db_session.commit()
+                        
+                    else:
+                        print('Connection refused to: ' + email)
+                        status = 'Connection refused to: ' + email
+                except NotSupportedError as e:
+                    print(str(e))
+                    status = 'Error in: ' + email
+                
+            #this is an standar imap smtp account supported with autoresolution like gmail, elbuentono.com.mx, etc
             else:
                 print('Adding standar imap smtp account: ', provider)
                 auth_info['provider'] = provider
