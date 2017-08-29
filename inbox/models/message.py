@@ -241,6 +241,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
 
         """
         print('*******')
+        print("Email:", account.email)
         print("Account:", account.public_id)
         print("Cls:", cls)
         print("Mid:", mid)
@@ -281,7 +282,6 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
             msg._mark_error()
 
         if parsed is not None:
-            print()
             print("Subject:", msg.subject)
             plain_parts = []
             html_parts = []
