@@ -465,6 +465,26 @@ def file_download_api():
     except NoResultFound:
         raise NotFoundError("Couldn't find file {0} ".format(public_id))
 
+    #--------------------------
+    if f.filename:
+        name = f.filename
+        
+    response.headers['Content-Type'] = 'application/octet-stream'  # ct
+    # Werkzeug will try to encode non-ascii header values as latin-1. Try that
+    # first; if it fails, use RFC2047/MIME encoding. See
+    # https://tools.ietf.org/html/rfc7230#section-3.2.4.
+    try:
+        name = name.encode('latin-1')
+    except UnicodeEncodeError:
+        name = '=?utf-8?b?' + base64.b64encode(name.encode('utf-8')) + '?='
+    response.headers['Content-Disposition'] = \
+        'attachment; filename={0}'.format(name)
+
+    request.environ['log_context']['headers'] = response.headers
+    return response
+
+    #---------------------------
+
     # Here we figure out the filename.extension given the
     # properties which were set on the original attachment
     # TODO consider using werkzeug.secure_filename to sanitize?
