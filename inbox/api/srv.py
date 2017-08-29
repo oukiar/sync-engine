@@ -207,7 +207,7 @@ def addaccount():
                                 smtp_server_port=smtp_port,
                                 smtp_username=email,
                                 smtp_password=password,
-                                ssl_required=true)
+                                ssl_required=True)
                 
                     print(request.args)
                     
