@@ -145,14 +145,12 @@ def start():
         'api_version': g.api_version,
         'namespace_id': g.namespace_id,
     }
-
-    engine = engine_manager.get_for_id(g.namespace_id)
-    g.db_session = new_session(engine)
-    g.namespace = Namespace.get(g.namespace_id, g.db_session)
-
     print("ANTES DE VALIDACUN", request.path)
     if request.path[:6] == '/files':
         return
+    engine = engine_manager.get_for_id(g.namespace_id)
+    g.db_session = new_session(engine)
+    g.namespace = Namespace.get(g.namespace_id, g.db_session)
 
     if not g.namespace:
         # The only way this can occur is if there used to be an account that
