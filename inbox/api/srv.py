@@ -442,6 +442,7 @@ def download():
     return encoder.jsonify(code)
     
     
+from inbox.models import Block
 
 #
 # File downloads
