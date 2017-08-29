@@ -450,6 +450,7 @@ from inbox.models import Block
 @app.route('/downloads', methods=['GET'])
 def file_download_api():
     public_id = request.args.get('public_id')
+    print ("PUBFILEID", public_id)
     valid_public_id(public_id)
     try:
         '''
