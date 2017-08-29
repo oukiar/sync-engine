@@ -194,7 +194,7 @@ def addaccount():
             # Resolve unknown providers into either custom IMAP or EAS.
             elif provider == 'unknown':
                 
-                if imap_server == "" or imap_port == "" or smtp_server == "" or smtp_port = "":
+                if imap_server == "" or imap_port == "" or smtp_server == "" or smtp_port == "":
                     status = 'Waiting imap and smtp data'
                 else:
                     status = 'Imap account connected'
