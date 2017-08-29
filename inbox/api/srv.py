@@ -212,7 +212,7 @@ def addaccount():
                     print(request.args)
                     
                     print('Adding custom imap smtp account: ', provider)
-                    auth_info['provider'] = provider
+                    auth_info['provider'] = "custom"
                     auth_info['email'] = email
                     auth_info['password'] = password
                     auth_handler = handler_from_provider(provider)
