@@ -209,40 +209,40 @@ def addaccount():
                                 smtp_password=password,
                                 ssl_required=true)
                 
-                print(request.args)
-                
-                print('Adding custom imap smtp account: ', provider)
-                auth_info['provider'] = provider
-                auth_info['email'] = email
-                auth_info['password'] = password
-                auth_handler = handler_from_provider(provider)
-                        
-                if False:
-                  account = auth_handler.update_account(account, auth_info)
-                else:
-                  account = auth_handler.create_account(email, auth_info)
-    
-                try:
-                    if auth_handler.verify_account(account):
-                        
-                        db_session.add(account)
-                        status = 'Saved account'
-
-                        query = db_session.query(Namespace)
-                        query = query.join(Account)
-                        query = query.filter_by(email_address=email)
-
-                        namespace = query.all()[0]
-                        account_id = namespace.public_id
-                        
-                        db_session.commit()
-                        
+                    print(request.args)
+                    
+                    print('Adding custom imap smtp account: ', provider)
+                    auth_info['provider'] = provider
+                    auth_info['email'] = email
+                    auth_info['password'] = password
+                    auth_handler = handler_from_provider(provider)
+                            
+                    if False:
+                      account = auth_handler.update_account(account, auth_info)
                     else:
-                        print('Connection refused to: ' + email)
-                        status = 'Connection refused to: ' + email
-                except NotSupportedError as e:
-                    print(str(e))
-                    status = 'Error in: ' + email
+                      account = auth_handler.create_account(email, auth_info)
+        
+                    try:
+                        if auth_handler.verify_account(account):
+                            
+                            db_session.add(account)
+                            status = 'Saved account'
+
+                            query = db_session.query(Namespace)
+                            query = query.join(Account)
+                            query = query.filter_by(email_address=email)
+
+                            namespace = query.all()[0]
+                            account_id = namespace.public_id
+                            
+                            db_session.commit()
+                            
+                        else:
+                            print('Connection refused to: ' + email)
+                            status = 'Connection refused to: ' + email
+                    except NotSupportedError as e:
+                        print(str(e))
+                        status = 'Error in: ' + email
                 
             #this is an standar imap smtp account supported with autoresolution like gmail, elbuentono.com.mx, etc
             else:
