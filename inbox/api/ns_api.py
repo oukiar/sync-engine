@@ -150,7 +150,7 @@ def start():
     g.db_session = new_session(engine)
     g.namespace = Namespace.get(g.namespace_id, g.db_session)
 
-    print("ANTES DE VALIDACUN")
+    print("ANTES DE VALIDACUN", request.path)
     if request.path[:6] == '/files':
         return
 
