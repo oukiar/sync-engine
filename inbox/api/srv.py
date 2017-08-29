@@ -52,8 +52,11 @@ for code in default_exceptions.iterkeys():
 def auth():
     """ Check for account ID on all non-root URLS """
     print request.path
-    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth', '/deleteaccount', '/getauth', '/files', '/files/<public_id>/download') \
+    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth', '/deleteaccount', '/getauth') \
             or request.path.startswith('/w/'):
+        return
+
+    if request.path[:5] == '/files':
         return
 
     #print request.authorization
