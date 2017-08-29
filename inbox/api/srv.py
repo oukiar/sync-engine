@@ -190,6 +190,9 @@ def addaccount():
             # Resolve unknown providers into either custom IMAP or EAS.
             elif provider == 'unknown':
                 status = 'Waiting imap and smtp data'
+                
+                print(request.args)
+                
             #this is an standar imap smtp account supported with autoresolution
             else:
                 print('Adding standar imap smtp account: ', provider)
