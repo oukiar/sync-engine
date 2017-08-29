@@ -130,6 +130,8 @@ API_VERSIONS = ['2016-03-07', '2016-08-09']
 
 @app.before_request
 def start():
+    print "2"
+    print request.path
     g.api_version = request.headers.get('Api-Version', API_VERSIONS[0])
 
     if g.api_version not in API_VERSIONS:
