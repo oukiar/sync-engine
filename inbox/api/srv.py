@@ -65,7 +65,7 @@ def auth():
 
         auth_header = request.headers.get('Authorization', None)
         
-        print(auth_header)
+        #print(auth_header)
 
         if not auth_header:
             return make_response(AUTH_ERROR_MSG)
