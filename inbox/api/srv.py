@@ -441,6 +441,96 @@ def download():
     encoder = APIEncoder()
     return encoder.jsonify(code)
     
+    
+
+#
+# File downloads
+#
+@app.route('/downloads', methods=['GET'])
+def file_download_api():
+    public_id = request.args.get('public_id')
+    valid_public_id(public_id)
+    try:
+        '''
+        f = g.db_session.query(Block).filter(
+            Block.public_id == public_id,
+            Block.namespace_id == g.namespace.id).one()
+        '''
+        f = g.db_session.query(Block).filter(
+            Block.public_id == public_id).one()
+    except NoResultFound:
+        raise NotFoundError("Couldn't find file {0} ".format(public_id))
+
+    # Here we figure out the filename.extension given the
+    # properties which were set on the original attachment
+    # TODO consider using werkzeug.secure_filename to sanitize?
+
+    if f.content_type:
+        ct = f.content_type.lower()
+    else:
+        # TODO Detect the content-type using the magic library
+        # and set ct = the content type, which is used below
+        request.environ['log_context']['no_content_type'] = True
+        ct = 'text/plain'
+    request.environ['log_context']['content_type'] = ct
+
+    if f.filename:
+        name = f.filename
+    else:
+        request.environ['log_context']['no_filename'] = True
+        if ct in common_extensions:
+            name = 'attachment.{0}'.format(common_extensions[ct])
+        else:
+            # HACK just append the major part of the content type
+            name = 'attachment.{0}'.format(ct.split('/')[0])
+
+    # TODO the part.data object should really behave like a stream we can read
+    # & write to
+    try:
+        account = g.namespace.account
+        statsd_string = 'api.direct_fetching.{}.{}'.format(account.provider,
+                                                           account.id)
+
+        response = make_response(f.data)
+        statsd_client.incr('{}.successes'.format(statsd_string))
+
+    except TemporaryEmailFetchException:
+        statsd_client.incr('{}.temporary_failure'.format(statsd_string))
+        log.warning('Exception when fetching email',
+                    account_id=account.id, provider=account.provider,
+                    logstash_tag='direct_fetching', exc_info=True)
+
+        return err(503, "Email server returned a temporary error. "
+                        "Please try again in a few minutes.")
+    except EmailDeletedException:
+        statsd_client.incr('{}.deleted'.format(statsd_string))
+        log.warning('Exception when fetching email',
+                    account_id=account.id, provider=account.provider,
+                    logstash_tag='direct_fetching', exc_info=True)
+
+        return err(404, "The data was deleted on the email server.")
+    except EmailFetchException:
+        statsd_client.incr('{}.failures'.format(statsd_string))
+        log.warning('Exception when fetching email',
+                    logstash_tag='direct_fetching', exc_info=True)
+
+        return err(404, "Couldn't find data on email server.")
+
+    response.headers['Content-Type'] = 'application/octet-stream'  # ct
+    # Werkzeug will try to encode non-ascii header values as latin-1. Try that
+    # first; if it fails, use RFC2047/MIME encoding. See
+    # https://tools.ietf.org/html/rfc7230#section-3.2.4.
+    try:
+        name = name.encode('latin-1')
+    except UnicodeEncodeError:
+        name = '=?utf-8?b?' + base64.b64encode(name.encode('utf-8')) + '?='
+    response.headers['Content-Disposition'] = \
+        'attachment; filename={0}'.format(name)
+
+    request.environ['log_context']['headers'] = response.headers
+    return response
+
+    
 @app.route('/webhooks')
 def webhooks():
     encoder = APIEncoder()
