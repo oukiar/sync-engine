@@ -433,15 +433,6 @@ def getauth():
     encoder = APIEncoder()
     return encoder.jsonify(code)
     
-@app.route('/download', methods=['GET'])
-def download():
-    code = str(uuid.uuid4())
-    download_auths.append(code)
-    print(download_auths)
-    encoder = APIEncoder()
-    return encoder.jsonify(code)
-    
-    
 from inbox.models import Block
 
 #
@@ -450,7 +441,15 @@ from inbox.models import Block
 @app.route('/downloads', methods=['GET'])
 def file_download_api():
     public_id = request.args.get('public_id')
-    print ("PUBFILEID", public_id)
+    
+    code = request.args.get('code')
+    
+    if code in download_auths:
+        download_auths.remove(code)
+    else:
+        return err(404, "Bad download code.")
+    
+    #print ("PUBFILEID", public_id)
     valid_public_id(public_id)
 
     with session_scope(0) as db_session:
