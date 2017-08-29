@@ -130,8 +130,6 @@ API_VERSIONS = ['2016-03-07', '2016-08-09']
 
 @app.before_request
 def start():
-    print "2"
-    print request.path
     g.api_version = request.headers.get('Api-Version', API_VERSIONS[0])
 
     if g.api_version not in API_VERSIONS:
@@ -151,6 +149,10 @@ def start():
     engine = engine_manager.get_for_id(g.namespace_id)
     g.db_session = new_session(engine)
     g.namespace = Namespace.get(g.namespace_id, g.db_session)
+
+    print("ANTES DE VALIDACUN")
+    if request.path[:6] == '/files':
+        return
 
     if not g.namespace:
         # The only way this can occur is if there used to be an account that
