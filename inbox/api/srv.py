@@ -452,36 +452,28 @@ def file_download_api():
     public_id = request.args.get('public_id')
     print ("PUBFILEID", public_id)
     valid_public_id(public_id)
-    try:
-        '''
-        f = g.db_session.query(Block).filter(
-            Block.public_id == public_id,
-            Block.namespace_id == g.namespace.id).one()
-        '''
-        with session_scope(0) as db_session:
-            f = db_session.query(Block).filter(
-                Block.public_id == public_id).one()
-                
-    except NoResultFound:
-        raise NotFoundError("Couldn't find file {0} ".format(public_id))
 
-    #--------------------------
-    if f.filename:
-        name = f.filename
-        
-    response.headers['Content-Type'] = 'application/octet-stream'  # ct
-    # Werkzeug will try to encode non-ascii header values as latin-1. Try that
-    # first; if it fails, use RFC2047/MIME encoding. See
-    # https://tools.ietf.org/html/rfc7230#section-3.2.4.
-    try:
-        name = name.encode('latin-1')
-    except UnicodeEncodeError:
-        name = '=?utf-8?b?' + base64.b64encode(name.encode('utf-8')) + '?='
-    response.headers['Content-Disposition'] = \
-        'attachment; filename={0}'.format(name)
+    with session_scope(0) as db_session:
+        f = db_session.query(Block).filter(
+            Block.public_id == public_id).one()
+           
+        #--------------------------
+        if f.filename:
+            name = f.filename
+            
+        response.headers['Content-Type'] = 'application/octet-stream'  # ct
+        # Werkzeug will try to encode non-ascii header values as latin-1. Try that
+        # first; if it fails, use RFC2047/MIME encoding. See
+        # https://tools.ietf.org/html/rfc7230#section-3.2.4.
+        try:
+            name = name.encode('latin-1')
+        except UnicodeEncodeError:
+            name = '=?utf-8?b?' + base64.b64encode(name.encode('utf-8')) + '?='
+        response.headers['Content-Disposition'] = \
+            'attachment; filename={0}'.format(name)
 
-    request.environ['log_context']['headers'] = response.headers
-    return response
+        request.environ['log_context']['headers'] = response.headers
+        return response
 
     #---------------------------
 
