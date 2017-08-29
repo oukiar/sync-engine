@@ -51,7 +51,8 @@ for code in default_exceptions.iterkeys():
 @app.before_request
 def auth():
     """ Check for account ID on all non-root URLS """
-    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth', '/deleteaccount', '/getauth') \
+    print request.path
+    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth', '/deleteaccount', '/getauth', '/files', '/files/') \
             or request.path.startswith('/w/'):
         return
 
@@ -422,6 +423,14 @@ download_auths = []
 
 @app.route('/getauth', methods=['GET'])
 def getauth():
+    code = str(uuid.uuid4())
+    download_auths.append(code)
+    print(download_auths)
+    encoder = APIEncoder()
+    return encoder.jsonify(code)
+    
+@app.route('/download', methods=['GET'])
+def download():
     code = str(uuid.uuid4())
     download_auths.append(code)
     print(download_auths)
