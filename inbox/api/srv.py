@@ -418,10 +418,15 @@ def deleteaccount():
 
 import uuid
 
+download_auths = []
+
 @app.route('/getauth', methods=['GET'])
 def getauth():
+    code = str(uuid.uuid4())
+    download_auths.append(code)
+    print(download_auths)
     encoder = APIEncoder()
-    return encoder.jsonify(str(uuid.uuid4()))
+    return encoder.jsonify(code)
     
 @app.route('/webhooks')
 def webhooks():
