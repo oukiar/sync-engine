@@ -140,11 +140,12 @@ def start():
     else:
         g.api_features = APIFeatures(optimistic_updates=False)
 
-
-    print("ANTES DE VALIDACUN", request.path)
+    '''
+    print("ANTES DE VALIDACION", request.path)
     if request.path[:6] == '/files':
         return
-        
+    '''
+    
     request.environ['log_context'] = {
         'endpoint': request.endpoint,
         'api_version': g.api_version,
