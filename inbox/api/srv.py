@@ -198,6 +198,10 @@ def addaccount():
                     status = 'Waiting imap and smtp data'
                 else:
                     status = 'Imap account connected'
+                    
+                    auth_info['provider'] = "custom"
+                    auth_handler = handler_from_provider(auth_info['provider'])
+                    
                     auth_info.update(
                                 imap_server_host=imap_server,
                                 imap_server_port=imap_port,
@@ -212,10 +216,8 @@ def addaccount():
                     print(request.args)
                     
                     print('Adding custom imap smtp account: ', provider)
-                    auth_info['provider'] = "custom"
                     auth_info['email'] = email
                     auth_info['password'] = password
-                    auth_handler = handler_from_provider(provider)
                             
                     if False:
                       account = auth_handler.update_account(account, auth_info)
