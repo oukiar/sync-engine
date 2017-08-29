@@ -434,6 +434,7 @@ def getauth():
     return encoder.jsonify(code)
     
 from inbox.models import Block
+from inbox.api.err import err
 
 #
 # File downloads
