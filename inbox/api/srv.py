@@ -296,7 +296,7 @@ def addaccount():
                     print('Connection refused to: ' + email)
                     status = 'Connection refused to: ' + email
             except NotSupportedError as e:
-                print(str(e))
+                status = 'Error al conectar a la cuenta IMAP'
 
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
