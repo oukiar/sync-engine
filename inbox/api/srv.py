@@ -53,7 +53,7 @@ def auth():
     """ Check for account ID on all non-root URLS """
     print request.path
     print request.path[:6]
-    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth', '/deleteaccount', '/getauth', '/downloads') \
+    if request.path in ('/accounts', '/accounts/', '/', '/addaccount', '/addaccountauth', '/deleteaccount', '/downloads') \
             or request.path.startswith('/w/'):
         return
 
