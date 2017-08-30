@@ -429,7 +429,7 @@ download_auths = []
 def getauth():
     code = str(uuid.uuid4())
     download_auths.append(code)
-    print(download_auths)
+    #print(download_auths)
     encoder = APIEncoder()
     return encoder.jsonify(code)
     
@@ -441,6 +441,9 @@ from inbox.api.err import err
 #
 @app.route('/downloads', methods=['GET'])
 def file_download_api():
+    '''
+    Ruta de descarga de archivos usando el authcode valido solo para una descarga
+    '''
     public_id = request.args.get('public_id')
     
     code = request.args.get('code')
