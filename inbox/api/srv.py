@@ -319,8 +319,7 @@ def addaccountauth():
             email_address=email).first()
             
         if account is not None:
-            print('Already have this account!')
-            status = 'Already have this account!'
+            status = 'Assigned account'
                         
             query = db_session.query(Namespace)
             query = query.join(Account)
