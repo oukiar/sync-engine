@@ -321,6 +321,7 @@ def addaccountauth():
         if account is not None:
             print('Already have this account!')
             status = 'Already have this account!'
+            account_id = account.account_id
         else:
             auth_info = {}
 
