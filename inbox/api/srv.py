@@ -174,10 +174,30 @@ def addaccount():
     with session_scope(0)  as db_session:
         account = db_session.query(Account).filter_by(
             email_address=email).first()
+        
+        auth_info = {}
+        provider = provider_from_address(email)
+        #print('Provider', provider)
+        
+        if provider in ('gmail'):
             
-        if account is not None:
+            auth_info['provider'] = provider
+            auth_handler = handler_from_provider(provider)
+            
+            #auth code is returnet with providers like gmail
+            authcode = auth_handler.get_auth_url(email)
+            print('authcode: ', type(authcode) )
+            
+            status = 'Waiting auth_code'
+
+        elif account is not None:
             print('Already have this account!')
             status = 'Already have this account!'
+            
+            #if is is gmail
+            
+            
+            #if is imap
             
             query = db_session.query(Namespace)
             query = query.join(Account)
@@ -185,90 +205,34 @@ def addaccount():
 
             namespace = query.all()[0]
             account_id = namespace.public_id
-            
-        else:
-            auth_info = {}
 
-            provider = provider_from_address(email)
-            
-            print('Provider', provider)
-            
-            if provider in ('gmail'):
-                
-                auth_info['provider'] = provider
-                auth_handler = handler_from_provider(provider)
-                
-                #auth code is returnet with providers like gmail
-                authcode = auth_handler.get_auth_url(email)
-                print('authcode: ', type(authcode) )
-                
-                status = 'Waiting auth_code'
-
-            # Resolve unknown providers into either custom IMAP or EAS.
-            elif provider == 'unknown':
-                print(imap_server)
-                if imap_server == "" or imap_port == "" or smtp_server == "" or smtp_port == "":
-                    status = 'Waiting imap and smtp data'
-                else:
-                    status = 'Imap account connected'
-                    
-                    auth_info['provider'] = "custom"
-                    auth_handler = handler_from_provider(auth_info['provider'])
-                    
-                    auth_info.update(
-                                imap_server_host=imap_server,
-                                imap_server_port=imap_port,
-                                imap_username=email,
-                                imap_password=password,
-                                smtp_server_host=smtp_server,
-                                smtp_server_port=smtp_port,
-                                smtp_username=email,
-                                smtp_password=password,
-                                ssl_required=True)
-                
-                    print(request.args)
-                    
-                    print('Adding custom imap smtp account: ', provider)
-                    auth_info['email'] = email
-                    auth_info['password'] = password
-                            
-                    if False:
-                      account = auth_handler.update_account(account, auth_info)
-                    else:
-                      account = auth_handler.create_account(email, auth_info)
-        
-                    try:
-                        if auth_handler.verify_account(account):
-                            
-                            db_session.add(account)
-                            status = 'Saved account'
-
-                            query = db_session.query(Namespace)
-                            query = query.join(Account)
-                            query = query.filter_by(email_address=email)
-
-                            namespace = query.all()[0]
-                            account_id = namespace.public_id
-                            
-                            db_session.commit()
-                            
-                        else:
-                            print('Connection refused to: ' + email)
-                            status = 'Connection refused to: ' + email
-                    except NotSupportedError as e:
-                        print(str(e))
-                        status = 'Error in: ' + email
-                
-            #this is an standar imap smtp account supported with autoresolution like gmail, elbuentono.com.mx, etc
+        # Resolve unknown providers into either custom IMAP or EAS.
+        elif provider == 'unknown':
+            print(imap_server)
+            if imap_server == "" or imap_port == "" or smtp_server == "" or smtp_port == "":
+                status = 'Waiting imap and smtp data'
             else:
-                print('Adding standar imap smtp account: ', provider)
-                auth_info['provider'] = provider
-                auth_info['password'] = password
-                auth_handler = handler_from_provider(provider)
+                status = 'Imap account connected'
                 
-                #initialize the auth object
-                #auth_info.update({'email_address': email})
-                auth_info.update({'email': email})
+                auth_info['provider'] = "custom"
+                auth_handler = handler_from_provider(auth_info['provider'])
+                
+                auth_info.update(
+                            imap_server_host=imap_server,
+                            imap_server_port=imap_port,
+                            imap_username=email,
+                            imap_password=password,
+                            smtp_server_host=smtp_server,
+                            smtp_server_port=smtp_port,
+                            smtp_username=email,
+                            smtp_password=password,
+                            ssl_required=True)
+            
+                print(request.args)
+                
+                print('Adding custom imap smtp account: ', provider)
+                auth_info['email'] = email
+                auth_info['password'] = password
                         
                 if False:
                   account = auth_handler.update_account(account, auth_info)
@@ -295,6 +259,44 @@ def addaccount():
                         status = 'Connection refused to: ' + email
                 except NotSupportedError as e:
                     print(str(e))
+                    status = 'Error in: ' + email
+            
+        #this is an standar imap smtp account supported with autoresolution like elbuentono.com.mx, etc
+        else:
+            print('Adding standar imap smtp account: ', provider)
+            auth_info['provider'] = provider
+            auth_info['password'] = password
+            auth_handler = handler_from_provider(provider)
+            
+            #initialize the auth object
+            #auth_info.update({'email_address': email})
+            auth_info.update({'email': email})
+                    
+            if False:
+              account = auth_handler.update_account(account, auth_info)
+            else:
+              account = auth_handler.create_account(email, auth_info)
+
+            try:
+                if auth_handler.verify_account(account):
+                    
+                    db_session.add(account)
+                    status = 'Saved account'
+
+                    query = db_session.query(Namespace)
+                    query = query.join(Account)
+                    query = query.filter_by(email_address=email)
+
+                    namespace = query.all()[0]
+                    account_id = namespace.public_id
+                    
+                    db_session.commit()
+                    
+                else:
+                    print('Connection refused to: ' + email)
+                    status = 'Connection refused to: ' + email
+            except NotSupportedError as e:
+                print(str(e))
 
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
