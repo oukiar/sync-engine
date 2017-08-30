@@ -178,6 +178,14 @@ def addaccount():
         if account is not None:
             print('Already have this account!')
             status = 'Already have this account!'
+            
+            query = db_session.query(Namespace)
+            query = query.join(Account)
+            query = query.filter_by(email_address=email)
+
+            namespace = query.all()[0]
+            account_id = namespace.public_id
+            
         else:
             auth_info = {}
 
