@@ -22,8 +22,8 @@ def format_address_list(addresses):
 def format_categories(categories):
     if categories is None:
         return []
-    return [{'id': category.public_id, 'name': category.name or None,
-             'display_name': category.api_display_name} if category != None for category in
+    return [{'id': category.public_id or None, 'name': category.name or None,
+             'display_name': category.api_display_name} for category in
             categories]
 
 
