@@ -120,7 +120,7 @@ class Thread(MailSyncBase, HasPublicID, HasRevisions, UpdatedAtMixin,
         sorted_messages = sorted(self.messages,
                                  key=lambda m: m.received_date, reverse=True)
         for m in sorted_messages:
-            if "sent" in [c.name for c in m.categories] or \
+            if "sent" in [c.name for c in m.categories if c != None] or \
                     (m.is_draft and m.is_sent):
                 sent_recent_date = m.received_date
                 return sent_recent_date
