@@ -164,6 +164,8 @@ class ImapSyncMonitor(BaseMailSyncMonitor):
             log.error(
                 'Error authenticating; stopping sync', exc_info=True,
                 account_id=self.account_id, logstash_tag='mark_invalid')
+            print('WOOOW error with login sync, mark invalid disabled')
+            return
             with session_scope(self.namespace_id) as db_session:
                 account = db_session.query(Account).get(self.account_id)
                 account.mark_invalid()
