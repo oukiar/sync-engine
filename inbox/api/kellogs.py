@@ -24,7 +24,7 @@ def format_categories(categories):
         return []
     return [{'id': category.public_id, 'name': category.name or None,
              'display_name': category.api_display_name} for category in
-            categories]
+            categories if category != None]
 
 
 def format_phone_numbers(phone_numbers):
