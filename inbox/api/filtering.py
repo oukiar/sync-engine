@@ -104,7 +104,7 @@ def threads(namespace_id, subject, from_addr, to_addr, cc_addr, bcc_addr,
             print('InputError!!!')
             
         category_query = db_session.query(Message.thread_id). \
-            #prefix_with('STRAIGHT_JOIN'). 
+            prefix_with('STRAIGHT_JOIN'). \
             join(Message.messagecategories).join(MessageCategory.category). \
             filter(Category.namespace_id == namespace_id,
                    or_(*category_filters)).subquery()
