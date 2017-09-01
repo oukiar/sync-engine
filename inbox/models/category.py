@@ -136,13 +136,13 @@ class Category(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
     @property
     def api_display_name(self):
         if self.namespace.account.provider == 'gmail':
-            pass
-            '''
+            #pass
+            
             if self.display_name.startswith('[Gmail]/'):
                 return self.display_name[8:]
             elif self.display_name.startswith('[Google Mail]/'):
                 return self.display_name[14:]
-            '''
+            
 
         if self.namespace.account.provider not in ['gmail', 'eas']:
             return fs_folder_path(self.display_name,

@@ -343,7 +343,8 @@ def _encode(obj, namespace_public_id=None, expand=False, is_n1=False):
             'object': obj.type,
             'account_id': _get_namespace_public_id(obj),
             'name': obj.name or None,
-            'display_name': obj.api_display_name
+            #'display_name': obj.api_display_name
+            'display_name': obj.display_name
         }
         return resp
 
