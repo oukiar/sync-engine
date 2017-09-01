@@ -314,7 +314,7 @@ def messages_or_drafts(namespace_id, drafts, subject, from_addr, to_addr,
 
     if in_ is not None:
         query.spoil()
-        category_filters = [Category.name == bindparam('in_'),
+        category_filters = [#Category.name == bindparam('in_'),
                             Category.display_name == bindparam('in_')]
         try:
             valid_public_id(in_)
