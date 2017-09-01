@@ -111,6 +111,7 @@ def threads(namespace_id, subject, from_addr, to_addr, cc_addr, bcc_addr,
             filter(Category.namespace_id == namespace_id,
                    or_(*category_filters)).subquery()
         query = query.filter(Thread.id.in_(category_query))
+        print Thread.namespace_id
         print(str(query))
 
     if unread is not None:
