@@ -95,14 +95,16 @@ def threads(namespace_id, subject, from_addr, to_addr, cc_addr, bcc_addr,
         query = query.filter(Thread.id.in_(files_query))
 
     if in_ is not None:
-        category_filters = [Category.name == in_, Category.display_name == in_]
-        #category_filters = [Category.display_name == in_]
+        #category_filters = [Category.name == in_, Category.display_name == in_]
+        category_filters = [Category.display_name == in_]
+        '''
         try:
             valid_public_id(in_)
             category_filters.append(Category.public_id == in_)
         except InputError:
             print('InputError!!!')
-            
+        '''
+        
         category_query = db_session.query(Message.thread_id). \
             prefix_with('STRAIGHT_JOIN'). \
             join(Message.messagecategories).join(MessageCategory.category). \
