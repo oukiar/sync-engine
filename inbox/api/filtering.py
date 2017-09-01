@@ -96,7 +96,7 @@ def threads(namespace_id, subject, from_addr, to_addr, cc_addr, bcc_addr,
 
     if in_ is not None:
         category_filters = [Category.name == in_, Category.display_name == in_]
-        category_filters = [Category.display_name == in_]
+        #category_filters = [Category.display_name == in_]
         try:
             valid_public_id(in_)
             category_filters.append(Category.public_id == in_)
