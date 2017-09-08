@@ -228,8 +228,7 @@ class SyncService(object):
                 return False
             self.log.info('starting sync', account_id=acc.id,
                           email_address=acc.email_address)
-            print('starting sync', account_id=acc.id,
-                          email_address=acc.email_address)
+            print('starting sync', acc.id, acc.email_address)
 
             if acc.id in self.syncing_accounts:
                 self.log.info('sync already started', account_id=account_id)
