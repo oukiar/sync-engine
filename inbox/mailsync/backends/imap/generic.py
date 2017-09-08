@@ -365,7 +365,7 @@ class FolderSyncEngine(Greenlet):
                 # The speedup from batching appears to be less clear for
                 # non-Gmail accounts, so for now just download one-at-a-time.
                 self.download_and_commit_uids(crispin_client, [uid])
-                print('download_and_commit_uids INITIAL: ', uid)
+                #print('download_and_commit_uids INITIAL: ', uid)
                 self.heartbeat_status.publish()
                 count += 1
                 if throttled and count >= THROTTLE_COUNT:
@@ -639,7 +639,7 @@ class FolderSyncEngine(Greenlet):
         if new_uids:
             for uid in sorted(new_uids):
                 self.download_and_commit_uids(crispin_client, [uid])
-                print('download_and_commit_uids NEWS: ', uid)
+                #print('download_and_commit_uids NEWS: ', uid)
         self.uidnext = remote_uidnext
 
     def condstore_refresh_flags(self, crispin_client):

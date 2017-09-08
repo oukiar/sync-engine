@@ -472,7 +472,7 @@ class GmailFolderSyncEngine(FolderSyncEngine):
             self.download_and_commit_uids(crispin_client, batch)
             self.heartbeat_status.publish()
                 
-            print('download_and_commit_uids INITIAL: ', uid)
+            #print('download_and_commit_uids INITIAL: ', uid)
                 
             count += len(batch)
             if self.throttled and count >= THROTTLE_COUNT:
