@@ -247,6 +247,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         print("Mid:", mid)
         print("folder_name:", folder_name)
         #print("Body String:", body_string)
+        print('*******')
         _rqd = [account, mid, folder_name, body_string]
         if not all([v is not None for v in _rqd]):
             raise ValueError(
