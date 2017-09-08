@@ -310,6 +310,7 @@ class SyncService(object):
                     self.syncing_accounts.discard(account_id)
                     return False
                 self.log.info('sync stopped', account_id=account_id)
+                print('sync stopped', account_id)
                 # TODO (mark): Uncomment this after we've transitioned to from statsd to brubeck
                 # statsd_client.gauge('mailsync.sync_hosts_counts.{}'.format(acc.id), -1, delta=True)
                 db_session.commit()
