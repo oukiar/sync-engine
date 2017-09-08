@@ -253,7 +253,7 @@ class Account(MailSyncBase, HasPublicID, HasEmailAddress, HasRunState,
         Mark account for syncing
         """
         print("MARCANDO CUENTA COMO RECIENTEMENTE SINCRONIZADA")
-        self.recently_sinced = True
+        self.recently_synced = True
         # Commit this to prevent race conditions
         inspect(self).session.commit()
 
