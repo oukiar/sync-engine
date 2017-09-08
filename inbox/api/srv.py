@@ -33,6 +33,21 @@ app.url_map.strict_slashes = False
 
 webhooks_list = []
 
+# --- TIMER FOR SYNC TIMEOUT OF MAIL ACCOUNTS
+from threading import Timer
+
+def garbage_collector():
+    print 'Executing garbage collector' 
+    
+    for i in cache_ram:
+        if cache_ram[i]['timeout'] > time.time() - cache_ram[i]['last_access']:
+            print('---- Removing from cache: ', i)
+            del cache_ram[i]
+    
+# duration is in seconds
+t = Timer(30, garbage_collector)
+t.start()
+
 def default_json_error(ex):
     """ Exception -> flask JSON responder """
     logger = get_logger()

@@ -640,6 +640,9 @@ class FolderSyncEngine(Greenlet):
             for uid in sorted(new_uids):
                 self.download_and_commit_uids(crispin_client, [uid])
                 #print('download_and_commit_uids NEWS: ', uid)
+        else:
+            print('NO NEW UIDS')
+                
         self.uidnext = remote_uidnext
 
     def condstore_refresh_flags(self, crispin_client):
