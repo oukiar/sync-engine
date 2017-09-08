@@ -259,6 +259,8 @@ class GmailFolderSyncEngine(FolderSyncEngine):
                                     sorted(unknown_uids & inbox_uids))
             else:
                 uids_to_download = sorted(unknown_uids)
+                
+            print('UIDS TO DOWNLOAD', uids_to_download)
 
             for uids in chunk(reversed(uids_to_download), 1024):
                 g_metadata = crispin_client.g_metadata(uids)
