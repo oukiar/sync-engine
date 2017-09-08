@@ -245,6 +245,16 @@ class Account(MailSyncBase, HasPublicID, HasEmailAddress, HasRunState,
         else:
             self.disable_sync(reason)
             self.sync_state = 'invalid'
+    '''
+    def set_syncing(self):
+        """
+        Mark account for deletion
+        """
+        self.disable_sync('account deleted')
+        self.sync_state = 'stopped'
+        # Commit this to prevent race conditions
+        inspect(self).session.commit()
+    '''
 
     def mark_for_deletion(self):
         """
