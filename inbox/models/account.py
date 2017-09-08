@@ -165,7 +165,7 @@ class Account(MailSyncBase, HasPublicID, HasEmailAddress, HasRunState,
 
     @property
     def initial_sync_start(self):
-        #print('initial_sync_start')
+        print('initial_sync_start')
         if len(self.folders) == 0 or \
            any([f.initial_sync_start is None for f in self.folders]):
             return None
@@ -173,7 +173,7 @@ class Account(MailSyncBase, HasPublicID, HasEmailAddress, HasRunState,
 
     @property
     def initial_sync_end(self):
-        #print('initial_sync_end')
+        print('initial_sync_end')
         if len(self.folders) == 0 \
            or any([f.initial_sync_end is None for f in self.folders]):
             return None
