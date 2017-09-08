@@ -434,7 +434,9 @@ class CrispinClient(object):
 
         # Sync inbox folder first, then others.
         to_sync = have_folders['inbox']
+        #to_sync.extend(have_folders.get('sent', []))
         for role, folder_names in have_folders.items():
+            #if role == 'inbox' or role == 'sent':
             if role == 'inbox':
                 continue
             to_sync.extend(folder_names)
