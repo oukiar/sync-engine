@@ -37,12 +37,8 @@ webhooks_list = []
 from threading import Timer
 
 def garbage_collector():
-    print 'Executing garbage collector' 
+    print 'Executing sync account validation'
     
-    for i in cache_ram:
-        if cache_ram[i]['timeout'] > time.time() - cache_ram[i]['last_access']:
-            print('---- Removing from cache: ', i)
-            del cache_ram[i]
     
 # duration is in seconds
 t = Timer(30, garbage_collector)
