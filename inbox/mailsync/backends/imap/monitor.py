@@ -120,7 +120,12 @@ class ImapSyncMonitor(BaseMailSyncMonitor):
         running_monitors = {monitor.folder_name: monitor for monitor in
                             self.folder_monitors}
 
+        
+
         for folder_name in self.prepare_sync():
+            
+            print('sync folder: ' + folder_name)
+            
             if folder_name in running_monitors:
                 thread = running_monitors[folder_name]
             else:
