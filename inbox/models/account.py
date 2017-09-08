@@ -86,7 +86,7 @@ class Account(MailSyncBase, HasPublicID, HasEmailAddress, HasRunState,
     sync_contacts = Column(Boolean, nullable=False, default=False)
     sync_events = Column(Boolean, nullable=False, default=False)
     
-    recently_synced = Column(Boolean, nullable=False, default=False)
+    #recently_synced = Column(Boolean, nullable=False, default=False)
 
     last_synced_contacts = Column(DateTime, nullable=True)
 
@@ -247,7 +247,7 @@ class Account(MailSyncBase, HasPublicID, HasEmailAddress, HasRunState,
         else:
             self.disable_sync(reason)
             self.sync_state = 'invalid'
-    
+    '''
     def now_syncing(self):
         """
         Mark account for syncing
@@ -256,6 +256,7 @@ class Account(MailSyncBase, HasPublicID, HasEmailAddress, HasRunState,
         self.recently_synced = True
         # Commit this to prevent race conditions
         inspect(self).session.commit()
+    '''
 
     def mark_for_deletion(self):
         """

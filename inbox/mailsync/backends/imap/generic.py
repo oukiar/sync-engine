@@ -457,7 +457,7 @@ class FolderSyncEngine(Greenlet):
         assert acct is not None and acct.namespace is not None
         
         #added state for recent sync in this account
-        acct.now_syncing()
+        #acct.now_syncing()
 
         # Check if we somehow already saved the imapuid (shouldn't happen, but
         # possible due to race condition). If so, don't commit changes.
@@ -640,8 +640,8 @@ class FolderSyncEngine(Greenlet):
             for uid in sorted(new_uids):
                 self.download_and_commit_uids(crispin_client, [uid])
                 #print('download_and_commit_uids NEWS: ', uid)
-        else:
-            print('NO NEW UIDS')
+        #else:
+        #    print('NO NEW UIDS')
                 
         self.uidnext = remote_uidnext
 
