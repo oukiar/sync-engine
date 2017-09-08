@@ -455,6 +455,9 @@ class FolderSyncEngine(Greenlet):
 
     def create_message(self, db_session, acct, folder, msg):
         assert acct is not None and acct.namespace is not None
+        
+        #added state for recent sync in this account
+        acct.now_syncing()
 
         # Check if we somehow already saved the imapuid (shouldn't happen, but
         # possible due to race condition). If so, don't commit changes.
