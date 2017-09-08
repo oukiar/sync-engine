@@ -468,6 +468,7 @@ class GmailFolderSyncEngine(FolderSyncEngine):
                 if uid in metadata:
                     dl_size += metadata[uid].size
             if not batch:
+                print("NO MORE MESSAGESSSS")
                 return
             self.download_and_commit_uids(crispin_client, batch)
             self.heartbeat_status.publish()
