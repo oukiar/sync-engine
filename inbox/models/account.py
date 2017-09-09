@@ -86,7 +86,7 @@ class Account(MailSyncBase, HasPublicID, HasEmailAddress, HasRunState,
     sync_contacts = Column(Boolean, nullable=False, default=False)
     sync_events = Column(Boolean, nullable=False, default=False)
     
-    #recently_synced = Column(Boolean, nullable=False, default=False)
+    recently_synced = Column(Boolean, nullable=True, default=False)
 
     last_synced_contacts = Column(DateTime, nullable=True)
 
