@@ -366,24 +366,30 @@ def addaccountauth():
                     if auth_handler.verify_account(account):
                         print('despues verify')
                         db_session.add(account)
-                        status = 'Saved account'
-                        
-                        query = db_session.query(Namespace)
-                        query = query.join(Account)
-                        query = query.filter_by(email_address=email)
-
-                        namespace = query.all()[0]
-                        account_id = namespace.public_id
                         
                         db_session.commit()
                         
-                        print('Session commited')
+                        status = 'Saved account'
+                        
                         
                     else:
                         print('Connection refused to: ' + email)
                         status = 'Connection refused to: ' + email
                 except NotSupportedError as e:
                     print(str(e))
+                    
+      
+    with session_scope(0) as db_session:
+        query = db_session.query(Namespace)
+        query = query.join(Account)
+        query = query.filter_by(email_address=email)
+
+        namespace = query.all()[0]
+        account_id = namespace.public_id
+        
+        db_session.commit()
+    
+        print('Session commited')
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
