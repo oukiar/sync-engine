@@ -30,7 +30,7 @@ from inbox.models.category import Category
 from inbox.sqlalchemy_ext.util import MAX_MYSQL_INTEGER
 from inbox.util.encoding import unicode_safe_truncate
 
-import inbox.api.srv
+from inbox.api.cache import sync_timeout
 
 SNIPPET_LENGTH = 191
 
