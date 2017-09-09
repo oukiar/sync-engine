@@ -22,10 +22,6 @@ from inbox.webhooks.gpush_notifications import app as webhooks_api
 app = Flask(__name__)
 #CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
-#cache = Cache(app,config={'CACHE_TYPE': 'simple'})
-
-#app.config['CACHE_TYPE'] = 'simple'
-#cache.init_app(app)
 
 # Handle both /endpoint and /endpoint/ without redirecting.
 # Note that we need to set this *before* registering the blueprint.
