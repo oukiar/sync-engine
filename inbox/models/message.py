@@ -30,7 +30,7 @@ from inbox.models.category import Category
 from inbox.sqlalchemy_ext.util import MAX_MYSQL_INTEGER
 from inbox.util.encoding import unicode_safe_truncate
 
-from inbox.api.cache import sync_timeout
+from inbox.api.cache import mailboxes_timeouts
 
 SNIPPET_LENGTH = 191
 
@@ -242,7 +242,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
             The full message including headers (encoded).
 
         """
-        #print('*******', mailboxes_timeouts)
+        print('*******', mailboxes_timeouts)
         print("Email:", account.email_address)
         print("Account:", account.public_id)
         print("Cls:", cls)
