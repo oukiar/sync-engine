@@ -34,14 +34,16 @@ app.url_map.strict_slashes = False
 webhooks_list = []
 
 # --- TIMER FOR SYNC TIMEOUT OF MAIL ACCOUNTS
+mailboxes_timeouts = {}
+
 from threading import Timer
 
-def garbage_collector():
-    print 'Executing sync account validation'
+def sync_timeout():
+    print 'Executing sync account mailboxes sync timeout'
     
     
 # duration is in seconds
-t = Timer(30, garbage_collector)
+t = Timer(30, sync_timeout)
 t.start()
 
 def default_json_error(ex):
