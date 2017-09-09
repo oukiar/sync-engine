@@ -377,6 +377,8 @@ def addaccountauth():
                         
                         db_session.commit()
                         
+                        print('Session commited')
+                        
                     else:
                         print('Connection refused to: ' + email)
                         status = 'Connection refused to: ' + email
