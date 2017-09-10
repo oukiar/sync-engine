@@ -160,6 +160,14 @@ def logout():
         401,
         {'WWW-Authenticate': 'Basic realm="API Access Token Required"'}))
 
+
+
+@app.route('/folder_account_sync', methods=['GET'])
+def folder_account_sync():
+    
+    encoder = APIEncoder()
+    return encoder.jsonify({'response':'waaaaa'})
+
 #addaccount dependencies, from inbox-auth python script
 from inbox.util.url import provider_from_address
 from inbox.auth.base import handler_from_provider
