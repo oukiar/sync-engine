@@ -13,7 +13,6 @@ from nylas.logging import get_logger
 log = get_logger()
 
 
-from sync_timeouts import mailboxes_timeouts
 
 def format_address_list(addresses):
     if addresses is None:
@@ -117,7 +116,7 @@ def _encode(obj, namespace_public_id=None, expand=False, is_n1=False):
             'provider': obj.account.provider,
             'organization_unit': obj.account.category_type,
             'sync_state': acc_state,
-            #'syncing': mailboxes_timeouts[obj.account.email_address]
+            'syncing': obj.get_syncing_mailboxes()
         }
 
         # Gmail accounts do not set the `server_settings`
