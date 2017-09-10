@@ -114,7 +114,8 @@ def _encode(obj, namespace_public_id=None, expand=False, is_n1=False):
             'name': obj.account.name,
             'provider': obj.account.provider,
             'organization_unit': obj.account.category_type,
-            'sync_state': acc_state
+            'sync_state': acc_state,
+            'recently_synced': ''
         }
 
         # Gmail accounts do not set the `server_settings`
