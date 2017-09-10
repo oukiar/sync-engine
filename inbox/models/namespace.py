@@ -5,7 +5,7 @@ from inbox.models.base import MailSyncBase
 from inbox.models.mixins import HasPublicID, UpdatedAtMixin, DeletedAtMixin
 from inbox.sqlalchemy_ext.util import bakery
 
-from sync_timeouts import mailboxes_timeouts
+from inbox.api.sync_timeouts import mailboxes_timeouts
 
 class Namespace(MailSyncBase, HasPublicID, UpdatedAtMixin, DeletedAtMixin):
     account_id = Column(BigInteger,
