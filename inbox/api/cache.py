@@ -4,18 +4,6 @@ import time
 from threading import Timer
 
 
-# --- TIMEOUT SYNC MAILBOXES
-mailboxes_timeouts = {}
-
-def sync_timeout():
-    print 'Executing sync account mailboxes sync timeout'
-    
-    
-# duration is in seconds
-t = Timer(30, sync_timeout)
-t.start()
-
-
 # --- CACHE CODE
 cache_ram = {}
 cache_timeouts = {}
@@ -45,6 +33,8 @@ def garbage_collector():
             print('---- Removing from cache: ', i)
             del cache_ram[i]
     
+'''
 # duration is in seconds
 t = Timer(30, garbage_collector)
 t.start()
+'''
