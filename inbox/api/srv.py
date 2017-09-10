@@ -29,6 +29,7 @@ app.url_map.strict_slashes = False
 
 webhooks_list = []
 
+from sync_timeouts import mailboxes_timeouts
 
 def default_json_error(ex):
     """ Exception -> flask JSON responder """
