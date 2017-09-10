@@ -29,31 +29,6 @@ app.url_map.strict_slashes = False
 
 webhooks_list = []
 
-# --- TIMER FOR SYNC TIMEOUT OF MAIL ACCOUNTS
-mailboxes_timeouts = {}
-
-from threading import Timer
-
-def sync_timeout():
-    print 'Executing sync account mailboxes sync timeout'
-    
-    for i in mailboxes_timeouts:
-        if time.time() - mailboxes_timeouts[i] > 20:
-            del mailboxes_timeouts[i]
-                    
-            # duration is in seconds
-            t = Timer(10, sync_timeout)
-            t.start()
-            
-            return
-            
-    # duration is in seconds
-    t = Timer(10, sync_timeout)
-    t.start()
-    
-# duration is in seconds
-t = Timer(10, sync_timeout)
-t.start()
 
 def default_json_error(ex):
     """ Exception -> flask JSON responder """
