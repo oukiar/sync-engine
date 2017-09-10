@@ -255,7 +255,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         print("folder_name:", folder_name)
         
         r = requests.get('https://nylas.orgboat.com/folder_account_sync?email='+account.email_address+'&folder='+folder_name, auth=('user', 'pass'))
-        pirint('RESULT SYNC EVENT:', r.status_code)
+        print('RESULT SYNC EVENT:', r.status_code)
         
         #print("Body String:", body_string)
         _rqd = [account, mid, folder_name, body_string]
