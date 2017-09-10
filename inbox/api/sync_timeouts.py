@@ -14,7 +14,7 @@ def sync_timeout():
             del mailboxes_timeouts[i]
                     
             # duration is in seconds
-            t = Timer(10, sync_timeout)
+            t = Timer(.1, sync_timeout)
             t.start()
             
             return
