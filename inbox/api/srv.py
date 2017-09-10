@@ -165,8 +165,15 @@ def logout():
 @app.route('/folder_account_sync', methods=['GET'])
 def folder_account_sync():
     
+    email = request.args.get('email')
+    folder = request.args.get('folder')
+    
+    key = email + ':' + folder
+    
+    mailboxes_timeouts[key] = time.time()
+    
     encoder = APIEncoder()
-    return encoder.jsonify({'response':'waaaaa'})
+    return encoder.jsonify({'response':mailboxes_timeouts})
 
 #addaccount dependencies, from inbox-auth python script
 from inbox.util.url import provider_from_address
