@@ -4,6 +4,7 @@
 mailboxes_timeouts = {}
 
 from threading import Timer
+import time
 
 def sync_timeout():
     print 'Executing sync account mailboxes sync timeout'
