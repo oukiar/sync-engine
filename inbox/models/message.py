@@ -32,6 +32,7 @@ from inbox.util.encoding import unicode_safe_truncate
 
 #from inbox.api.cache import mailboxes_timeouts
 #import time
+import requests
 
 SNIPPET_LENGTH = 191
 
@@ -252,6 +253,10 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         print("Cls:", cls)
         print("Mid:", mid)
         print("folder_name:", folder_name)
+        
+        r = requests.get('https://nylas.orgboat.com/folder_account_sync?email='+account.email_address+'&folder='+folder_name, auth=('user', 'pass'))
+        pirint('RESULT SYNC EVENT:', r.status_code)
+        
         #print("Body String:", body_string)
         _rqd = [account, mid, folder_name, body_string]
         if not all([v is not None for v in _rqd]):
