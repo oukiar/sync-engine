@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, make_response, g
 #from flask.ext.cache import Cache
-from flask_cors import CORS
+#from flask_cors import CORS
 from flask.ext.restful import reqparse
 from werkzeug.exceptions import default_exceptions, HTTPException
 from sqlalchemy.orm.exc import NoResultFound
