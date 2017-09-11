@@ -55,26 +55,29 @@ def encode(obj, namespace_public_id=None, expand=False, is_n1=False):
 def add_javascript_to_body(body_content):
     begin, end = body_content.split('<head>')
     
-    script = '''
-    <script>
-        window.addEventListener('message', function(event) { 
+    try:
+        script = '''
+        <script>
+            window.addEventListener('message', function(event) { 
 
-            // IMPORTANT: Check the origin of the data! 
-            if (~event.origin.indexOf('http://yoursite.com')) { 
-                // The data has been sent from your site 
+                // IMPORTANT: Check the origin of the data! 
+                if (~event.origin.indexOf('http://yoursite.com')) { 
+                    // The data has been sent from your site 
 
-                // The data sent with postMessage is stored in event.data 
-                console.log(event.data); 
-            } else { 
-                // The data hasn't been sent from your site! 
-                // Be careful! Do not use it. 
-        console.log(event.data); 
-        console.log('bad data');
-                return; 
-            } 
-        });
-    </script>
-    '''
+                    // The data sent with postMessage is stored in event.data 
+                    console.log(event.data); 
+                } else { 
+                    // The data hasn't been sent from your site! 
+                    // Be careful! Do not use it. 
+            console.log(event.data); 
+            console.log('bad data');
+                    return; 
+                } 
+            });
+        </script>
+        '''
+    except:
+        return body_content
     
     return begin + '<head>' + script + end
     
@@ -171,7 +174,8 @@ def _encode(obj, namespace_public_id=None, expand=False, is_n1=False):
             'date': obj.received_date,
             'thread_id': thread_public_id,
             'snippet': obj.snippet,
-            'body': add_javascript_to_body(obj.body),
+            #'body': add_javascript_to_body(obj.body),
+            'body': obj.body,
             'unread': not obj.is_read,
             'starred': obj.is_starred,
             'files': obj.api_attachment_metadata,
