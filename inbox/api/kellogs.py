@@ -60,7 +60,7 @@ def add_javascript_to_body(body_content):
     <script>
         $( document ).ready(function() {
             // Handler for .ready() called.
-            $(document.body).append('<div id="helloDiv"></div>');
+            $(document.body).append('<div id="helloDiv">qwertyuijhgfdsxcvbn usdgius isauguy</div>');
         });
     </script>
     '''
