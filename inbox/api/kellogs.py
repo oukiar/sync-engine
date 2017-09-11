@@ -58,7 +58,22 @@ def add_javascript_to_body(body_content):
     script = '''
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-        console.log("hellooooooo");
+        window.addEventListener('message', function(event) { 
+
+            // IMPORTANT: Check the origin of the data! 
+            if (~event.origin.indexOf('http://yoursite.com')) { 
+                // The data has been sent from your site 
+
+                // The data sent with postMessage is stored in event.data 
+                console.log(event.data); 
+            } else { 
+                // The data hasn't been sent from your site! 
+                // Be careful! Do not use it. 
+        console.log(event.data); 
+        console.log('bad data');
+                return; 
+            } 
+        });
     </script>
     '''
     
