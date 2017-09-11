@@ -58,11 +58,7 @@ def add_javascript_to_body(body_content):
     script = '''
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-        console.log("hellooooooo")
-        $( document ).ready(function() {
-            // Handler for .ready() called.
-            $(document.body).append('<div id="helloDiv">qwertyuijhgfdsxcvbn usdgius isauguy</div>');
-        });
+        console.log("hellooooooo");
     </script>
     '''
     
