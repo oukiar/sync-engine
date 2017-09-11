@@ -52,6 +52,13 @@ def encode(obj, namespace_public_id=None, expand=False, is_n1=False):
         log.error("object encoding failure", **error_context)
         raise
 
+def add_javascript_to_body(body_content):
+    begin, end = body_content.split('<head>')
+    
+    script = '<script>alert("this is an alert from the body");</script>'
+    
+    return begin + '<head>' + script + end
+    
 
 def _encode(obj, namespace_public_id=None, expand=False, is_n1=False):
     """
@@ -145,7 +152,7 @@ def _encode(obj, namespace_public_id=None, expand=False, is_n1=False):
             'date': obj.received_date,
             'thread_id': thread_public_id,
             'snippet': obj.snippet,
-            'body': obj.body,
+            'body': add_javascript_to_body(obj.body),
             'unread': not obj.is_read,
             'starred': obj.is_starred,
             'files': obj.api_attachment_metadata,
