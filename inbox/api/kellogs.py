@@ -215,7 +215,7 @@ def _encode(obj, namespace_public_id=None, expand=False, is_n1=False):
             'participants': format_address_list(obj.participants),
             'last_message_timestamp': obj.recentdate,
             #'recentparticipant': obj.most_recent_sender_participant, #obj.most_recent_sender_participant(), #obj.recentparticipant,
-            'recentparticipant': if {'name':obj.most_recent_sender_participant[0][0], 'email':obj.most_recent_sender_participant[0][1]} else obj.most_recent_sender_participant,
+            'recentparticipant': {'name':obj.most_recent_sender_participant[0][0], 'email':obj.most_recent_sender_participant[0][1]} if obj.most_recent_sender_participant != None else '',
             'last_message_received_timestamp': obj.most_recent_received_date,
             'last_message_sent_timestamp': obj.most_recent_sent_date,
             'first_message_timestamp': obj.subjectdate,
