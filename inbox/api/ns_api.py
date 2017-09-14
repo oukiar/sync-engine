@@ -1308,6 +1308,8 @@ def file_delete_api(public_id):
 @app.route('/files/', methods=['POST'])
 def file_upload_api():
     all_files = []
+    print('FILES')
+    print request.files
     for name, uploaded in request.files.iteritems():
         request.environ['log_context'].setdefault('filenames', []).append(name)
         f = Block()
