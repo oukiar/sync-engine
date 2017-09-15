@@ -331,6 +331,10 @@ def addaccountauth():
         account = db_session.query(Account).filter_by(
             email_address=email).first()
             
+        auth_info = {}
+
+        provider = provider_from_address(email)
+        
         auth_info['provider'] = provider
         auth_handler = handler_from_provider(provider)
         
