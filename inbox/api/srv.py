@@ -272,7 +272,7 @@ def addaccount():
                         status = 'Connection refused to: ' + email
                 except NotSupportedError as e:
                     print(str(e))
-                    status = 'Error in: ' + email
+                    status = 'Error at login: ' + email
             
         #this is an standar imap smtp account supported with autoresolution like elbuentono.com.mx, etc
         else:
