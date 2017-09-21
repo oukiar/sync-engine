@@ -7,7 +7,7 @@ from threading import Timer
 import time
 
 def sync_timeout():
-    print 'Executing sync account mailboxes sync timeout'
+    #print 'Executing sync account mailboxes sync timeout'
     
     for i in mailboxes_timeouts:
         if time.time() - mailboxes_timeouts[i] > 20:
