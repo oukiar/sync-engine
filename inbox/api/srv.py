@@ -170,6 +170,8 @@ from inbox.auth.base import handler_from_provider
 from inbox.models import Account
 from inbox.basicauth import NotSupportedError
 
+from inbox.providers import providers
+
 @app.route('/addaccount', methods=['GET'])
 def addaccount():
     email = request.args.get('email')
@@ -241,9 +243,8 @@ def addaccount():
                             smtp_password=password,
                             ssl_required=True)
             
-                print(request.args)
+                #print(request.args)
                 
-                print('Adding custom imap smtp account: ', provider)
                 auth_info['email'] = email
                 auth_info['password'] = password
                         
@@ -255,6 +256,32 @@ def addaccount():
                 try:
                     if auth_handler.verify_account(account):
                         
+                        email_domain = email.split("@")[1]
+                        email_provider = email_domain.split(".")[0]
+                        
+                        print('Adding custom imap smtp account: ', email)
+                        
+                        try:
+                            more_providers = json.loads(open("providers.json").read() )
+                        except:
+                            more_providers = {}
+                        
+                        more_providers[email_provider] = {"type": "generic",
+                                                    "imap":(imap_server_host, imap_server_port),
+                                                    "smtp":(smtp_server_host, smtp_server_port),
+                                                    "auth":"password",
+                                                    "domains":[email_domain]
+                                            )
+                                     
+                                            
+                        #save more providers
+                        try:
+                            with open("providers.json", "w") as myfile:
+                                myfile.write(json.dumps(more_providers) )
+                                
+                        except:
+                            pass
+                            
                         db_session.add(account)
                         status = 'Saved account'
 

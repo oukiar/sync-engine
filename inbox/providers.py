@@ -337,6 +337,6 @@ providers = dict([
 #cargar providers desde archivo json
 try:
     more_providers = json.loads(open("providers.json").read() )
-    providers.extend()
+    providers.update(more_providers)
 except:
-    print("No se encontro archivo de providers")
+    print("No se encontro archivo de providers.json")
