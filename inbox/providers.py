@@ -333,3 +333,10 @@ providers = dict([
                        "INBOX.Sent": "sent"},
     })
 ])
+
+#cargar providers desde archivo json
+try:
+    more_providers = json.loads(open("providers.json").read() )
+    providers.extend()
+except:
+    print("No se encontro archivo de providers")
