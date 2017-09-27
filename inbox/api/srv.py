@@ -283,7 +283,7 @@ def addaccount():
                                      
                                             
                         #save more providers
-                        with open(os.path.join("inbox", "providers.json"), "w") as myfile:
+                        with open("providers.json", "w") as myfile:
                             myfile.write(json.dumps(more_providers) )
                                 
                         providers.update(more_providers)
