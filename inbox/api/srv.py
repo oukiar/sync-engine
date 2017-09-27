@@ -321,13 +321,15 @@ def addaccount():
             #initialize the auth object
             #auth_info.update({'email_address': email})
             auth_info.update({'email': email})
-                    
+            
+            print
+            
             if False:
               account = auth_handler.update_account(account, auth_info)
             else:
               account = auth_handler.create_account(email, auth_info)
 
-            print("auth_handler", auth_handler)
+            print("imap_endpoint", account.imap_endpoint)
 
             try:
                 if auth_handler.verify_account(account):

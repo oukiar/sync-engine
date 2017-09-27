@@ -38,6 +38,7 @@ def handler_from_provider(provider_name):
             #print("provider_type", provider_type)
             if provider_type:
                 #auth_mod = module_registry.get('generic')
+                print("RETURNING CUSTOM")
                 auth_mod = module_registry.get('custom')
 
     if auth_mod is None:
