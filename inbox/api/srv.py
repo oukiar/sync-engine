@@ -271,7 +271,7 @@ def addaccount():
                                                     "smtp":(smtp_server_host, smtp_server_port),
                                                     "auth":"password",
                                                     "domains":[email_domain]
-                                            )
+                                            }
                                      
                                             
                         #save more providers
