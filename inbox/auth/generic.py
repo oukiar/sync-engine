@@ -125,6 +125,7 @@ class GenericAuthHandler(AuthHandler):
 
         """
         host, port = account.imap_endpoint
+        port = int(port)
         ssl_required = account.ssl_required
         try:
             conn = create_imap_connection(host, port, ssl_required,
