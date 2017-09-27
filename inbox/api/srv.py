@@ -326,6 +326,8 @@ def addaccount():
             else:
               account = auth_handler.create_account(email, auth_info)
 
+            print("auth_handler", auth_handler)
+
             try:
                 if auth_handler.verify_account(account):
                     
