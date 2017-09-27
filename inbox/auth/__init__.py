@@ -20,5 +20,5 @@ def reload_modules_registry():
     global module_registry
     module_registry = register_backends(__name__, __path__)
     
-def print_module_registry()
+def print_module_registry():
     print("NEW MODULE REGISTRY", module_registry)
