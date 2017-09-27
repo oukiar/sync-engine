@@ -266,6 +266,8 @@ def addaccount():
                         
                         print('Adding custom imap smtp account: ', email)
                         
+                        print os.getcwd()
+
                         try:
                             more_providers = json.loads(open(os.path.join("inbox", "providers.json") ).read() )
                         except:
@@ -285,12 +287,12 @@ def addaccount():
                                 
                         providers.update(more_providers)
                         
-                        print("UPDATED PROVIDERS: ", providers)
+                        #print("UPDATED PROVIDERS: ", providers)
                         
                         reload_modules_registry()
                         print_module_registry()
                         
-                        print("MODULE REGISTRY", module_registry)
+                        #print("MODULE REGISTRY", module_registry)
                             
                         db_session.add(account)
                         status = 'Saved account'

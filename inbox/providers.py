@@ -334,9 +334,15 @@ providers = dict([
     })
 ])
 
+import os
+
+
 #cargar providers desde archivo json
 try:
     more_providers = json.loads(open("providers.json").read() )
     providers.update(more_providers)
 except:
     print("No se encontro archivo de providers.json")
+    
+
+print os.getcwd()

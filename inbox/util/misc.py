@@ -165,8 +165,8 @@ def register_backends(base_name, base_path):
                 for p_name, p in providers.iteritems():
                     p_type = p.get('type', None)
                     if p_type == 'generic' and p_name not in mod_for:
-                        print("-------------")
-                        print p_name
+                        #print("-------------")
+                        #print p_name
                         mod_for[p_name] = module
             else:
                 mod_for[provider_name] = module
