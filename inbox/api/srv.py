@@ -275,13 +275,9 @@ def addaccount():
                                      
                                             
                         #save more providers
-                        try:
-                            with open("providers.json", "w") as myfile:
-                                myfile.write(json.dumps(more_providers) )
+                        with open("providers.json", "w") as myfile:
+                            myfile.write(json.dumps(more_providers) )
                                 
-                        except:
-                            print("Error al almacenar datos de provider")
-                            
                         providers.update(more_providers)
                         
                         print("UPDATED PROVIDERS: ", providers)
