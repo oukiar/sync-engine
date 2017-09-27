@@ -35,6 +35,7 @@ def handler_from_provider(provider_name):
         print("INFO", info)
         if info:
             provider_type = info.get('type', None)
+            print("provider_type", provider_type)
             if provider_type:
                 auth_mod = module_registry.get('generic')
 
