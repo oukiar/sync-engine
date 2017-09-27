@@ -174,7 +174,7 @@ from inbox.models import Account
 from inbox.basicauth import NotSupportedError
 
 from inbox.providers import providers
-from inbox.auth import reload_modules_registry, print_module_registry
+from inbox.auth import reload_modules_registry
 from inbox.auth import module_registry
 
 @app.route('/addaccount', methods=['GET'])
@@ -269,7 +269,8 @@ def addaccount():
                         print(os.getcwd())
 
                         try:
-                            more_providers = json.loads(open(os.path.join("inbox", "providers.json") ).read() )
+                            #more_providers = json.loads(open(os.path.join("inbox", "providers.json") ).read() )
+                            more_providers = json.loads(open("providers.json").read() )
                         except:
                             more_providers = {}
                         
@@ -290,7 +291,6 @@ def addaccount():
                         #print("UPDATED PROVIDERS: ", providers)
                         
                         reload_modules_registry()
-                        print_module_registry()
                         
                         #print("MODULE REGISTRY", module_registry)
                             
