@@ -27,7 +27,7 @@ def handler_from_provider(provider_name):
     from inbox.auth import module_registry
     auth_mod = module_registry.get(provider_name)
 
-    print("PROVIDERS", providers)
+    print("PROVIDERS", providers, module_registry)
 
     if auth_mod is None:
         # Try to get a generic provider
