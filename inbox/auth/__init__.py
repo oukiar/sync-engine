@@ -17,4 +17,5 @@ __path__ = extend_path(__path__, __name__)
 module_registry = register_backends(__name__, __path__)
 
 def reload_modules_registry():
+    global module_registry
     module_registry = register_backends(__name__, __path__)
