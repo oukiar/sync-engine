@@ -310,7 +310,7 @@ def addaccount():
                     print(str(e))
                     status = 'Error at login: ' + email
             
-        #this is an standar imap smtp account supported with autoresolution like elbuentono.com.mx, etc
+        #this is an standar imap smtp account supported with autoresolution like elbuentono.com.mx, etc from providers
         else:
             print('Adding standar imap smtp account: ', provider)
             auth_info['provider'] = provider
