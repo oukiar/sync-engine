@@ -266,7 +266,7 @@ def addaccount():
                         
                         print('Adding custom imap smtp account: ', email)
                         
-                        print os.getcwd()
+                        print(os.getcwd())
 
                         try:
                             more_providers = json.loads(open(os.path.join("inbox", "providers.json") ).read() )
