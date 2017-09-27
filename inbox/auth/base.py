@@ -37,7 +37,7 @@ def handler_from_provider(provider_name):
             provider_type = info.get('type', None)
             print("provider_type", provider_type)
             if provider_type:
-                auth_mod = module_registry.get('generic')
+                auth_mod = module_registry.get('custom')
 
     if auth_mod is None:
         raise NotSupportedError('Nylas does not support the email provider.')
