@@ -20,6 +20,7 @@ from ns_api import DEFAULT_LIMIT
 from inbox.webhooks.gpush_notifications import app as webhooks_api
 
 import json
+import os
 
 app = Flask(__name__)
 #CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
@@ -264,7 +265,7 @@ def addaccount():
                         print('Adding custom imap smtp account: ', email)
                         
                         try:
-                            more_providers = json.loads(open("providers.json").read() )
+                            more_providers = json.loads(open(os.path.join("inbox", "providers.json") ).read() )
                         except:
                             more_providers = {}
                         
@@ -277,7 +278,7 @@ def addaccount():
                                      
                                             
                         #save more providers
-                        with open("providers.json", "w") as myfile:
+                        with open(os.path.join("inbox", "providers.json"), "w") as myfile:
                             myfile.write(json.dumps(more_providers) )
                                 
                         providers.update(more_providers)
