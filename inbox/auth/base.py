@@ -32,6 +32,7 @@ def handler_from_provider(provider_name):
     if auth_mod is None:
         # Try to get a generic provider
         info = providers.get(provider_name, None)
+        print("INFO", info)
         if info:
             provider_type = info.get('type', None)
             if provider_type:
