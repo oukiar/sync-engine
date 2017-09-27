@@ -174,6 +174,7 @@ from inbox.models import Account
 from inbox.basicauth import NotSupportedError
 
 from inbox.providers import providers
+from inbox.auth import reload_modules_registry
 
 @app.route('/addaccount', methods=['GET'])
 def addaccount():
@@ -284,6 +285,8 @@ def addaccount():
                         providers.update(more_providers)
                         
                         print("UPDATED PROVIDERS: ", providers)
+                        
+                        reload_modules_registry()
                             
                         db_session.add(account)
                         status = 'Saved account'
