@@ -267,8 +267,8 @@ def addaccount():
                             more_providers = {}
                         
                         more_providers[email_provider] = {"type": "generic",
-                                                    "imap":(imap_server_host, imap_server_port),
-                                                    "smtp":(smtp_server_host, smtp_server_port),
+                                                    "imap":(imap_server, imap_port),
+                                                    "smtp":(smtp_server, smtp_port),
                                                     "auth":"password",
                                                     "domains":[email_domain]
                                             }
