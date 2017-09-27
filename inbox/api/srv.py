@@ -280,7 +280,11 @@ def addaccount():
                                 myfile.write(json.dumps(more_providers) )
                                 
                         except:
-                            pass
+                            print("Error al almacenar datos de provider")
+                            
+                        providers.update(more_providers)
+                        
+                        print("UPDATED PROVIDERS: ", providers)
                             
                         db_session.add(account)
                         status = 'Saved account'
