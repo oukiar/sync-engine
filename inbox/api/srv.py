@@ -330,6 +330,7 @@ def addaccount():
               account = auth_handler.create_account(email, auth_info)
 
             print("imap_endpoint", account.imap_endpoint)
+            print("smtp_endpoint", account.smtp_endpoint)
 
             try:
                 if auth_handler.verify_account(account):
