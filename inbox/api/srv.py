@@ -192,8 +192,7 @@ def addaccount():
     account_id = None
     
     with session_scope(0)  as db_session:
-        account = db_session.query(Account).filter_by(
-            email_address=email).first()
+        account = db_session.query(Account).filter_by(email_address=email).first()
         
         auth_info = {}
         provider = provider_from_address(email)
@@ -204,12 +203,12 @@ def addaccount():
             auth_info['provider'] = provider
             auth_handler = handler_from_provider(provider)
             
-            #auth code is returnet with providers like gmail
+            #auth code is returned with providers like gmail
             authcode = auth_handler.get_auth_url(email)
             print('authcode: ', type(authcode) )
             
             status = 'Waiting auth_code'
-
+        '''
         elif account is not None:
             print('Already have this account!')
             status = 'Already have this account!'
@@ -217,7 +216,7 @@ def addaccount():
             #if is is gmail
             
             
-            #if is imap
+            #if is imap verify 
             
             query = db_session.query(Namespace)
             query = query.join(Account)
@@ -225,10 +224,11 @@ def addaccount():
 
             namespace = query.all()[0]
             account_id = namespace.public_id
-
+        '''
+        
         # Resolve unknown providers into either custom IMAP or EAS.
         elif provider == 'unknown':
-            print(imap_server)
+            #print(imap_server)
             if imap_server == "" or imap_port == "" or smtp_server == "" or smtp_port == "":
                 status = 'Waiting imap and smtp data'
             else:
@@ -253,7 +253,7 @@ def addaccount():
                 auth_info['email'] = email
                 auth_info['password'] = password
                         
-                if False:
+                if account:
                   account = auth_handler.update_account(account, auth_info)
                 else:
                   account = auth_handler.create_account(email, auth_info)
@@ -265,8 +265,6 @@ def addaccount():
                         email_provider = email_domain.split(".")[0]
                         
                         print('Adding custom imap smtp account: ', email)
-                        
-                        print(os.getcwd())
 
                         try:
                             #more_providers = json.loads(open(os.path.join("inbox", "providers.json") ).read() )
@@ -324,9 +322,7 @@ def addaccount():
             #auth_info.update({'email_address': email})
             auth_info.update({'email': email})
             
-            print
-            
-            if False:
+            if account:
               account = auth_handler.update_account(account, auth_info)
             else:
               account = auth_handler.create_account(email, auth_info)
@@ -386,17 +382,17 @@ def addaccountauth():
         
         auth_info.update(auth_handler.auth_step(auth_code) )
         
-        if False:
+        if account:
             account = auth_handler.update_account(account, auth_info)
         else:
-            print('antes create account')
+            #print('antes create account')
             account = auth_handler.create_account(email, auth_info)
-            print('despues create account', account.g_id)
+            #print('despues create account', account.g_id)
         
         try:
-            print('antes verify')
+            #print('antes verify')
             if auth_handler.verify_account(account):
-                print('despues verify')
+                #print('despues verify')
                 db_session.add(account)
                 
                 db_session.commit()
@@ -421,7 +417,7 @@ def addaccountauth():
         
         db_session.commit()
     
-        print('Session commited')
+        #print('Session commited')
     
     encoder = APIEncoder()
     return encoder.jsonify({'email':email, 
