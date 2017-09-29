@@ -208,23 +208,24 @@ def addaccount():
             print('authcode: ', type(authcode) )
             
             status = 'Waiting auth_code'
-        '''
-        elif account is not None:
-            print('Already have this account!')
-            status = 'Already have this account!'
-            
-            #if is is gmail
-            
-            
-            #if is imap verify 
-            
-            query = db_session.query(Namespace)
-            query = query.join(Account)
-            query = query.filter_by(email_address=email)
+                
+            '''
+            elif account is not None:
+                print('Already have this account!')
+                status = 'Already have this account!'
+                
+                #if is is gmail
+                
+                
+                #if is imap verify 
+                
+                query = db_session.query(Namespace)
+                query = query.join(Account)
+                query = query.filter_by(email_address=email)
 
-            namespace = query.all()[0]
-            account_id = namespace.public_id
-        '''
+                namespace = query.all()[0]
+                account_id = namespace.public_id
+            '''
         
         # Resolve unknown providers into either custom IMAP or EAS.
         elif provider == 'unknown':
