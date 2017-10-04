@@ -556,7 +556,7 @@ def messages_bodystats():
 
     # Use a new encoder object with the expand parameter set.
     encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
-    return encoder.jsonify(messages)
+    return encoder.jsonify(len(messages))
 
 
 @app.route('/messages/search', methods=['GET'])
