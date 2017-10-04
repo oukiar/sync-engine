@@ -556,6 +556,10 @@ def messages_bodystats():
         view=args['view'],
         db_session=g.db_session)
 
+    # Use a new encoder object with the expand parameter set.
+    encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
+    
+    
     for msg in messages:
         print("MESSAGEEEEE")
         print encoder.jsonify(msg.body)
@@ -568,8 +572,6 @@ def messages_bodystats():
     print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
     '''
 
-    # Use a new encoder object with the expand parameter set.
-    encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
     return encoder.jsonify(messages)
 
 
