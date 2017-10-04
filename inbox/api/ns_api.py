@@ -498,6 +498,8 @@ def message_query_api():
     return encoder.jsonify(messages)
 
 
+from bs4 import BeautifulSoup # $ pip install beautifulsoup4
+
 ##
 # Messages
 ##
@@ -554,11 +556,19 @@ def messages_bodystats():
         view=args['view'],
         db_session=g.db_session)
 
-    
+    for msg in messages:
+        print("MESSAGEEEEE")
+        print msg.body
 
-    # Use a new encoder object with the expand parameter set.
-    encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
-    return encoder.jsonify(messages)
+    with open('input.xml', 'rb') as file:
+        soup = BeautifulSoup(file)
+
+    elements = soup.find_all("div", class_="header name quantity".split())
+    print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
+
+        # Use a new encoder object with the expand parameter set.
+        encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
+        return encoder.jsonify(messages)
 
 
 @app.route('/messages/search', methods=['GET'])
