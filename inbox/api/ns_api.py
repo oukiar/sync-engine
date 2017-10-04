@@ -498,6 +498,67 @@ def message_query_api():
     return encoder.jsonify(messages)
 
 
+##
+# Messages
+##
+@app.route('/messages/bodystats')
+def messages_bodystats():
+    g.parser.add_argument('subject', type=bounded_str, location='args')
+    g.parser.add_argument('to', type=bounded_str, location='args')
+    g.parser.add_argument('from', type=bounded_str, location='args')
+    g.parser.add_argument('cc', type=bounded_str, location='args')
+    g.parser.add_argument('bcc', type=bounded_str, location='args')
+    g.parser.add_argument('any_email', type=comma_separated_email_list,
+                          location='args')
+    g.parser.add_argument('started_before', type=timestamp, location='args')
+    g.parser.add_argument('started_after', type=timestamp, location='args')
+    g.parser.add_argument('last_message_before', type=timestamp,
+                          location='args')
+    g.parser.add_argument('last_message_after', type=timestamp,
+                          location='args')
+    g.parser.add_argument('received_before', type=timestamp,
+                          location='args')
+    g.parser.add_argument('received_after', type=timestamp,
+                          location='args')
+    g.parser.add_argument('filename', type=bounded_str, location='args')
+    g.parser.add_argument('in', type=bounded_str, location='args')
+    g.parser.add_argument('thread_id', type=valid_public_id, location='args')
+    g.parser.add_argument('unread', type=strict_bool, location='args')
+    g.parser.add_argument('starred', type=strict_bool, location='args')
+    g.parser.add_argument('view', type=view, location='args')
+
+    args = strict_parse_args(g.parser, request.args)
+
+    messages = filtering.messages_or_drafts(
+        namespace_id=g.namespace.id,
+        drafts=False,
+        subject=args['subject'],
+        thread_public_id=args['thread_id'],
+        to_addr=args['to'],
+        from_addr=args['from'],
+        cc_addr=args['cc'],
+        bcc_addr=args['bcc'],
+        any_email=args['any_email'],
+        started_before=args['started_before'],
+        started_after=args['started_after'],
+        last_message_before=args['last_message_before'],
+        last_message_after=args['last_message_after'],
+        received_before=args['received_before'],
+        received_after=args['received_after'],
+        filename=args['filename'],
+        in_=args['in'],
+        unread=args['unread'],
+        starred=args['starred'],
+        limit=args['limit'],
+        offset=args['offset'],
+        view=args['view'],
+        db_session=g.db_session)
+
+    # Use a new encoder object with the expand parameter set.
+    encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
+    return encoder.jsonify(messages)
+
+
 @app.route('/messages/search', methods=['GET'])
 def message_search_api():
     g.parser.add_argument('q', type=bounded_str, location='args')
