@@ -560,15 +560,17 @@ def messages_bodystats():
         print("MESSAGEEEEE")
         print msg.body
 
+    '''
     with open('input.xml', 'rb') as file:
         soup = BeautifulSoup(file)
 
     elements = soup.find_all("div", class_="header name quantity".split())
     print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
+    '''
 
-        # Use a new encoder object with the expand parameter set.
-        encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
-        return encoder.jsonify(messages)
+    # Use a new encoder object with the expand parameter set.
+    encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
+    return encoder.jsonify(messages)
 
 
 @app.route('/messages/search', methods=['GET'])
