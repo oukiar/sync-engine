@@ -562,7 +562,7 @@ def messages_bodystats():
     
     for msg in messages:
         print("MESSAGEEEEE")
-        print encoder.jsonify(msg)
+        print( json.dumps(msg) )
 
     '''
     with open('input.xml', 'rb') as file:
