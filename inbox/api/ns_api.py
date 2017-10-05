@@ -562,7 +562,12 @@ def messages_bodystats():
     
     for msg in messages:
         print("MESSAGEEEEE")
-        print(msg.body.encode('utf8'))
+        html = msg.body.encode('utf8')
+        print(html)
+        
+        soup = BeautifulSoup(html, 'html.parser')
+        elements = soup.find_all("div", class_="header name quantity".split())
+        print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
 
     '''
     with open('input.xml', 'rb') as file:
