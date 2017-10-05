@@ -563,7 +563,7 @@ def messages_bodystats():
     for msg in messages:
         print("MESSAGEEEEE")
         html = msg.body.encode('utf8')
-        print(html)
+        #print(html)
         
         soup = BeautifulSoup(html, 'html.parser')
         elements = soup.find_all("div", class_="header name quantity".split())
