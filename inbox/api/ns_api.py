@@ -570,7 +570,7 @@ def messages_bodystats():
         #print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
         
         #soup.prettify()
-        print soup.find_all('div')
+        print soup
 
     '''
     with open('input.xml', 'rb') as file:
