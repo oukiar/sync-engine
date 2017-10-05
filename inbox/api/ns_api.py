@@ -566,8 +566,11 @@ def messages_bodystats():
         #print(html)
         
         soup = BeautifulSoup(html, 'html.parser')
-        elements = soup.find_all("div", class_="header name quantity".split())
-        print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
+        #elements = soup.find_all("div", class_="header name quantity".split())
+        #print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
+        
+        #soup.prettify()
+        print soup.find_all('div')
 
     '''
     with open('input.xml', 'rb') as file:
