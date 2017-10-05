@@ -570,7 +570,7 @@ def messages_bodystats():
         #print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
         
         #soup.prettify()
-        for i in soup:
+        for i in soup.find_all('style'):
             print('---')
             print i
 
