@@ -562,7 +562,7 @@ def messages_bodystats():
     
     for msg in messages:
         print("MESSAGEEEEE")
-        print(msg.body)
+        print(msg.body.encode('utf8'))
 
     '''
     with open('input.xml', 'rb') as file:
