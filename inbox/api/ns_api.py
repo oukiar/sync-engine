@@ -569,8 +569,11 @@ def messages_bodystats():
         #elements = soup.find_all("div", class_="header name quantity".split())
         #print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
         
+        tags = soup.findAll()
+        print("Total de tags: ", len(tags) )
+        
         #soup.prettify()
-        for i in soup.findAll():
+        for i in tags:
             print('---')
             print i
 
