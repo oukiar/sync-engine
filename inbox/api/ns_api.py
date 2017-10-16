@@ -576,7 +576,7 @@ def messages_bodystats():
         #soup.prettify()
         for i in tags:
             print('---')
-            print i
+            print i.name
 
     '''
     with open('input.xml', 'rb') as file:
