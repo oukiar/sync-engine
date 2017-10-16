@@ -111,6 +111,8 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
     size = Column(Integer, nullable=False)
     data_sha256 = Column(String(255), nullable=True)
 
+    bodySanitized = None
+
     is_read = Column(Boolean, server_default=false(), nullable=False)
     is_starred = Column(Boolean, server_default=false(), nullable=False)
 
