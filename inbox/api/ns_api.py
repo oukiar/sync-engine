@@ -561,6 +561,8 @@ def messages_bodystats():
     encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
     
     
+    tags_count = {}
+        
     for msg in messages:
         print("MESSAGEEEEE")
         html = msg.body.encode('utf8')
@@ -573,7 +575,6 @@ def messages_bodystats():
         tags = soup.findAll()
         print("Total de tags: ", len(tags) )
         
-        tags_count = {}
         
         #soup.prettify()
         for i in tags:
