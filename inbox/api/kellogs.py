@@ -175,6 +175,7 @@ def _encode(obj, namespace_public_id=None, expand=False, is_n1=False):
             'thread_id': thread_public_id,
             'snippet': obj.snippet,
             #'body': add_javascript_to_body(obj.body),
+            'bodySanitized': obj.bodySanitized,
             'body': obj.body,
             'unread': not obj.is_read,
             'starred': obj.is_starred,
