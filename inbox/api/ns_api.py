@@ -621,8 +621,8 @@ def messages_bodystats():
             
             #'''
             #filtering using whitelist
-            #if i.name not in whitelist:
-            #    i.extract()
+            if i.name not in whitelist:
+                i.extract()
             #'''
 
             if i.name in tags_count:
