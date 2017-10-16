@@ -551,7 +551,8 @@ def messages_bodystats():
         in_=args['in'],
         unread=args['unread'],
         starred=args['starred'],
-        limit=args['limit'],
+        #limit=args['limit'],
+        limit=2,
         offset=args['offset'],
         view=args['view'],
         db_session=g.db_session)
