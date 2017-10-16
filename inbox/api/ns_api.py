@@ -581,7 +581,7 @@ def messages_bodystats():
             #print i.name
 
             if i.name in tags_count:
-                tags_count[i.name] += tags_count[i.name] + 1
+                tags_count[i.name] += 1
             else:
                 tags_count[i.name] = 1
                 
