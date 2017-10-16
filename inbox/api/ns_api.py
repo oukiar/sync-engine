@@ -596,7 +596,7 @@ def messages_bodystats():
         "b",
         "center",
         "i",
-        "p",
+        #"p",
         "u",
         "small",
         "div",
@@ -621,11 +621,11 @@ def messages_bodystats():
             #print('---')
             #print i.name
             
-            '''
+            #'''
             #filtering using whitelist
             if i.name not in whitelist:
                 i.extract()
-            '''
+            #'''
 
             if i.name in tags_count:
                 tags_count[i.name] += 1
