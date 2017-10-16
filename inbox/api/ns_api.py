@@ -616,8 +616,8 @@ def messages_bodystats():
         print("Total de tags: ", len(tags) )
         
         for i in tags:
-            print('---')
-            print i.name
+            #print('---')
+            #print i.name
             
             #'''
             #filtering using whitelist
