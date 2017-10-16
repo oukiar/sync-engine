@@ -586,8 +586,9 @@ def messages_bodystats():
             else:
                 tags_count[i.name] = 1
                 
-        for i in tags_count:
-            print(i + ": " + str(tags_count[i]) )
+    print("=== TAGS SUMMARY ===")
+    for i in tags_count:
+        print(i + ": " + str(tags_count[i]) )
 
     '''
     with open('input.xml', 'rb') as file:
