@@ -615,11 +615,9 @@ def messages_bodystats():
         tags = soup.findAll()
         print("Total de tags: ", len(tags) )
         
-        
-        #soup.prettify()
         for i in tags:
-            #print('---')
-            #print i.name
+            print('---')
+            print i.name
             
             #'''
             #filtering using whitelist
