@@ -630,7 +630,7 @@ def messages_bodystats():
             else:
                 tags_count[i.name] = 1
                 
-        msg.body = soup.prettify()
+        msg.bodySanitized = soup.prettify()
                 
     print("=== TAGS SUMMARY ===")
     for i in tags_count:
