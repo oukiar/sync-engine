@@ -573,10 +573,20 @@ def messages_bodystats():
         tags = soup.findAll()
         print("Total de tags: ", len(tags) )
         
+        tags_count = {}
+        
         #soup.prettify()
         for i in tags:
-            print('---')
-            print i.name
+            #print('---')
+            #print i.name
+
+            if i.name in tags_count:
+                tags_count[i.name] += tags_count[i.name] + 1
+            else:
+                tags_count[i.name] = 1
+                
+        for i in tags_count:
+            print(i + ": " + str(tags_count[i]) )
 
     '''
     with open('input.xml', 'rb') as file:
