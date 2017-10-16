@@ -552,7 +552,7 @@ def messages_bodystats():
         unread=args['unread'],
         starred=args['starred'],
         #limit=args['limit'],
-        limit=50,
+        limit=2,
         offset=args['offset'],
         view=args['view'],
         db_session=g.db_session)
@@ -562,6 +562,46 @@ def messages_bodystats():
     
     
     tags_count = {}
+    whitelist = [ 
+        "em",
+        "h2",
+        "h3",
+        "h1",
+        "h4",
+        "meta",
+        "o:p",
+        "ol",
+        "table",
+        "font",
+        "style",
+        "span",
+        "img",
+        "title",
+        "tr",
+        "tbody",
+        "li",
+        "html",
+        "sup",
+        "td",
+        "body",
+        "head",
+        "hr",
+        "e:footer",
+        "nobr",
+        "base",
+        "link",
+        "br",
+        "strong",
+        "a",
+        "b",
+        "center",
+        "i",
+        "p",
+        "u",
+        "small",
+        "div",
+        "ul"
+    ]
         
     for msg in messages:
         print("MESSAGEEEEE")
@@ -580,6 +620,12 @@ def messages_bodystats():
         for i in tags:
             #print('---')
             #print i.name
+            
+            '''
+            #filtering using whitelist
+            if i.name not in whitelist:
+                i.extract()
+            '''
 
             if i.name in tags_count:
                 tags_count[i.name] += 1
