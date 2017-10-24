@@ -436,6 +436,7 @@ def thread_api_delete(public_id):
     """ Moves the thread to the trash """
     raise NotImplementedError
 
+import premailer
 
 ##
 # Messages
@@ -495,6 +496,12 @@ def message_query_api():
 
     # Use a new encoder object with the expand parameter set.
     encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
+    
+    #fix for sanitize the body
+    for msg in messages:
+        html = msg.body.encode('utf8')        
+        msg.bodySanitized = premailer.transform(html)
+    
     return encoder.jsonify(messages)
 
 
@@ -635,14 +642,6 @@ def messages_bodystats():
     print("=== TAGS SUMMARY ===")
     for i in tags_count:
         print(i + ": " + str(tags_count[i]) )
-
-    '''
-    with open('input.xml', 'rb') as file:
-        soup = BeautifulSoup(file)
-
-    elements = soup.find_all("div", class_="header name quantity".split())
-    print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
-    '''
 
     return encoder.jsonify(messages)
 
