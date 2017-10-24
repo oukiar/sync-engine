@@ -499,7 +499,7 @@ def message_query_api():
     
     #fix for sanitize the body
     for msg in messages:
-        html = msg.body.encode('utf8')        
+        html = msg.body #.encode('utf8')        
         msg.bodySanitized = premailer.transform(html)
     
     return encoder.jsonify(messages)
