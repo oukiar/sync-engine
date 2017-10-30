@@ -499,8 +499,11 @@ def message_query_api():
     
     #fix for sanitize the body
     for msg in messages:
-        html = msg.body #.encode('utf8')        
-        msg.bodySanitized = premailer.transform(html)
+        try:
+            html = msg.body #.encode('utf8')        
+            msg.bodySanitized = premailer.transform(html)
+        except:
+            print("OPS: Body was not sanitized")
     
     return encoder.jsonify(messages)
 
