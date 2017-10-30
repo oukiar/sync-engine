@@ -1770,7 +1770,7 @@ def draft_send_api():
     for i in tags:
         #print i
         print("NAME: ", i.name)
-        print("SRC: ", i.get("src")
+        print("SRC: ", i.get("src") )
             
         '''
         request.environ['log_context'].setdefault('filenames', []).append(name)
