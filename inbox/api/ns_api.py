@@ -1768,7 +1768,8 @@ def draft_send_api():
     print("Total de tags: ", len(tags) )
     
     for i in tags:
-        print json.dumps(i)
+        print i.name
+        print i.img["src"]
             
         '''
         request.environ['log_context'].setdefault('filenames', []).append(name)
