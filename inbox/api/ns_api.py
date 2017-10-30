@@ -1791,6 +1791,9 @@ def draft_send_api():
         f.filename = i.get("data-filename")
         f.data = b64decode(imgdata)
         all_files.append(f)
+        
+        #modificar el contenido del src para que funcione con el id del archivo adjunto
+        print("cid:" + f.id)
 
     g.db_session.add_all(all_files)
     g.db_session.commit()  # to generate public_ids
