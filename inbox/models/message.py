@@ -266,6 +266,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         r = requests.get(s_req, auth=(account.public_id, ''))
         print('RESULT SYNC EVENT:', r.status_code, r.text)
         
+        '''
         #-----------------------------
         #CODIGO PARA COMPONER EL UPLOAD DE IMAGEN DESDE BASE64 HACIA ATACHMENT
         
@@ -284,6 +285,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
                 
         #body_string = soup.prettify()
         #-----------------------------
+        '''
         
         #print("Body String:", body_string)
         _rqd = [account, mid, folder_name, body_string]

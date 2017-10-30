@@ -1749,6 +1749,11 @@ def draft_send_api():
     tracking_options = data.get('tracking', {})
 
     draft_public_id = data.get('draft_id')
+    
+    print("THIS IS THE BODY")
+    print(data.get('body') )
+    
+    
     if draft_public_id is not None:
         draft = get_draft(draft_public_id, data.get('version'),
                           g.namespace.id, g.db_session)
