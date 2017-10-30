@@ -497,13 +497,15 @@ def message_query_api():
     # Use a new encoder object with the expand parameter set.
     encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
     
-    #fix for sanitize the body
-    for msg in messages:
-        try:
-            html = msg.body #.encode('utf8')        
-            msg.bodySanitized = premailer.transform(html)
-        except:
-            print("OPS: Body was not sanitized")
+    if args['view'] != 'count':
+
+        #fix for sanitize the body
+        for msg in messages:
+            try:
+                html = msg.body #.encode('utf8')        
+                msg.bodySanitized = premailer.transform(html)
+            except:
+                print("OPS: Body was not sanitized")
     
     return encoder.jsonify(messages)
 
