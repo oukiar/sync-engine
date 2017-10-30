@@ -1753,6 +1753,25 @@ def draft_send_api():
     print("THIS IS THE BODY")
     print(data.get('body') )
     
+    body_string = data.get('body')
+    
+    #CODIGO PARA COMPONER EL UPLOAD DE IMAGEN DESDE BASE64 HACIA ATACHMENT
+        
+    html = body_string.encode('utf8')
+    print(html)
+    
+    soup = BeautifulSoup(html, 'html.parser')
+    #elements = soup.find_all("div", class_="header name quantity".split())
+    #print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
+    
+    tags = soup.findAll('img')
+    print("Total de tags: ", len(tags) )
+    
+    for i in tags:
+        print i.name
+            
+    #body_string = soup.prettify()
+    
     
     if draft_public_id is not None:
         draft = get_draft(draft_public_id, data.get('version'),
