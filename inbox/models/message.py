@@ -34,6 +34,8 @@ from inbox.util.encoding import unicode_safe_truncate
 #import time
 import requests
 
+from bs4 import BeautifulSoup
+
 SNIPPET_LENGTH = 191
 
 
@@ -246,9 +248,11 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
             The full message including headers (encoded).
 
         """
-        #key = account.email_address + ':' + folder_name
-        #mailboxes_timeouts[key] = time.time()
-        #print('*******', mailboxes_timeouts)
+        
+        '''
+        THIS CODE IS EXECUTED FROM THE CORE SYNC ENGINE
+        '''
+        
         print('*******')
         print("Email:", account.email_address)
         print("Account:", account.public_id)
@@ -256,10 +260,30 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         print("Mid:", mid)
         print("folder_name:", folder_name)
         
+        #CODIGO PARA MANTENER ACTUALIZADA LA LISTA DE FOLDERS QUE SE ESTAN SINCRONIZANDO POR CUENTA DE EMAIL
         s_req = 'https://nylas.orgboat.com/folder_account_sync?email='+account.email_address+'&folder='+folder_name
         print(s_req)
         r = requests.get(s_req, auth=(account.public_id, ''))
         print('RESULT SYNC EVENT:', r.status_code, r.text)
+        
+        #-----------------------------
+        #CODIGO PARA COMPONER EL UPLOAD DE IMAGEN DESDE BASE64 HACIA ATACHMENT
+        
+        html = body_string.encode('utf8')
+        print(html)
+        
+        soup = BeautifulSoup(html, 'html.parser')
+        #elements = soup.find_all("div", class_="header name quantity".split())
+        #print("\n".join("{} {}".format(el['class'], el.get_text()) for el in elements))
+        
+        tags = soup.findAll('img')
+        print("Total de tags: ", len(tags) )
+        
+        for i in tags:
+            print i.name
+                
+        #body_string = soup.prettify()
+        #-----------------------------
         
         #print("Body String:", body_string)
         _rqd = [account, mid, folder_name, body_string]
