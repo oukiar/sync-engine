@@ -1750,15 +1750,15 @@ def draft_send_api():
 
     draft_public_id = data.get('draft_id')
     
-    print("THIS IS THE BODY")
-    print(data.get('body') )
+    print("----BP1")
+    #print(data.get('body') )
     
     body_string = data.get('body')
     
     #CODIGO PARA COMPONER EL UPLOAD DE IMAGEN DESDE BASE64 HACIA ATACHMENT
         
     html = body_string.encode('utf8')
-    print(html)
+    #print(html)
     
     soup = BeautifulSoup(html, 'html.parser')
     #elements = soup.find_all("div", class_="header name quantity".split())
