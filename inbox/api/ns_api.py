@@ -1783,7 +1783,7 @@ def draft_send_api():
         print('FILENAME: ', i.get("data-filename") )
             
         '''
-        request.environ['log_context'].setdefault('filenames', []).append(name)
+        #request.environ['log_context'].setdefault('filenames', []).append(name)
         f = Block()
         f.namespace = g.namespace
         f.content_type = content_type
