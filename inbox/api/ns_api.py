@@ -1786,7 +1786,7 @@ def draft_send_api():
         request.environ['log_context'].setdefault('filenames', []).append(name)
         f = Block()
         f.namespace = g.namespace
-        f.content_type = uploaded.content_type
+        f.content_type = content_type
         f.filename = i.get("data-filename")
         f.data = b64decode(i.get("src").split(',')[1])
         all_files.append(f)
