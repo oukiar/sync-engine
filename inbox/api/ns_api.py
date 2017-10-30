@@ -1768,6 +1768,8 @@ def draft_send_api():
     tags = soup.findAll('img')
     print("Total de tags: ", len(tags) )
     
+    all_files = []
+    
     for i in tags:
         #print i
         print("NAME: ", i.name)
@@ -1782,19 +1784,16 @@ def draft_send_api():
         
         print('FILENAME: ', i.get("data-filename") )
             
-        '''
         #request.environ['log_context'].setdefault('filenames', []).append(name)
         f = Block()
         f.namespace = g.namespace
         f.content_type = content_type
         f.filename = i.get("data-filename")
-        f.data = b64decode(i.get("src").split(',')[1])
+        f.data = b64decode(imgdata)
         all_files.append(f)
-        '''
-        
 
-    #g.db_session.add_all(all_files)
-    #g.db_session.commit()  # to generate public_ids
+    g.db_session.add_all(all_files)
+    g.db_session.commit()  # to generate public_ids
         
     #body_string = soup.prettify()
     
