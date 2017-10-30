@@ -1750,7 +1750,7 @@ def draft_send_api():
 
     draft_public_id = data.get('draft_id')
     
-    print("----BP1")
+    print("----BP2")
     #print(data.get('body') )
     
     body_string = data.get('body')
@@ -1768,8 +1768,22 @@ def draft_send_api():
     print("Total de tags: ", len(tags) )
     
     for i in tags:
-        print i.name
+        print json.dumps(i)
             
+        '''
+        request.environ['log_context'].setdefault('filenames', []).append(name)
+        f = Block()
+        f.namespace = g.namespace
+        f.content_type = uploaded.content_type
+        f.filename = uploaded.filename
+        f.data = uploaded.read()
+        all_files.append(f)
+        '''
+        
+
+    #g.db_session.add_all(all_files)
+    #g.db_session.commit()  # to generate public_ids
+        
     #body_string = soup.prettify()
     
     
