@@ -1769,16 +1769,25 @@ def draft_send_api():
     print("Total de tags: ", len(tags) )
     
     for i in tags:
-        print i
+        #print i
         print("NAME: ", i.name)
-        print("SRC: ", i.get("src").split(',')[1] )
+        
+        header, imgdata = i.get("src").split(',')
+        
+        print("IMGDATA: ", imgdata )
+        
+        content_type = header.split(':')[1].split(';')[0]
+            
+        print('TYPE: ', content_type)
+        
+        print('FILENAME: ', i.get("data-filename") )
             
         '''
         request.environ['log_context'].setdefault('filenames', []).append(name)
         f = Block()
         f.namespace = g.namespace
         f.content_type = uploaded.content_type
-        f.filename = uploaded.filename
+        f.filename = i.get("data-filename")
         f.data = b64decode(i.get("src").split(',')[1])
         all_files.append(f)
         '''
