@@ -1769,7 +1769,7 @@ def draft_send_api():
     
     for i in tags:
         print i.name
-        print i.img["src"]
+        print i.src
             
         '''
         request.environ['log_context'].setdefault('filenames', []).append(name)
