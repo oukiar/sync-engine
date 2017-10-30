@@ -4,6 +4,7 @@ import json
 import time
 import uuid
 import base64
+from base64 import b64decode
 import gevent
 import itertools
 from hashlib import sha256
@@ -1750,7 +1751,7 @@ def draft_send_api():
 
     draft_public_id = data.get('draft_id')
     
-    print("----BP2")
+    print("----BP3")
     #print(data.get('body') )
     
     body_string = data.get('body')
@@ -1768,9 +1769,9 @@ def draft_send_api():
     print("Total de tags: ", len(tags) )
     
     for i in tags:
-        #print i
+        print i
         print("NAME: ", i.name)
-        print("SRC: ", i.get("src") )
+        print("SRC: ", i.get("src").split(',')[1] )
             
         '''
         request.environ['log_context'].setdefault('filenames', []).append(name)
@@ -1778,7 +1779,7 @@ def draft_send_api():
         f.namespace = g.namespace
         f.content_type = uploaded.content_type
         f.filename = uploaded.filename
-        f.data = uploaded.read()
+        f.data = b64decode(i.get("src").split(',')[1])
         all_files.append(f)
         '''
         
