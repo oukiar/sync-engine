@@ -1799,7 +1799,7 @@ def draft_send_api():
     g.db_session.commit()  # to generate public_ids
     
     for i in all_files:
-        print("cid:" + i.id)
+        print("cid:" + str(i.id) )
         
     #body_string = soup.prettify()
     
