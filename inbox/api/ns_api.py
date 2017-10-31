@@ -1745,13 +1745,9 @@ def draft_send_api():
         return resp
 
     data = request.get_json(force=True)
-
-    # Check if using tracking
-    tracking_options = data.get('tracking', {})
-
-    draft_public_id = data.get('draft_id')
     
-    print("----BP3")
+    
+    print("=========== BP3")
     #print(data.get('body') )
     
     body_string = data.get('body')
@@ -1822,6 +1818,12 @@ def draft_send_api():
     data['file_ids'] = file_ids
     
     print("FILE_IDS:", data['file_ids'])
+    #====================================
+
+    # Check if using tracking
+    tracking_options = data.get('tracking', {})
+
+    draft_public_id = data.get('draft_id')
     
     if draft_public_id is not None:
         draft = get_draft(draft_public_id, data.get('version'),
