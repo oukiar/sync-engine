@@ -1807,7 +1807,7 @@ def draft_send_api():
         
         index = all_files.index(i)
         
-        tags[index].set("src") = "cid:" + str(i.id) 
+        tags[index].set("src", "cid:" + str(i.id) )
         
     print("BODY:", soup.prettify() )
     
