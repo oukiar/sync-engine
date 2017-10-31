@@ -1793,7 +1793,7 @@ def draft_send_api():
         all_files.append(f)
         
         #modificar el contenido del src para que funcione con el id del archivo adjunto
-        print("cid:" + f.id)
+        print("cid:" + f.file_id)
 
     g.db_session.add_all(all_files)
     g.db_session.commit()  # to generate public_ids
