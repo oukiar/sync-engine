@@ -1769,6 +1769,7 @@ def draft_send_api():
     print("Total de tags: ", len(tags) )
     
     all_files = []
+    all_imgs = []
     
     for i in tags:
         #print i
@@ -1793,6 +1794,8 @@ def draft_send_api():
         f.data = b64decode(imgdata)
         all_files.append(f)
         
+        all_imgs.append(i)
+        
         #modificar el contenido del src para que funcione con el id del archivo adjunto
         
 
@@ -1807,7 +1810,7 @@ def draft_send_api():
         
         index = all_files.index(i)
         
-        tags[index].set("src", "cid:" + str(i.id) )
+        all_imgs[index].set("src", "cid:" + str(i.id) )
         
     print("BODY:", soup.prettify() )
     
