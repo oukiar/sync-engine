@@ -1801,7 +1801,7 @@ def draft_send_api():
     file_ids = []
     
     for i in all_files:
-        print("cid:" + str(i.id) )
+        print("cid:" + str(i.public_id) )
         file_ids.append(i.id)
         
         index = all_files.index(i)
