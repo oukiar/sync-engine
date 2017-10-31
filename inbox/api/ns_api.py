@@ -1812,7 +1812,7 @@ def draft_send_api():
         
         print all_imgs[index]
         
-        all_imgs[index].set("src", "cid:" + str(i.id) )
+        all_imgs[index]["src"] = "cid:" + str(i.id) )
         
     print("BODY:", soup.prettify() )
     
