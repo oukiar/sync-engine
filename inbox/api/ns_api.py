@@ -1814,11 +1814,14 @@ def draft_send_api():
         
         all_imgs[index]["src"] = "cid:" + str(i.id) 
         
-    print("BODY:", soup.prettify() )
     
     data['body'] = soup.prettify()
     
+    print("BODY:", data['body'])
+    
     data['file_ids'] = file_ids
+    
+    print("FILE_IDS:", data['file_ids'])
     
     if draft_public_id is not None:
         draft = get_draft(draft_public_id, data.get('version'),
