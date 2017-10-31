@@ -1796,7 +1796,7 @@ def draft_send_api():
         
 
     g.db_session.add_all(all_files)
-    #g.db_session.commit()  # to generate public_ids
+    g.db_session.commit()  # to generate public_ids
     
     file_ids = []
     
@@ -1815,9 +1815,9 @@ def draft_send_api():
     
     print("BODY:", data['body'])
     
-    data['file_ids'] = file_ids
+    #data['file_ids'] = file_ids
+    #print("FILE_IDS:", data['file_ids'])
     
-    print("FILE_IDS:", data['file_ids'])
     #====================================
 
     # Check if using tracking
