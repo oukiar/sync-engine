@@ -1796,7 +1796,7 @@ def draft_send_api():
         
 
     g.db_session.add_all(all_files)
-    g.db_session.commit()  # to generate public_ids
+    #g.db_session.commit()  # to generate public_ids
     
     file_ids = []
     
