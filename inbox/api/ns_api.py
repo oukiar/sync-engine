@@ -1810,6 +1810,8 @@ def draft_send_api():
         
         index = all_files.index(i)
         
+        print all_imgs[index]
+        
         all_imgs[index].set("src", "cid:" + str(i.id) )
         
     print("BODY:", soup.prettify() )
