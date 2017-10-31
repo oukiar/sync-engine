@@ -1772,11 +1772,12 @@ def draft_send_api():
     
     for i in tags:
         #print i
+        print('==================')
         print("NAME: ", i.name)
         
         header, imgdata = i.get("src").split(',')
         
-        print("IMGDATA: ", imgdata )
+        #print("IMGDATA: ", imgdata )
         
         content_type = header.split(':')[1].split(';')[0]
             
@@ -1798,10 +1799,17 @@ def draft_send_api():
     g.db_session.add_all(all_files)
     g.db_session.commit()  # to generate public_ids
     
+    file_ids = []
+    
     for i in all_files:
         print("cid:" + str(i.id) )
+        file_ids.append(i.id)
         
-    #body_string = soup.prettify()
+        index = all_files.index(i)
+        
+        tags[index].set("src") = "cid:" + str(i.id) 
+        
+    print("BODY:", soup.prettify() )
     
     
     if draft_public_id is not None:
