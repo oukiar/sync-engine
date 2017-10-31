@@ -1808,15 +1808,15 @@ def draft_send_api():
         
         #print all_imgs[index]
         
-        all_imgs[index]["src"] = "cid:" + str(i.id) 
+        all_imgs[index]["src"] = "cid:" + str(i.public_id) 
         
     
     data['body'] = soup.prettify()
     
     print("BODY:", data['body'])
     
-    #data['file_ids'] = file_ids
-    #print("FILE_IDS:", data['file_ids'])
+    data['file_ids'] = file_ids
+    print("FILE_IDS:", data['file_ids'])
     
     #====================================
 
