@@ -1802,7 +1802,7 @@ def draft_send_api():
     
     for i in all_files:
         print("cid:" + str(i.public_id) )
-        file_ids.append(i.id)
+        file_ids.append(i.public_id)
         
         index = all_files.index(i)
         
