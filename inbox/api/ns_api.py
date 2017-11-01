@@ -534,7 +534,7 @@ def message_query_api():
                                 
                             print f
                                 
-                            i["src"] = b64encode(f.data )
+                            i["src"] = 'data:' + f.content_type +';base64,' + b64encode(f.data )
                         except NoResultFound:
                             print("Couldn't find file {0} ".format(public_id))
                     
@@ -1808,7 +1808,7 @@ def draft_send_api():
         print('==================')
         print("NAME: ", i.name)
         
-        print i.get("src")
+        #print i.get("src")
         
         header, imgdata = i.get("src").split(',')
         
