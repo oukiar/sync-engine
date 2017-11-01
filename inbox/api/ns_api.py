@@ -528,7 +528,7 @@ def message_query_api():
                         
                         for i in msg.api_attachment_metadata:
                             print i
-                            if i.content_id == public_id:
+                            if i['content_id'] == public_id:
                                 public_id = i.id
                                 break
                                 
