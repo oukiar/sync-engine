@@ -519,22 +519,23 @@ def message_query_api():
                     print("NAME: ", i.name)
                     print("SRC: ", i.get("src") )
                     
-                    
-                    public_id = i.get("src").split(':')[1]
-                    print("PUBLIC_ID: ", public_id)
-                    
-                    #extract the content of the image
-                    valid_public_id(public_id)
-                    try:
-                        f = g.db_session.query(Block).filter(
-                            Block.public_id == public_id,
-                            Block.namespace_id == g.namespace.id).one()
-                            
-                        print f
-                            
-                        i["src"] = b64encode(f.read() )
-                    except NoResultFound:
-                        print("Couldn't find file {0} ".format(public_id))
+                    if 'cid:' in i.get("src"):
+                        
+                        public_id = i.get("src").split(':')[1]
+                        print("PUBLIC_ID: ", public_id)
+                        
+                        #extract the content of the image
+                        valid_public_id(public_id)
+                        try:
+                            f = g.db_session.query(Block).filter(
+                                Block.public_id == public_id,
+                                Block.namespace_id == g.namespace.id).one()
+                                
+                            print f
+                                
+                            i["src"] = b64encode(f.read() )
+                        except NoResultFound:
+                            print("Couldn't find file {0} ".format(public_id))
                     
                 msg.bodySanitized = soup.prettify()
                     
