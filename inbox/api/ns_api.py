@@ -526,11 +526,16 @@ def message_query_api():
                         public_id = i.get("src").split(':')[1]
                         print("PUBLIC_ID: ", public_id)
                         
+                        for i in msg.files:
+                            if i.content_id == public_id:
+                                public_id = i.id
+                                break
+                        
                         #extract the content of the image
-                        #valid_public_id(public_id)
+                        valid_public_id(public_id)
                         try:
                             f = g.db_session.query(Block).filter(
-                                Part.content_id == public_id,
+                                Block.public_id == public_id,
                                 Block.namespace_id == g.namespace.id).one()
                                 
                             print f
