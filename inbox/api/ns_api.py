@@ -513,9 +513,6 @@ def message_query_api():
                 tags = soup.findAll('img')
                 print("Total de tags: ", len(tags) )
                 
-                all_files = []
-                all_imgs = []
-                
                 for i in tags:
                     #print i
                     print('==================')
@@ -524,6 +521,7 @@ def message_query_api():
                     
                     
                     public_id = i.get("src").split(':')[1]
+                    print("PUBLIC_ID: ", public_id)
                     
                     #extract the content of the image
                     valid_public_id(public_id)
