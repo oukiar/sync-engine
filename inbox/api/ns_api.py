@@ -530,7 +530,7 @@ def message_query_api():
                         #valid_public_id(public_id)
                         try:
                             f = g.db_session.query(Block).filter(
-                                Block.content_id == public_id,
+                                Part.content_id == public_id,
                                 Block.namespace_id == g.namespace.id).one()
                                 
                             print f
