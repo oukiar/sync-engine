@@ -529,7 +529,7 @@ def message_query_api():
                         f = g.db_session.query(Block).filter(
                             Block.public_id == public_id,
                             Block.namespace_id == g.namespace.id).one()
-                        i["src"] = b64encode(g.encoder.jsonify(f) )
+                        i["src"] = b64encode(f.read() )
                     except NoResultFound:
                         print("Couldn't find file {0} ".format(public_id))
                     
