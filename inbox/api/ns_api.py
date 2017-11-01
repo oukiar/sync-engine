@@ -524,12 +524,14 @@ def message_query_api():
                     if 'cid:' in i.get("src"):
                         
                         public_id = i.get("src").split(':')[1]
-                        print("PUBLIC_ID: ", public_id)
+                        print("CONTENT_PUBLIC_ID: ", public_id)
                         
                         for i in msg.files:
                             if i.content_id == public_id:
                                 public_id = i.id
                                 break
+                                
+                        print("PUBLIC_ID: ", public_id)
                         
                         #extract the content of the image
                         valid_public_id(public_id)
