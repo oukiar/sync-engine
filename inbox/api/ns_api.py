@@ -516,7 +516,7 @@ def message_query_api():
                 for i in tags:
                     #print i
                     print('==================')
-                    print("ACCOUNT_ID: ", g.namespace.id)
+                    print("ACCOUNT_ID: ", g.namespace.public_id)
                     print("NAME: ", i.name)
                     print("SRC: ", i.get("src") )
                     
