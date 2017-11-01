@@ -4,7 +4,7 @@ import json
 import time
 import uuid
 import base64
-from base64 import b64decode
+from base64 import b64decode, b64encode
 import gevent
 import itertools
 from hashlib import sha256
@@ -505,6 +505,39 @@ def message_query_api():
             try:
                 html = msg.body #.encode('utf8')        
                 msg.bodySanitized = premailer.transform(html)
+                
+                #conversion from img src cid to base 64 for our web solution
+                
+                soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
+                
+                tags = soup.findAll('img')
+                print("Total de tags: ", len(tags) )
+                
+                all_files = []
+                all_imgs = []
+                
+                for i in tags:
+                    #print i
+                    print('==================')
+                    print("NAME: ", i.name)
+                    print("SRC: ", i.get("src") )
+                    
+                    
+                    public_id = i.get("src").split(':')[1]
+                    
+                    #extract the content of the image
+                    valid_public_id(public_id)
+                    try:
+                        f = g.db_session.query(Block).filter(
+                            Block.public_id == public_id,
+                            Block.namespace_id == g.namespace.id).one()
+                        i["src"] = b64encode(g.encoder.jsonify(f) )
+                    except NoResultFound:
+                        print("Couldn't find file {0} ".format(public_id))
+                    
+                msg.bodySanitized = soup.prettify()
+                    
+                    
             except:
                 print("OPS: Body was not sanitized")
     
