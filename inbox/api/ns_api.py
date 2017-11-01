@@ -1808,6 +1808,8 @@ def draft_send_api():
         print('==================')
         print("NAME: ", i.name)
         
+        print i.get("src")
+        
         header, imgdata = i.get("src").split(',')
         
         #print("IMGDATA: ", imgdata )
