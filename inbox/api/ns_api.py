@@ -527,7 +527,7 @@ def message_query_api():
                         print("PUBLIC_ID: ", public_id)
                         
                         #extract the content of the image
-                        valid_public_id(public_id)
+                        #valid_public_id(public_id)
                         try:
                             f = g.db_session.query(Block).filter(
                                 Block.content_id == public_id,
