@@ -526,10 +526,10 @@ def message_query_api():
                         public_id = i.get("src").split(':')[1]
                         print("CONTENT_PUBLIC_ID: ", public_id)
                         
-                        for i in msg.api_attachment_metadata:
-                            print i
-                            if i['content_id'] == public_id:
-                                public_id = i['id']
+                        for j in msg.api_attachment_metadata:
+                            print j
+                            if j['content_id'] == public_id:
+                                public_id = j['id']
                                 break
                                 
                         print("PUBLIC_ID: ", public_id)
