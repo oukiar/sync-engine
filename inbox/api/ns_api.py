@@ -511,6 +511,7 @@ def message_query_api():
                 soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
                 
                 tags = soup.findAll('img')
+                print("+++++++++++ SUBJECT: ", msg.subject)
                 print("Total de tags: ", len(tags) )
                 
                 for i in tags:
