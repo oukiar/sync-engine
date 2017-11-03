@@ -1049,6 +1049,10 @@ def folder_label_delete_api(public_id):
 ##
 @app.route('/contacts/', methods=['GET'])
 def contact_api():
+    
+    print("====================")
+    print("LOG FROM CONTACTS ENDPOINT")
+    
     g.parser.add_argument('filter', type=bounded_str, default='',
                           location='args')
     g.parser.add_argument('view', type=bounded_str, location='args')
