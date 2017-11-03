@@ -1074,7 +1074,6 @@ def contact_api():
             Contact, 'USE INDEX (idx_namespace_created)')\
             .order_by(asc(Contact.created_at))
 
-    print("LOG FROM CONTACTS FINISHED", len(results) )
 
     if args['view'] == 'count':
         return g.encoder.jsonify({"count": results.scalar()})
@@ -1086,6 +1085,9 @@ def contact_api():
     results = results.limit(args['limit']).offset(args['offset']).all()
     if args['view'] == 'ids':
         return g.encoder.jsonify([r for r, in results])
+
+
+    print("LOG FROM CONTACTS FINISHED", results )
 
     return g.encoder.jsonify(results)
 
