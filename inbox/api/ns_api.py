@@ -1050,8 +1050,6 @@ def folder_label_delete_api(public_id):
 @app.route('/contacts/', methods=['GET'])
 def contact_api():
     
-    print("====================")
-    print("LOG FROM CONTACTS ENDPOINT")
     
     g.parser.add_argument('filter', type=bounded_str, default='',
                           location='args')
@@ -1064,6 +1062,9 @@ def contact_api():
         results = g.db_session.query(Contact.public_id)
     else:
         results = g.db_session.query(Contact)
+        
+    print("====================")
+    print("LOG FROM CONTACTS ENDPOINT", args['filter'])
 
     results = results.filter(Contact.namespace_id == g.namespace.id)
 
