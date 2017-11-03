@@ -257,6 +257,8 @@ def handle_generic_error(error):
 
 @app.route('/account')
 def one_account():
+    
+    print("LOG FROM ACCOUNT")
     g.parser.add_argument('view', type=view, location='args')
     args = strict_parse_args(g.parser, request.args)
     # Use a new encoder object with the expand parameter set.
