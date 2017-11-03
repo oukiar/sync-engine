@@ -1064,7 +1064,7 @@ def contact_api():
         results = g.db_session.query(Contact)
         
     print("====================")
-    print("LOG FROM CONTACTS ENDPOINT", args['filter'])
+    print("LOG FROM CONTACTS ENDPOINT")
 
     results = results.filter(Contact.namespace_id == g.namespace.id)
 
@@ -1087,7 +1087,7 @@ def contact_api():
         return g.encoder.jsonify([r for r, in results])
 
 
-    print("LOG FROM CONTACTS FINISHED", results )
+    print("LOG FROM CONTACTS FINISHED" )
 
     return g.encoder.jsonify(results)
 
