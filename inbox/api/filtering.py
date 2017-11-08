@@ -361,6 +361,8 @@ def messages_or_drafts(namespace_id, drafts, subject, from_addr, to_addr,
         subqueryload(Message.parts).joinedload(Part.block),
         subqueryload(Message.events))
 
+    print(str(query) )
+
     prepared = query(db_session).params(**param_dict)
     return prepared.all()
 
