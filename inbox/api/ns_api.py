@@ -501,14 +501,14 @@ def message_query_api():
 
     # Use a new encoder object with the expand parameter set.
     encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
-    '''
+    
     if args['view'] != 'count':
 
         #fix for sanitize the body
         for msg in messages:
             try:
                 html = msg.body #.encode('utf8')        
-                msg.bodySanitized = premailer.transform(html)
+                #msg.bodySanitized = premailer.transform(html)
                 
                 #conversion from img src cid to base 64 for our web solution
                 
@@ -556,7 +556,7 @@ def message_query_api():
                     
             except:
                 print("OPS: Body was not sanitized")
-    '''
+    
     return encoder.jsonify(messages)
 
 
