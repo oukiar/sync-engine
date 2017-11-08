@@ -472,6 +472,8 @@ def message_query_api():
 
     args = strict_parse_args(g.parser, request.args)
 
+    print("LOG MESSAGE", g.namespace.id, args['thread_id'])
+
     messages = filtering.messages_or_drafts(
         namespace_id=g.namespace.id,
         drafts=False,
