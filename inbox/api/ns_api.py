@@ -501,7 +501,7 @@ def message_query_api():
 
     # Use a new encoder object with the expand parameter set.
     encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
-    
+    '''
     if args['view'] != 'count':
 
         #fix for sanitize the body
@@ -556,7 +556,7 @@ def message_query_api():
                     
             except:
                 print("OPS: Body was not sanitized")
-    
+    '''
     return encoder.jsonify(messages)
 
 
