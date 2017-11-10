@@ -509,6 +509,7 @@ def message_query_api():
             try:
                 html = msg.body #.encode('utf8')        
                 #msg.bodySanitized = premailer.transform(html)
+                msg.bodySanitized = html
                 
                 #conversion from img src cid to base 64 for our web solution
                 
