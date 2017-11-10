@@ -540,40 +540,42 @@ def message_query_api():
                 print("+++++++++++ SUBJECT: ", msg.subject)
                 print("Total de tags: ", len(tags) )
                 
-                for i in tags:
-                    #print i
-                    print('==================')
-                    print("ACCOUNT_ID: ", g.namespace.public_id)
-                    print("NAME: ", i.name)
-                    print("SRC: ", i.get("src") )
-                    
-                    if 'cid:' in i.get("src"):
+                if len(tags) < 10:
+                
+                    for i in tags:
+                        #print i
+                        print('==================')
+                        print("ACCOUNT_ID: ", g.namespace.public_id)
+                        print("NAME: ", i.name)
+                        print("SRC: ", i.get("src") )
                         
-                        public_id = i.get("src").split(':')[1]
-                        print("CONTENT_PUBLIC_ID: ", public_id)
+                        if 'cid:' in i.get("src"):
+                            
+                            public_id = i.get("src").split(':')[1]
+                            print("CONTENT_PUBLIC_ID: ", public_id)
+                            
+                            for j in msg.api_attachment_metadata:
+                                print j
+                                if j['content_id'] == public_id:
+                                    public_id = j['id']
+                                    break
+                                    
+                            print("PUBLIC_ID: ", public_id)
+                            
+                            #extract the content of the image
+                            valid_public_id(public_id)
+                            try:
+                                f = g.db_session.query(Block).filter(
+                                    Block.public_id == public_id,
+                                    Block.namespace_id == g.namespace.id).one()
+                                    
+                                print f
+                                    
+                                i["src"] = 'data:' + f.content_type +';base64,' + b64encode(f.data )
+                            except NoResultFound:
+                                print("Couldn't find file {0} ".format(public_id))
                         
-                        for j in msg.api_attachment_metadata:
-                            print j
-                            if j['content_id'] == public_id:
-                                public_id = j['id']
-                                break
-                                
-                        print("PUBLIC_ID: ", public_id)
-                        
-                        #extract the content of the image
-                        valid_public_id(public_id)
-                        try:
-                            f = g.db_session.query(Block).filter(
-                                Block.public_id == public_id,
-                                Block.namespace_id == g.namespace.id).one()
-                                
-                            print f
-                                
-                            i["src"] = 'data:' + f.content_type +';base64,' + b64encode(f.data )
-                        except NoResultFound:
-                            print("Couldn't find file {0} ".format(public_id))
-                    
-                msg.bodySanitized = soup.prettify()
+                    msg.bodySanitized = soup.prettify()
                     
                     
             except:
