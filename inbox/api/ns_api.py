@@ -87,6 +87,9 @@ SEND_TIMEOUT = 60
 
 from flask_cors import CORS
 
+
+from bs4 import BeautifulSoup # $ pip install beautifulsoup4
+
 app = Blueprint(
     'namespace_api',
     __name__,
@@ -561,7 +564,6 @@ def message_query_api():
     return encoder.jsonify(messages)
 
 
-from bs4 import BeautifulSoup # $ pip install beautifulsoup4
 
 ##
 # Messages
