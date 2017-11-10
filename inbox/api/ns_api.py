@@ -505,6 +505,10 @@ def message_query_api():
     # Use a new encoder object with the expand parameter set.
     encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
     
+    
+    print("=== DOING BODY SANITIZATION ===")
+    startsanitization = time.time()
+    
     if args['view'] != 'count':
 
         #fix for sanitize the body
@@ -523,8 +527,12 @@ def message_query_api():
                 
                 #if found style tags
                 if len(tags):
+                    print("=== DOING BODY PREMAILER SANITIZATION")
+                    start = time.time()
                     msg.bodySanitized = premailer.transform(html)
                     soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
+                    end = time.time()
+                    print("=== END BODY PREMAILER SANITIZATION: " + str(end - start) + " secs" )
                 
                 tags = soup.findAll('img')
                 print("+++++++++++ SUBJECT: ", msg.subject)
@@ -569,6 +577,9 @@ def message_query_api():
             except:
                 print("OPS: Body was not sanitized")
     
+    endsanitization = time.time()
+    print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
+
     return encoder.jsonify(messages)
 
 
