@@ -518,6 +518,14 @@ def message_query_api():
                 
                 soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
                 
+                #solution 1 for sanitize only if the body has style tag
+                tags = soup.findAll('style')
+                
+                #if found style tags
+                if len(tags):
+                    msg.bodySanitized = premailer.transform(html)
+                    soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
+                
                 tags = soup.findAll('img')
                 print("+++++++++++ SUBJECT: ", msg.subject)
                 print("Total de tags: ", len(tags) )
