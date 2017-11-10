@@ -522,6 +522,7 @@ def message_query_api():
                 
                 soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
                 
+                '''
                 #solution 1 for sanitize only if the body has style tag
                 tags = soup.findAll('style')
                 
@@ -533,6 +534,7 @@ def message_query_api():
                     soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
                     end = time.time()
                     print("=== END BODY PREMAILER SANITIZATION: " + str(end - start) + " secs" )
+                '''
                 
                 tags = soup.findAll('img')
                 print("+++++++++++ SUBJECT: ", msg.subject)
