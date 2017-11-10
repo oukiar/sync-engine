@@ -507,6 +507,8 @@ def message_query_api():
     
     
     print("=== DOING BODY SANITIZATION ===")
+    print("-- MESSAGES COUNT: " * str(messages) )
+    
     startsanitization = time.time()
     
     if args['view'] != 'count':
