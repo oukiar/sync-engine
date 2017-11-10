@@ -576,7 +576,8 @@ def message_query_api():
                                 print("Couldn't find file {0} ".format(public_id))
                         
                     msg.bodySanitized = soup.prettify()
-                    
+                else:
+                    print("!!!SKIPPING IMAGE SANITIZATION")
                     
             except:
                 print("OPS: Body was not sanitized")
