@@ -444,6 +444,76 @@ def thread_api_delete(public_id):
 
 import premailer
 
+def sanitize(body):
+    try:
+        html = msg.body #.encode('utf8')        
+        #msg.bodySanitized = premailer.transform(html)
+        msg.bodySanitized = html
+        
+        #conversion from img src cid to base 64 for our web solution
+        
+        soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
+        
+        '''
+        #solution 1 for sanitize only if the body has style tag
+        tags = soup.findAll('style')
+        
+        #if found style tags
+        if len(tags):
+            print("=== DOING BODY PREMAILER SANITIZATION")
+            start = time.time()
+            msg.bodySanitized = premailer.transform(html)
+            soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
+            end = time.time()
+            print("=== END BODY PREMAILER SANITIZATION: " + str(end - start) + " secs" )
+        '''
+        
+        tags = soup.findAll('img')
+        print("+++++++++++ SUBJECT: ", msg.subject)
+        print("Total de tags: ", len(tags) )
+        
+        if True: #if len(tags) < 10:
+        
+            for i in tags:
+                #print i
+                print('==================')
+                print("ACCOUNT_ID: ", g.namespace.public_id)
+                print("NAME: ", i.name)
+                print("SRC: ", i.get("src") )
+                
+                if 'cid:' in i.get("src"):
+                    
+                    public_id = i.get("src").split(':')[1]
+                    print("CONTENT_PUBLIC_ID: ", public_id)
+                    
+                    for j in msg.api_attachment_metadata:
+                        print j
+                        if j['content_id'] == public_id:
+                            public_id = j['id']
+                            break
+                            
+                    print("PUBLIC_ID: ", public_id)
+                    
+                    #extract the content of the image
+                    valid_public_id(public_id)
+                    try:
+                        f = g.db_session.query(Block).filter(
+                            Block.public_id == public_id,
+                            Block.namespace_id == g.namespace.id).one()
+                            
+                        print f
+                            
+                        i["src"] = 'data:' + f.content_type +';base64,' + b64encode(f.data )
+                    except NoResultFound:
+                        print("Couldn't find file {0} ".format(public_id))
+                
+            msg.bodySanitized = soup.prettify()
+        else:
+            print("!!!SKIPPING IMAGE SANITIZATION")
+            
+    except:
+        print("OPS: Body was not sanitized")
+
 ##
 # Messages
 ##
@@ -515,74 +585,7 @@ def message_query_api():
 
         #fix for sanitize the body
         for msg in messages:
-            try:
-                html = msg.body #.encode('utf8')        
-                #msg.bodySanitized = premailer.transform(html)
-                msg.bodySanitized = html
-                
-                #conversion from img src cid to base 64 for our web solution
-                
-                soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
-                
-                '''
-                #solution 1 for sanitize only if the body has style tag
-                tags = soup.findAll('style')
-                
-                #if found style tags
-                if len(tags):
-                    print("=== DOING BODY PREMAILER SANITIZATION")
-                    start = time.time()
-                    msg.bodySanitized = premailer.transform(html)
-                    soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
-                    end = time.time()
-                    print("=== END BODY PREMAILER SANITIZATION: " + str(end - start) + " secs" )
-                '''
-                
-                tags = soup.findAll('img')
-                print("+++++++++++ SUBJECT: ", msg.subject)
-                print("Total de tags: ", len(tags) )
-                
-                if True: #if len(tags) < 10:
-                
-                    for i in tags:
-                        #print i
-                        print('==================')
-                        print("ACCOUNT_ID: ", g.namespace.public_id)
-                        print("NAME: ", i.name)
-                        print("SRC: ", i.get("src") )
-                        
-                        if 'cid:' in i.get("src"):
-                            
-                            public_id = i.get("src").split(':')[1]
-                            print("CONTENT_PUBLIC_ID: ", public_id)
-                            
-                            for j in msg.api_attachment_metadata:
-                                print j
-                                if j['content_id'] == public_id:
-                                    public_id = j['id']
-                                    break
-                                    
-                            print("PUBLIC_ID: ", public_id)
-                            
-                            #extract the content of the image
-                            valid_public_id(public_id)
-                            try:
-                                f = g.db_session.query(Block).filter(
-                                    Block.public_id == public_id,
-                                    Block.namespace_id == g.namespace.id).one()
-                                    
-                                print f
-                                    
-                                i["src"] = 'data:' + f.content_type +';base64,' + b64encode(f.data )
-                            except NoResultFound:
-                                print("Couldn't find file {0} ".format(public_id))
-                        
-                    msg.bodySanitized = soup.prettify()
-                else:
-                    print("!!!SKIPPING IMAGE SANITIZATION")
-                    
-            except:
-                print("OPS: Body was not sanitized")
+            sanitize(msg.body)
     
     endsanitization = time.time()
     print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
