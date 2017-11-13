@@ -492,6 +492,7 @@ def sanitize(msg):
                             
                     print("PUBLIC_ID: ", public_id)
                     
+                    '''
                     #extract the content of the image
                     valid_public_id(public_id)
                     try:
@@ -504,6 +505,9 @@ def sanitize(msg):
                         i["src"] = 'data:' + f.content_type +';base64,' + b64encode(f.data )
                     except NoResultFound:
                         print("Couldn't find file {0} ".format(public_id))
+                    '''
+                    
+                    i["src"] = "https://nylas.orgboat.com/files/" + public_id + "/download"
                 
             return soup.prettify()
         else:
