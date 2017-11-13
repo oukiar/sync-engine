@@ -507,12 +507,13 @@ def sanitize(body):
                     except NoResultFound:
                         print("Couldn't find file {0} ".format(public_id))
                 
-            msg.bodySanitized = soup.prettify()
+            return soup.prettify()
         else:
             print("!!!SKIPPING IMAGE SANITIZATION")
             
     except:
         print("OPS: Body was not sanitized")
+        
 
 ##
 # Messages
@@ -585,7 +586,7 @@ def message_query_api():
 
         #fix for sanitize the body
         for msg in messages:
-            sanitize(msg.body)
+            msg.bodySanitized = sanitize(msg.body)
     
     endsanitization = time.time()
     print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
