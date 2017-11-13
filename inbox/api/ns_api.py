@@ -852,6 +852,17 @@ def message_read_api(public_id):
                 "Please try again in a few minutes."
                 .format(public_id))
 
+
+    print("=== DOING BODY SANITIZATION ===")
+    
+    startsanitization = time.time()
+    
+    print("+++++++++++ SUBJECT: ", message.subject)
+    message.bodySanitized = sanitize(message)
+    
+    endsanitization = time.time()
+    print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
+
     return encoder.jsonify(message)
 
 
