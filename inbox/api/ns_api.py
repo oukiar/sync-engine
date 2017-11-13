@@ -514,7 +514,7 @@ def sanitize(msg):
                         print("Couldn't find file {0} ".format(public_id))
                     '''
                     
-                    i["src"] = "https://nylas.orgboat.com/files/" + public_id + "/download"
+                    i["src"] = "https://nylas.orgboat.com/files/" + public_id + "/download?auth=" + g.namespace.public_id
                 
             return soup.prettify()
         else:
