@@ -586,7 +586,7 @@ def message_query_api():
         for msg in messages:
             
             print("+++++++++++ SUBJECT: ", msg.subject)
-            msg.bodySanitized = sanitize(msg.body)
+            msg.bodySanitized = sanitize(msg)
     
     endsanitization = time.time()
     print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
