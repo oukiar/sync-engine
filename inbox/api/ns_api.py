@@ -542,7 +542,7 @@ def message_query_api():
                 print("+++++++++++ SUBJECT: ", msg.subject)
                 print("Total de tags: ", len(tags) )
                 
-                if len(tags) < 10:
+                if True: #if len(tags) < 10:
                 
                     for i in tags:
                         #print i
