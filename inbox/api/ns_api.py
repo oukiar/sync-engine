@@ -444,15 +444,14 @@ def thread_api_delete(public_id):
 
 import premailer
 
-def sanitize(body):
+def sanitize(msg):
     try:
         html = msg.body #.encode('utf8')        
         #msg.bodySanitized = premailer.transform(html)
-        msg.bodySanitized = html
         
         #conversion from img src cid to base 64 for our web solution
         
-        soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
+        soup = BeautifulSoup(html, 'html.parser')
         
         '''
         #solution 1 for sanitize only if the body has style tag
@@ -469,7 +468,6 @@ def sanitize(body):
         '''
         
         tags = soup.findAll('img')
-        print("+++++++++++ SUBJECT: ", msg.subject)
         print("Total de tags: ", len(tags) )
         
         if True: #if len(tags) < 10:
@@ -586,6 +584,8 @@ def message_query_api():
 
         #fix for sanitize the body
         for msg in messages:
+            
+            print("+++++++++++ SUBJECT: ", msg.subject)
             msg.bodySanitized = sanitize(msg.body)
     
     endsanitization = time.time()
