@@ -89,6 +89,7 @@ from flask_cors import CORS
 
 
 from bs4 import BeautifulSoup # $ pip install beautifulsoup4
+from bs4 import SoupStrainer
 
 app = Blueprint(
     'namespace_api',
@@ -451,7 +452,12 @@ def sanitize(msg):
         
         #conversion from img src cid to base 64 for our web solution
         
-        soup = BeautifulSoup(html, 'html.parser')
+        #test for better performance
+        only_img_tags = SoupStrainer("img")
+        
+        
+        
+        soup = BeautifulSoup(html, 'html.parser',  parse_only=only_img_tags)
         
         '''
         #solution 1 for sanitize only if the body has style tag
