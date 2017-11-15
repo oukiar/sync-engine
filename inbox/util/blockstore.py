@@ -13,7 +13,9 @@ STORE_MSG_ON_S3 = config.get('STORE_MESSAGES_ON_S3', None)
 if STORE_MSG_ON_S3:
     from boto.s3.connection import S3Connection
     from boto.s3.key import Key
+    print("STORING IN S3")
 else:
+    print("STORING IN LOCAL FILESYSTEM")
     from inbox.util.file import mkdirp
 
     def _data_file_directory(h):
