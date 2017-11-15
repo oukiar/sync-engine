@@ -33,6 +33,8 @@ def save_to_blockstore(data_sha256, data):
     if len(data) == 0:
         log.warning('Not saving 0-length data blob')
         return
+        
+    print("**********STORING MESSAGE")
 
     if STORE_MSG_ON_S3:
         _save_to_s3(data_sha256, data)
