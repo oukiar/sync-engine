@@ -57,7 +57,11 @@ def _save_to_s3_bucket(data_sha256, bucket_name, data):
 
     # Boto pools connections at the class level
     conn = S3Connection(config.get('AWS_ACCESS_KEY_ID'),
-                        config.get('AWS_SECRET_ACCESS_KEY'))
+                        config.get('AWS_SECRET_ACCESS_KEY'),
+                        host=config.get('AWS_ENDPOINT') )
+                        
+    print("S3 connection: ", conn)
+                        
     bucket = conn.get_bucket(bucket_name, validate=False)
 
     # See if it already exists; if so, don't recreate.
