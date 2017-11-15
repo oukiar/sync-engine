@@ -55,6 +55,9 @@ def _save_to_s3_bucket(data_sha256, bucket_name, data):
     assert 'AWS_SECRET_ACCESS_KEY' in config, 'Need AWS secret!'
     start = time.time()
 
+
+    print("S3 endpoint: ", config.get('AWS_ENDPOINT'))
+
     # Boto pools connections at the class level
     conn = S3Connection(config.get('AWS_ACCESS_KEY_ID'),
                         config.get('AWS_SECRET_ACCESS_KEY'),
