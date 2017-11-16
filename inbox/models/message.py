@@ -526,7 +526,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         
         if hasattr(self, "savebody"):
             if self.savebody == False:
-                return None
+                return ""
                 
         if self._compacted_body is None:
             return None
