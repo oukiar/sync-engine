@@ -32,6 +32,8 @@ from inbox.util.encoding import unicode_safe_truncate
 
 #from inbox.api.cache import mailboxes_timeouts
 
+import premailer
+
 import time
 import requests
 
