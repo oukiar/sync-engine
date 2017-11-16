@@ -457,7 +457,7 @@ def sanitize(msg):
         
         
         
-        soup = BeautifulSoup(html, 'html.parser',  parse_only=only_img_tags)
+        soup = BeautifulSoup(html, 'html.parser') #,  parse_only=only_img_tags)
         #soup = BeautifulSoup(html, 'lxml',  parse_only=only_img_tags)
         
         '''
