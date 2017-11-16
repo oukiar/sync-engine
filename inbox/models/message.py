@@ -523,6 +523,11 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
 
     @property
     def body(self):
+        
+        if hasattr(self, "savebody"):
+            if self.savebody == False:
+                return None
+                
         if self._compacted_body is None:
             return None
         return decode_blob(self._compacted_body).decode('utf-8')
