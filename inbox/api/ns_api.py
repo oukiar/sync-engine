@@ -447,8 +447,7 @@ import premailer
 
 def sanitize(msg):
     try:
-        html = msg.body #.encode('utf8')    
-        msg.bodySanitized = html    
+        html = msg.body #.encode('utf8') 
         
         #html = premailer.transform(html)
         
@@ -521,6 +520,7 @@ def sanitize(msg):
             return soup.prettify()
         else:
             print("!!!SKIPPING IMAGE SANITIZATION")
+            return html
             
     except:
         print("OPS: Body was not sanitized")
