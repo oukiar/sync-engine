@@ -604,7 +604,8 @@ def message_query_api():
     
             else:
                 msg.bodySanitized = ""
-                #msg.body = ""
+                msg.savebody = False
+                msg.body = ""
                 
     endsanitization = time.time()
     print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
