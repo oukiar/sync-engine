@@ -552,7 +552,7 @@ def message_query_api():
     g.parser.add_argument('unread', type=strict_bool, location='args')
     g.parser.add_argument('starred', type=strict_bool, location='args')
     g.parser.add_argument('view', type=view, location='args')
-    g.parser.add_argument('withoutbody', type=bounded_str, location='args')
+    g.parser.add_argument('withoutbody', type=strict_bool, location='args')
 
     args = strict_parse_args(g.parser, request.args)
 
@@ -597,7 +597,7 @@ def message_query_api():
 
         #fix for sanitize the body
         for msg in messages:
-            if args['withoutbody'] != "YES":
+            if args['withoutbody'] != True:
                     
                 print("+++++++++++ SUBJECT: ", msg.subject)
                 msg.bodySanitized = sanitize(msg)
