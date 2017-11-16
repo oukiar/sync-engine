@@ -552,6 +552,7 @@ def message_query_api():
     g.parser.add_argument('unread', type=strict_bool, location='args')
     g.parser.add_argument('starred', type=strict_bool, location='args')
     g.parser.add_argument('view', type=view, location='args')
+    g.parser.add_argument('withoutbody', type=bounded_str, location='args')
 
     args = strict_parse_args(g.parser, request.args)
 
@@ -585,22 +586,27 @@ def message_query_api():
     # Use a new encoder object with the expand parameter set.
     encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
     
-    
-    print("=== DOING BODY SANITIZATION ===")
-    print("-- MESSAGES COUNT: " + str(len(messages) ) )
-    
-    startsanitization = time.time()
-    
-    if args['view'] != 'count':
-
-        #fix for sanitize the body
-        for msg in messages:
+    if args['withoutbody'] != "YES":
             
-            print("+++++++++++ SUBJECT: ", msg.subject)
-            msg.bodySanitized = sanitize(msg)
-    
-    endsanitization = time.time()
-    print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
+        print("=== DOING BODY SANITIZATION ===")
+        print("-- MESSAGES COUNT: " + str(len(messages) ) )
+        
+        startsanitization = time.time()
+        
+        if args['view'] != 'count':
+
+            #fix for sanitize the body
+            for msg in messages:
+                
+                print("+++++++++++ SUBJECT: ", msg.subject)
+                msg.bodySanitized = sanitize(msg)
+        
+        endsanitization = time.time()
+        print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
+
+    else:
+        msg.bodySanitized = ""
+        #msg.body = ""
 
     return encoder.jsonify(messages)
 
