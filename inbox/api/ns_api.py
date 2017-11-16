@@ -462,7 +462,7 @@ def sanitize(msg):
         soup = BeautifulSoup(html, 'html.parser') #,  parse_only=only_img_tags)
         #soup = BeautifulSoup(html, 'lxml',  parse_only=only_img_tags)
         
-        
+        '''
         #solution 1 for sanitize only if the body has style tag
         tags = soup.findAll('style')
         
@@ -474,7 +474,7 @@ def sanitize(msg):
             soup = BeautifulSoup(html, 'html.parser')
             end = time.time()
             print("=== END BODY PREMAILER SANITIZATION: " + str(end - start) + " secs" )
-        
+        '''
         
         tags = soup.findAll('img')
         print("Total de tags: ", len(tags) )

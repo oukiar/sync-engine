@@ -31,7 +31,8 @@ from inbox.sqlalchemy_ext.util import MAX_MYSQL_INTEGER
 from inbox.util.encoding import unicode_safe_truncate
 
 #from inbox.api.cache import mailboxes_timeouts
-#import time
+
+import time
 import requests
 
 from bs4 import BeautifulSoup
@@ -265,6 +266,22 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         print(s_req)
         r = requests.get(s_req, auth=(account.public_id, ''))
         print('RESULT SYNC EVENT:', r.status_code, r.text)
+        
+        #------------
+        #Codigo de premailer
+        html = body_string.encode('utf8')
+        soup = BeautifulSoup(html, 'html.parser')
+        
+        #solution 1 for sanitize only if the body has style tag
+        tags = soup.findAll('style')
+        
+        #if found style tags
+        if len(tags):
+            print("=== DOING BODY PREMAILER SANITIZATION")
+            start = time.time()
+            body_string = premailer.transform(html)
+            end = time.time()
+            print("=== END BODY PREMAILER SANITIZATION: " + str(end - start) + " secs" )
         
         '''
         #-----------------------------
