@@ -450,7 +450,7 @@ def sanitize(msg):
         html = msg.body #.encode('utf8')    
         msg.bodySanitized = html    
         
-        html = premailer.transform(html)
+        #html = premailer.transform(html)
         
         #conversion from img src cid to base 64 for our web solution
         
@@ -459,7 +459,7 @@ def sanitize(msg):
         
         
         
-        #soup = BeautifulSoup(html, 'html.parser') #,  parse_only=only_img_tags)
+        soup = BeautifulSoup(html, 'html.parser') #,  parse_only=only_img_tags)
         #soup = BeautifulSoup(html, 'lxml',  parse_only=only_img_tags)
         
         
