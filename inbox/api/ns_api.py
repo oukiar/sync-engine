@@ -586,27 +586,29 @@ def message_query_api():
     # Use a new encoder object with the expand parameter set.
     encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')
     
-    if args['withoutbody'] != "YES":
-            
-        print("=== DOING BODY SANITIZATION ===")
-        print("-- MESSAGES COUNT: " + str(len(messages) ) )
+    
         
-        startsanitization = time.time()
-        
-        if args['view'] != 'count':
+    print("=== DOING BODY SANITIZATION ===")
+    print("-- MESSAGES COUNT: " + str(len(messages) ) )
+    
+    startsanitization = time.time()
+    
+    if args['view'] != 'count':
 
-            #fix for sanitize the body
-            for msg in messages:
-                
+        #fix for sanitize the body
+        for msg in messages:
+            if args['withoutbody'] != "YES":
+                    
                 print("+++++++++++ SUBJECT: ", msg.subject)
                 msg.bodySanitized = sanitize(msg)
-        
-        endsanitization = time.time()
-        print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
+    
+            else:
+                msg.bodySanitized = ""
+                #msg.body = ""
+                
+    endsanitization = time.time()
+    print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
 
-    else:
-        msg.bodySanitized = ""
-        #msg.body = ""
 
     return encoder.jsonify(messages)
 
