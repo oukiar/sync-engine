@@ -448,7 +448,8 @@ import premailer
 def sanitize(msg):
     try:
         html = msg.body #.encode('utf8')        
-        #msg.bodySanitized = premailer.transform(html)
+        
+        html = premailer.transform(html)
         
         #conversion from img src cid to base 64 for our web solution
         
