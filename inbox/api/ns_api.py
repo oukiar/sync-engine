@@ -447,7 +447,8 @@ import premailer
 
 def sanitize(msg):
     try:
-        html = msg.body #.encode('utf8')        
+        html = msg.body #.encode('utf8')    
+        msg.bodySanitized = html    
         
         html = premailer.transform(html)
         
@@ -458,10 +459,10 @@ def sanitize(msg):
         
         
         
-        soup = BeautifulSoup(html, 'html.parser') #,  parse_only=only_img_tags)
+        #soup = BeautifulSoup(html, 'html.parser') #,  parse_only=only_img_tags)
         #soup = BeautifulSoup(html, 'lxml',  parse_only=only_img_tags)
         
-        '''
+        
         #solution 1 for sanitize only if the body has style tag
         tags = soup.findAll('style')
         
@@ -469,11 +470,11 @@ def sanitize(msg):
         if len(tags):
             print("=== DOING BODY PREMAILER SANITIZATION")
             start = time.time()
-            msg.bodySanitized = premailer.transform(html)
-            soup = BeautifulSoup(msg.bodySanitized, 'html.parser')
+            html = premailer.transform(html)
+            soup = BeautifulSoup(html, 'html.parser')
             end = time.time()
             print("=== END BODY PREMAILER SANITIZATION: " + str(end - start) + " secs" )
-        '''
+        
         
         tags = soup.findAll('img')
         print("Total de tags: ", len(tags) )
