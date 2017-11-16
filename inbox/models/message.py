@@ -529,7 +529,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
 
     @body.setter
     def body(self, value):
-        if hasattr(self, "savebody")
+        if hasattr(self, "savebody"):
             if self.savebody == False:
                 return
         
