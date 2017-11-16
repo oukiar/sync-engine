@@ -479,7 +479,7 @@ def sanitize(msg):
         tags = soup.findAll('img')
         print("Total de tags: ", len(tags) )
         
-        if True: #if len(tags) < 10:
+        if len(tags) < 10:
         
             for i in tags:
                 #print i
