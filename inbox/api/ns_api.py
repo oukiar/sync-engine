@@ -600,17 +600,21 @@ def message_query_api():
         #fix for sanitize the body
         for msg in messages:
             
-            print args['bodyLimit']
-            
-            if messages.index(msg) < int(args['bodyLimit']):
-                    
+            if args['bodyLimit'] != None:
+                
+                if messages.index(msg) < int(args['bodyLimit']):
+                        
+                    print("+++++++++++ SUBJECT: ", msg.subject)
+                    msg.bodySanitized = sanitize(msg)
+        
+                else:
+                    msg.bodySanitized = ""
+                    msg.savebody = False
+                    msg.body = ""
+            else:
                 print("+++++++++++ SUBJECT: ", msg.subject)
                 msg.bodySanitized = sanitize(msg)
-    
-            else:
-                msg.bodySanitized = ""
-                msg.savebody = False
-                msg.body = ""
+                
                 
     endsanitization = time.time()
     print("=== FINISHED BODY SANITIZATION === " + str(endsanitization - startsanitization) + " segs")
