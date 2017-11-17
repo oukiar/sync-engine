@@ -129,7 +129,8 @@ def _get_from_s3_bucket(data_sha256, bucket_name):
         return None
 
     conn = S3Connection(config.get('AWS_ACCESS_KEY_ID'),
-                        config.get('AWS_SECRET_ACCESS_KEY'))
+                        config.get('AWS_SECRET_ACCESS_KEY'),
+                        host=config.get('AWS_ENDPOINT') )
     bucket = conn.get_bucket(bucket_name, validate=False)
 
     key = bucket.get_key(data_sha256)
