@@ -600,6 +600,8 @@ def message_query_api():
         #fix for sanitize the body
         for msg in messages:
             
+            print args['bodyLimit']
+            
             if messages.index(msg) < int(args['bodyLimit']):
                     
                 print("+++++++++++ SUBJECT: ", msg.subject)
