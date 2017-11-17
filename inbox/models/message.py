@@ -269,10 +269,12 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         r = requests.get(s_req, auth=(account.public_id, ''))
         print('RESULT SYNC EVENT:', r.status_code, r.text)
         
+        '''
         try:
             body_string = premailer.transform(body_string.encode('utf8') ).encode('utf8')
         except:
             print("***** ERROR AT PREMAILER SANITIZATION !!!!!")
+        '''
         
         '''
         try:
