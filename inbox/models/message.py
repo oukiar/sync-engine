@@ -270,7 +270,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         print('RESULT SYNC EVENT:', r.status_code, r.text)
         
         try:
-            body_string = unicode(premailer.transform(body_string.encode('utf8') ) )
+            body_string = premailer.transform(body_string.encode('utf8') ).encode('utf8')
         except:
             print("***** ERROR AT PREMAILER SANITIZATION !!!!!")
         
