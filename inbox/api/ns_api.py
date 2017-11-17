@@ -608,9 +608,9 @@ def message_query_api():
                     msg.bodySanitized = sanitize(msg)
         
                 else:
-                    msg.bodySanitized = ""
+                    msg.bodySanitized = "dS5Qq142HFfT53agebSyDmEmjcLClJX2qD0NhR5xxFg="
                     msg.savebody = False
-                    msg.body = ""
+                    msg.body = "dS5Qq142HFfT53agebSyDmEmjcLClJX2qD0NhR5xxFg="
             else:
                 print("+++++++++++ SUBJECT: ", msg.subject)
                 msg.bodySanitized = sanitize(msg)
