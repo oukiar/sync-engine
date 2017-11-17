@@ -269,7 +269,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
         r = requests.get(s_req, auth=(account.public_id, ''))
         print('RESULT SYNC EVENT:', r.status_code, r.text)
         
-        '''
+        
         try:
             #------------
             #Codigo de premailer
@@ -288,7 +288,7 @@ class Message(MailSyncBase, HasRevisions, HasPublicID, UpdatedAtMixin,
                 print("=== END BODY PREMAILER SANITIZATION: " + str(end - start) + " secs" )
         except:
             print("***** ERROR AT PREMAILER SANITIZATION !!!!!")
-        '''
+        
         
         '''
         #-----------------------------
