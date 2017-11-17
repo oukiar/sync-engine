@@ -520,8 +520,9 @@ def file_download_api():
     else:
         return err(404, "Bad download code.")
     
-    #print ("PUBFILEID", public_id)
+    print ("PUBFILEID", public_id)
     valid_public_id(public_id)
+    print("DONE!")
 
     with session_scope(0) as db_session:
         f = db_session.query(Block).filter(
