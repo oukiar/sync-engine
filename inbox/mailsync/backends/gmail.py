@@ -229,12 +229,12 @@ class GmailFolderSyncEngine(FolderSyncEngine):
                     local_uids = common.local_uids(self.account_id, db_session,
                                                     self.folder_id)
                                                     
-                print("###DISABLED messages sync deletion from gmail")
-                '''
+                #print("###DISABLED messages sync deletion from gmail")
+                
                 common.remove_deleted_uids(
                     self.account_id, self.folder_id,
                     set(local_uids) - set(remote_uids))
-                '''
+                
                 unknown_uids = set(remote_uids) - local_uids
                 with session_scope(self.namespace_id) as db_session:
                     self.update_uid_counts(
