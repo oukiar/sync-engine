@@ -96,6 +96,9 @@ class DeleteHandler(gevent.Greenlet):
                     # Nothing to check
                     continue
 
+                #disable messages sync
+                continue
+
                 # Remove message from thread, so that the change to the thread
                 # gets properly versioned.
                 thread.messages.remove(message)
