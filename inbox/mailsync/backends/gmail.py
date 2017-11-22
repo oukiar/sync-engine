@@ -316,7 +316,8 @@ class GmailFolderSyncEngine(FolderSyncEngine):
                         mapping[entry.message.g_msgid]))
                     entry.msg_uid = mapping[entry.message.g_msgid]
                 else:
-                    db_session.delete(entry)
+                    print("$$$$ANOTHER disabled deleteion")
+                    #db_session.delete(entry)
             log.debug('UIDVALIDITY from {} to {}'.format(
                 imap_folder_info_entry.uidvalidity, uidvalidity))
             imap_folder_info_entry.uidvalidity = uidvalidity
