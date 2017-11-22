@@ -227,8 +227,9 @@ class GmailFolderSyncEngine(FolderSyncEngine):
             with self.syncmanager_lock:
                 with session_scope(self.namespace_id) as db_session:
                     local_uids = common.local_uids(self.account_id, db_session,
-                
-                print("###DISABLED messages sync deletion from gmail")                                   self.folder_id)
+                                                    self.folder_id)
+                                                    
+                print("###DISABLED messages sync deletion from gmail")
                 '''
                 common.remove_deleted_uids(
                     self.account_id, self.folder_id,
