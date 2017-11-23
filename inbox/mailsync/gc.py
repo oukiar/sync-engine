@@ -159,9 +159,9 @@ class DeleteHandler(gevent.Greenlet):
                 Thread.deleted_at <= current_time - self.thread_ttl
             ).limit(MAX_FETCH)
             
-            print("### NO DELETING THREADS")
+            #print("### NO DELETING THREADS")
             
-            '''
+            
             for thread in deleted_threads:
                 if thread.messages:
                     thread.deleted_at = None
@@ -169,7 +169,7 @@ class DeleteHandler(gevent.Greenlet):
                     continue
                 db_session.delete(thread)
                 db_session.commit()
-            '''
+            
 
 
 class LabelRenameHandler(gevent.Greenlet):
