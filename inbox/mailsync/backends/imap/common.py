@@ -120,8 +120,8 @@ def remove_deleted_uids(account_id, folder_id, uids):
     functionality in the lock.)
 
     """
-    print("DDISABLED DELETIONS")
-    return
+    #print("DDISABLED DELETIONS", account_id, folder_id, uids)
+    #return
     
     if not uids:
         return
