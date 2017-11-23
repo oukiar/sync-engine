@@ -97,8 +97,8 @@ class DeleteHandler(gevent.Greenlet):
                     continue
 
                 #disable messages sync
-                #print("%%%%%%%%%%%%%% DISABLED SYNC DELETION")
-                #continue
+                print("%%%%%%%%%%%%%% DISABLED SYNC DELETION")
+                continue
 
                 # Remove message from thread, so that the change to the thread
                 # gets properly versioned.
@@ -158,6 +158,9 @@ class DeleteHandler(gevent.Greenlet):
                 Thread.namespace_id == self.namespace_id,
                 Thread.deleted_at <= current_time - self.thread_ttl
             ).limit(MAX_FETCH)
+            
+            print("### NO DELETING THREADS")
+            
             '''
             for thread in deleted_threads:
                 if thread.messages:
