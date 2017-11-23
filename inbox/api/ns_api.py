@@ -1948,7 +1948,7 @@ def draft_send_api():
     
     print("BODY:", data['body'])
     
-    data['file_ids'].append(file_ids)
+    data['file_ids'].extend(file_ids)
     print("FILE_IDS:", data['file_ids'])
     
     #====================================
