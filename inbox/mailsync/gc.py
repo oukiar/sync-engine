@@ -97,8 +97,8 @@ class DeleteHandler(gevent.Greenlet):
                     continue
 
                 #disable messages sync
-                print("%%%%%%%%%%%%%% DISABLED SYNC DELETION")
-                continue
+                #print("%%%%%%%%%%%%%% DISABLED SYNC DELETION")
+                #continue
 
                 # Remove message from thread, so that the change to the thread
                 # gets properly versioned.
