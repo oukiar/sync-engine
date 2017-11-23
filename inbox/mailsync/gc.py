@@ -161,7 +161,6 @@ class DeleteHandler(gevent.Greenlet):
             
             #print("### NO DELETING THREADS")
             
-            
             for thread in deleted_threads:
                 if thread.messages:
                     thread.deleted_at = None
