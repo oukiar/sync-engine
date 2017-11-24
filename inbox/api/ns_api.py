@@ -2116,9 +2116,9 @@ def delete_message(public_id):
     message = Message.from_public_id(public_id, g.namespace.id,
                                          g.db_session)
                                 
-    encoder = APIEncoder(g.namespace.public_id, args['view'] == 'expanded')  
+    #encoder = APIEncoder(g.namespace.public_id)  
     
-    return encoder.jsonify(message)       
+    return g.encoder.jsonify(message)       
                                          
     '''
     try:
