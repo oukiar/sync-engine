@@ -2108,6 +2108,32 @@ def multi_send_finish(draft_id):
     return g.encoder.jsonify(draft)
 
 
+@app.route('/delete/<public_id>', methods=['GET'])
+def delete_message(public_id):
+    print("MESSAGE ID: ", public_id)
+    valid_public_id(public_id)
+    '''
+    try:
+        f = g.db_session.query(Block).filter(
+            Block.public_id == public_id,
+            Block.namespace_id == g.namespace.id).one()
+        return g.encoder.jsonify(f)
+    except NoResultFound:
+        raise NotFoundError("Couldn't find file {0} ".format(public_id))
+    '''
+    
+    '''
+    box = imaplib.IMAP4_SSL('imap.mail.microsoftonline.com', 993)
+    box.login("user@domain.com","paswword")
+    box.select('Inbox')
+    typ, data = box.search(None, 'ALL')
+    for num in data[0].split():
+       box.store(num, '+FLAGS', '\\Deleted')
+    box.expunge()
+    box.close()
+    box.logout()
+    '''
+    
 ##
 # Client syncing
 ##
