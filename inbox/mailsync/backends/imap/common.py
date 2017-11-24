@@ -143,6 +143,8 @@ def remove_deleted_uids(account_id, folder_id, uids):
                 continue
             deleted_uid_count += 1
             message = imapuid.message
+            
+            print("MMESSAGE:", message, imapuid)
 
             db_session.delete(imapuid)
 
@@ -163,8 +165,8 @@ def remove_deleted_uids(account_id, folder_id, uids):
                         # But don't outright delete messages. Just mark them as
                         # 'deleted' and wait for the asynchronous
                         # dangling-message-collector to delete them.
-                        print("DISABLED: mark_for_deletion")
-                        #message.mark_for_deletion()
+                        
+                        message.mark_for_deletion()
             db_session.commit()
     log.info('Deleted expunged UIDs', count=deleted_uid_count)
 
