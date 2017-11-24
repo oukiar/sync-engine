@@ -144,7 +144,7 @@ def remove_deleted_uids(account_id, folder_id, uids):
             deleted_uid_count += 1
             message = imapuid.message
             
-            print("MMESSAGE:", message, imapuid)
+            print("MMESSAGE:", message.disable_deletion)
 
             db_session.delete(imapuid)
 
