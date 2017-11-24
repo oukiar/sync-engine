@@ -145,30 +145,31 @@ def remove_deleted_uids(account_id, folder_id, uids):
             message = imapuid.message
             
             if message.disable_deletion == True:
-                continue
+                print("DISABLED DELETION:" , message.subject)
+            else:
+                    
+                db_session.delete(imapuid)
 
-            db_session.delete(imapuid)
-
-            if message is not None:
-                if not message.imapuids and message.is_draft:
-                    # Synchronously delete drafts.
-                    thread = message.thread
-                    if thread is not None:
-                        thread.messages.remove(message)
-                    db_session.delete(message)
-                    if thread is not None and not thread.messages:
-                        db_session.delete(thread)
-                else:
-                    account = Account.get(account_id, db_session)
-                    update_message_metadata(db_session, account, message,
-                                            message.is_draft)
-                    if not message.imapuids:
-                        # But don't outright delete messages. Just mark them as
-                        # 'deleted' and wait for the asynchronous
-                        # dangling-message-collector to delete them.
-                        
-                        message.mark_for_deletion()
-            db_session.commit()
+                if message is not None:
+                    if not message.imapuids and message.is_draft:
+                        # Synchronously delete drafts.
+                        thread = message.thread
+                        if thread is not None:
+                            thread.messages.remove(message)
+                        db_session.delete(message)
+                        if thread is not None and not thread.messages:
+                            db_session.delete(thread)
+                    else:
+                        account = Account.get(account_id, db_session)
+                        update_message_metadata(db_session, account, message,
+                                                message.is_draft)
+                        if not message.imapuids:
+                            # But don't outright delete messages. Just mark them as
+                            # 'deleted' and wait for the asynchronous
+                            # dangling-message-collector to delete them.
+                            
+                            message.mark_for_deletion()
+                db_session.commit()
     log.info('Deleted expunged UIDs', count=deleted_uid_count)
 
 
